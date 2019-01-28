@@ -13,7 +13,7 @@ const users = new UserDAO();
 let promise1 = Promise.resolve(users.getAllUsers());
 export const userRouter = express.Router();
 
-//users - find all
+//FINDS ALL USERS
 userRouter.all('', [
     authMiddleware,
     (req, res, next) => {
@@ -22,20 +22,16 @@ userRouter.all('', [
     }]);
 
 
-/**
- * Finds all users'
- * Url: /users
- */
 
+// FINDS ALL USERS
 userRouter.get('', [authAdminAndFinancialManagerMiddleware,(req, res) => {
     users.getAllUsers().then(function (result) {
         res.json(result);
     })
 }])
-/**
- * Finds users by id
- */
 
+
+//FINDS ALL USERS BY ID 
 userRouter.get('/:id', [authAdminAndFinancialManagerMiddleware,
    (req, res) => {
         const idParam = +req.params.id;
@@ -53,14 +49,15 @@ userRouter.get('/:id', [authAdminAndFinancialManagerMiddleware,
         )
     }])
 
+
+    //UPDATES USERS 
 userRouter.patch('/', [authAdminMiddleware, async (req, res) => {
     let user = await UserDAO.updateUser(req.body);
     res.status(201).send(user);
 
 }]);
 
-/* Creates and saves a user
-*/
-userRouter.post('/', (req, res) => {
+
+/*userRouter.post('/', (req, res) => {
     res.json(users).send(201);
-});
+});*/

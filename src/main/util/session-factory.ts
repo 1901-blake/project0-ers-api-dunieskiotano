@@ -1,5 +1,5 @@
 import { Pool } from 'pg';
-
+//SESSION FACTORY CREATED TO ESTABLISH CONNECTION WITH DATABASE
 export class SessionFactory {
     static credentials = {
         database: process.env.PostgreSQLDB,
