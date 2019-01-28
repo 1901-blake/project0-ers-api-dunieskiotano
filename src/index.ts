@@ -23,7 +23,7 @@ let reimbursementDao = new ReimbursementDAO();
 
 ////////////////////////
 let roleDao = new RoleDAO();
-
+roleDao.getAllRoles().then(roleArr => console.log(roleArr));
 
 ////////////////////////////////
 ////////////////////////
@@ -43,17 +43,18 @@ let roleDao = new RoleDAO();
 
 const app = express();
 
-app.use(bodyParse.json())//body-parser middleware is created here
+//BODY-PARSER MIDDLEWARE IS CREATED HERE TO PARSE JSON INTO JS
+app.use(bodyParse.json())
 app.use(bodyParse.urlencoded({ extended: true }));
 
-//creates login middleware
+//CREATES LOGIN MIDDLEWARE HERE
 app.use((req, res, next) => {
     console.log(`request was made with url: ${req.path}
     and method: ${req.method}`);
     next(); // will pass the request on to search for the next piece of middleware
 });
 
-// set up express to attach sessions
+// SET UP EXPRESS TO ATTACH SESSIONS
 const sess = {
     secret: 'created',
     cookie: { secure: false },
@@ -63,12 +64,14 @@ const sess = {
 
 app.use(session(sess));
 
+//AUTH MIDDLEWARE
 app.use('/auth', authRouter);
-app.use('/users', userRouter);//userRouter middleware is created here
+//USER_ROUTER MIDDLE WARE
+app.use('/users', userRouter);
+//REIMBURSEMENTS_ROUTER
 app.use('/reimbursements/', reimbursementRouter);
 
-
-
 app.listen(3200);
+//PRINTS CONFIRMATION THAT HAS SESSION STARTED SUCCESSFULLY
 console.log("Session started successfully");
 

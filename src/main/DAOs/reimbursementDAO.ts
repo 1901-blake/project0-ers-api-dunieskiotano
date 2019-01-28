@@ -24,7 +24,7 @@ export class ReimbursementDAO {
             ));
 
         });
-
+        client.release();
         return reimbursementData;
 
 
@@ -50,7 +50,7 @@ export class ReimbursementDAO {
             ));
 
         });
-
+        client.release();
         return reimbursementData;
    }
 
@@ -77,10 +77,10 @@ export class ReimbursementDAO {
             ));
 
         });
-
+        client.release();
         return reimbursementData;
 
-
+        
     }
 
     //INSERT REIMBURSEMENTS IN THE TABLE REIMBURSEMENT 

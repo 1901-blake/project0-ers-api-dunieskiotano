@@ -16,7 +16,7 @@ import {
 let reimbursements = new ReimbursementDAO();
 export const reimbursementRouter = express.Router();
 
-//GETS ALL REIMBURSEMENTS -- ADMIN AND FINANCIAL MANAGER
+//GETS ALL REIMBURSEMENTS ==> ADMIN AND FINANCIAL MANAGER
 reimbursementRouter.get('', (req, res) => {
   reimbursements.getAllReimbursements().then(function (result) {
     res.json(result);
@@ -49,7 +49,7 @@ reimbursementRouter.get('/status/:statusId', [authFinancialManagerMiddleware, (r
         res.status(200).send(elem);
       }
     })
-    res.status(401).send("Oops! Something went wrong");
+    res.status(401).send("Oops! Something went wrong. It seems that the reimbursement you're trying to find does not exist");
 
   })
 }]);

@@ -8,23 +8,11 @@ export class RoleDAO {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
         const result = await client.query('SELECT * from "role"');
-        const role = result.rows;
-        
-        const roleData=role;
-        role.forEach(r => {
-          
-          roleData.push(new Role(
-             r.roleid,
-             r.role
-            ));
-
-        });
-        
-        return roleData;
-
-
+        let role = result.rows;
+        client.release();
+        return role;
     }
 
-   
+
 
 }

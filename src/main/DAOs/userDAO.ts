@@ -3,8 +3,7 @@ import { SessionFactory } from '../util/session-factory';
 import { ClientBase } from 'pg';
 import { callbackify } from 'util';
 import { RoleDAO } from '../DAOs/roleDAO';
-import { Role } from '../model/role';
-import session from 'express-session';
+
 
 
 
@@ -30,12 +29,14 @@ export class UserDAO {
             ));
 
         });
-
+        console.log(userData)
+        client.release();
         return userData;
 
 
     }
 
+    //GETS ALL USERS BY ID
     public static async getAllUsersById(userid: number): Promise<any> {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
@@ -56,11 +57,11 @@ export class UserDAO {
             )
         })
 
-
+        client.release();
         return userInfo;
     }
 
-
+    //UPDATES USERS BASED ON ID
     public static async updateUser(reqBody): Promise<User> {
         const client = await SessionFactory.getConnectionPool().connect();
         await client.query(
@@ -74,6 +75,22 @@ export class UserDAO {
         );
         client.release();
         return this.getAllUsersById(reqBody.userId);
+    }
+
+    //INSERT USERS IN THE TABLE "user" 
+    public async addUsers(username: string, password: string, firstname: string, lastname: string,
+        email: string, role: number) {
+        let pool = SessionFactory.getConnectionPool();
+        const text = `INSERT INTO "user" (username, "password", firstname, lastname, email, "role") VALUES 
+                     ('${username}', '${password}', '${firstname}', '${lastname}', '${email}', ${role});`;
+        try {
+            const res = await pool.query(text);
+            console.log(res.rows[0])
+
+        } catch (err) {
+            console.log(err.stack);
+        }
+
     }
 
 

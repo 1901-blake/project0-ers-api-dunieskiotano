@@ -10,85 +10,33 @@ import { promises } from 'fs';
 
 export const authRouter = express.Router();
 const users = new UserDAO();
-let promise1=Promise.resolve(users.getAllUsers());
+let promise1 = Promise.resolve(users.getAllUsers());
 
-authRouter.post('/login', (req, res) =>{
+//CHECKS FOR CREDENTIALS AND ALLOWS ACCESS IF CREDENTIALS MATCH DATABASE RECORDS
+authRouter.post('/login', (req, res) => {
     let flag = false;
-    promise1.then(function (value){
+    promise1.then(function (value) {
         value.forEach(element => {
-            if(element.username===req.body.username){
-                if(element.password===req.body.password){
+            if (element.username === req.body.username) {
+                if (element.password === req.body.password) {
                     req.session.user = element;
                     flag = true;
-                    res.status(200).send(`Welcome, ${element.firstName} ${element.lastName}. You're logged in...Role: ${element.role}`);
+                    res.status(200).send(`Welcome, ${element.firstName} ${element.lastName}. You're logged in...`);
                 }
-                else{
-                    flag=true;
+                else {
+                    flag = true;
                     res.status(401).send("Invalid Credentials");
                 }
             }
-            
-        });
-        if(flag){
 
-        }else{
+        });
+        if (flag) {
+
+        } else {
             res.status(401).send("Invalid Credentials!!");
         }
     })
-    
+
 })
-    
-    
-       
-
-      
-
-        //find(elem => {
-
-        // return (req.body.username === elem.username);
-        // });
-
-        //if (user) {
-        //  if (req.body.password === user.) {
-        //    req.session.user = user;
-        //   res.json(user);
-
-        //}
-        // }
-
-        // res.status(400).json({ message: "Invalid Credentials" });
 
 
-
-        /*if (req.body.username === "dunieski" && req.body.password === 'password') {
-            const user = {
-                username: req.body.username,
-                role: 'admin'
-            };
-    
-            
-            res.json(user);
-        }
-    
-    
-        else if (req.body.username === 'yanet' && req.body.password === 'password') {
-            req.body.session = 'associate';
-            const user = {
-                username: req.body.password,
-                role: 'associate'
-            };
-            
-            res.json(user);
-        }
-        else {
-            res.sendStatus(401);
-            res.send('There has been a problem with your login sessions')
-        }
-    */
-        //authRouter.get('/info', (req, res) => {
-       //     res.json(req.session.user);
-        //})
-
-   // }
-   // );
-    
