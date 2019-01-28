@@ -1,19 +1,20 @@
 import express from 'express';
 import { User } from '../model/user';
 import { appendFile } from 'fs';
-import { users } from '../data';
+import { UserDAO } from '../DAOs/userDAO';
 import { authMiddleware } from '../middleware/authentication-middleware';
 import session from 'express-session';
+const users = new UserDAO();
 
-
+let promise1 = Promise.resolve(users.getAllUsers());
 export const userRouter = express.Router();
-
 
 //users - find all
 userRouter.all('*', [
     authMiddleware,
-    (req, res) => {
-        res.json(users);
+    (req, res, next) => {
+        //res.json(users);
+        next();
     }]);
 
 
@@ -22,28 +23,42 @@ userRouter.all('*', [
  * Url: /users
  */
 userRouter.get('', (req, res) => {
-    res.json(users);
-    console.log(users);
-});
-
+    users.getAllUsers().then(function (result) {
+        res.json(result);
+    })
+})
 /**
  * Finds users by id
  */
 
 userRouter.get('/:id', (req, res) => {
-    const idParam = req.params.id;
-    const user = users.find(ele => ele.userId === parseInt(idParam));
-    res.json(user);
+    const idParam = +req.params.id;
+    console.log(idParam);
+    promise1.then(function (value) {
+        value.forEach(element => {
+            console.log(element.userId, idParam);
+            if (element.userId === idParam) {
+                res.status(200).send(element);
+            }
+        })
+        res.status(401).send("Oops! Something went wrongTry again");
+
+    }
+    )
+})
+
+userRouter.patch('*', async (req, res) => {
+    let user_id = parseInt(req.body.userid);
+    let user = await UserDAO.updateUser(req, user_id);    
+    res.status(201).send(user);
+    // res.end(`Updating User: ${id}`);
 });
 
 
 
+/*userRouter.patch('', (req, res) => {
+    const user_id = req.body.userId;
 
-/**
- * Update user
- */
-
-userRouter.patch('', (req, res) => {
     const user = users.find(ele => ele.userId === parseInt(req.body.userId));//returns true or false if the the ids match
     if (user) {
         const userProperty: string[] = Object.keys(user);//here we create a string of user properties
@@ -58,11 +73,10 @@ userRouter.patch('', (req, res) => {
 
 
 });
-
+*/
 /**
 * Creates and saves a user
 */
 userRouter.post('/', (req, res) => {
-    users.push(req.body);
-    res.status(201).send(req.body);
+    res.json(users).send(201);
 });

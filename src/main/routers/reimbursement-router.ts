@@ -2,53 +2,94 @@ import express from 'express';
 import { json } from 'body-parser';
 import session from 'express-session';
 import { resolvePtr } from 'dns';
-import * as Objects from '../data';
-import { users, reimbursements, reimbursementStatus } from '../data';
+import { ReimbursementDAO } from '../DAOs/reimbursementDAO';
+import { ReimbursementStatusDAO } from '../DAOs/reimbursementestatusDAO';
+import { Reimbursement } from '../model/reimbursement';
+//import * as Objects from '../data';
+//import { users, reimbursements, reimbursementStatus } from '../data';
 
 
 
-
+let reimbursements = new ReimbursementDAO();
 export const reimbursementRouter = express.Router();
+
+/**
+ * Gets all reimbursements
+ */
+reimbursementRouter.get('', (req, res) => {
+  reimbursements.getAllReimbursements().then(function (result) {
+    res.json(result);
+  })
+})
+
 /**
  * Reimbursement by User
- */
+ *It's working*/
 reimbursementRouter.get('/author/:userId', (req, res) => {
-  const reimbursements = Objects.reimbursements.filter(elem => {
-     return elem.author === +req.params.userId;
-    
-  });
+  const idParam = +req.params.userId;
+  const promiseReimbursement = Promise.resolve(reimbursements.getReimbursementsByUserId(idParam));
+  promiseReimbursement.then(function (value) {
+    value.forEach(element => {
+      console.log(element);
+      if (element.author === idParam) {
+        res.status(200).send(element);
+      }
+    })
+    res.status(401).send("Oops! Something went wrong");
 
-  if (reimbursements) {
-    res.status(200).send(reimbursements);
   }
-  
-    res.sendStatus(401);
-  
-})
+  )
+}
+)
+
 
 /**
  * Find Reimbursement by Status
  */
 
 reimbursementRouter.get('/status/:statusId', (req, res) => {
-  const reimbursements = Objects.reimbursements.filter(stat => {
-    return stat.status === parseInt(req.params.statusId);
-  });
+  const idParam = +req.params.statusId;
+  const promiseReimbursementStatus = Promise.resolve(reimbursements.getReimbursementsByStatus(idParam));
+  promiseReimbursementStatus.then(function (value) {
+    value.forEach(elem => {
+      if (elem.status === idParam) {
+        res.status(200).send(elem);
+      }
+    })
+    res.status(401).send("Oops! Something went wrong");
 
-  if (reimbursements) {
-    res.status(200).json(reimbursements);
-  }
-  else {
-    res.status(401);
-  }
-});
+  })
+})
+
+
+
+
+
+
+
 
 /**
  * Submit reimbursement
  */
 reimbursementRouter.post('', (req, res) => {
-  if (req.body.reimbursementId === 0) {
-     Objects.reimbursements.push(req.body);
-    res.status(201).send(req.body);
-  }
+  let reqBody = req.body;
+  console.log(reqBody);
+  const users = reimbursements.addReimbursements(
+    reqBody.author,
+    reqBody.amount,
+    reqBody.dateSubmitted,
+    reqBody.dateResolved,
+    reqBody.description,
+    reqBody.resolver,
+    reqBody.status,
+    reqBody.type)
+    res.status(200).send("Your reimbursement has been created!!! Good job!");
+
+    
+    
+    
+
 });
+
+
+

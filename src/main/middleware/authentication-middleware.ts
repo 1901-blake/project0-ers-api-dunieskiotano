@@ -1,6 +1,6 @@
 export function authMiddleware(req, res, next) {
     const user = req.session.user;
-    switch (user.role.role) {
+    switch (user.role) {
         case 'admin':
             next();
             break;

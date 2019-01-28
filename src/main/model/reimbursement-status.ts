@@ -1,9 +1,9 @@
 export class ReimbursementStatus {
-    statusId: number;
+    statusid: number;
     status: string;
 
-    constructor(statusId: number = 0, status: string = ' ') {
-        this.statusId = statusId;
+    constructor(statusid: number = 0, status: string = ' ') {
+        this.statusid = statusid;
         this.status = status;
     }
 
