@@ -47,7 +47,8 @@ userRouter.get('/:id', (req, res) => {
     )
 })
 
-userRouter.patch('*', async (req, res) => {
+userRouter.patch('/', async (req, res) => {
+    console.log(req.body);
     let user_id = parseInt(req.body.userid);
     let user = await UserDAO.updateUser(req, user_id);    
     res.status(201).send(user);

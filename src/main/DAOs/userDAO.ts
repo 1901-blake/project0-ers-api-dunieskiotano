@@ -57,17 +57,26 @@ export class UserDAO {
     public static async updateUser(req, user_id: number): Promise<User> {
         let reqBody = req.body;
         const client = await SessionFactory.getConnectionPool().connect();
+        console.log(
+            'UPDATE "user" ' +
+            `set username = '${reqBody.username}', ` +
+            `"password" = '${reqBody.password}', ` +
+            `firstname = '${reqBody.firstName}', ` +
+            `lastname = '${reqBody.lastName}', ` +
+            `"role" = ${reqBody.role} ` +
+            `WHERE userid = ${reqBody.userId};`
+        )
         await client.query(
-            'UPDATE "user"' +
-            `set username = '${reqBody.username}',` +
-            `"password" = '${reqBody.password}',` +
-            `firstname = '${reqBody.firstname}',` +
-            `lastname = '${reqBody.lastname}',` +
-            `"role" = ${reqBody.role}` +
-            `WHERE userid = ${user_id};`
+            'UPDATE "user" ' +
+            `set username = '${reqBody.username}', ` +
+            `"password" = '${reqBody.password}', ` +
+            `firstname = '${reqBody.firstName}', ` +
+            `lastname = '${reqBody.lastName}', ` +
+            `"role" = ${reqBody.role} ` +
+            `WHERE userid = ${reqBody.userId};`
         );
         client.release();
-        return this.getAllUsersById(user_id);
+        return this.getAllUsersById(reqBody.userId);
     }
 
 
