@@ -13,16 +13,14 @@ const users = new UserDAO();
 let promise1=Promise.resolve(users.getAllUsers());
 
 authRouter.post('/login', (req, res) =>{
-    let u=[];
     let flag = false;
     promise1.then(function (value){
         value.forEach(element => {
             if(element.username===req.body.username){
                 if(element.password===req.body.password){
-                    console.log(element.username, req.body.username);
                     req.session.user = element;
                     flag = true;
-                    res.status(200).send("You're logged in");
+                    res.status(200).send(`Welcome, ${element.firstName} ${element.lastName}. You're logged in...Role: ${element.role}`);
                 }
                 else{
                     flag=true;

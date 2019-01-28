@@ -1,5 +1,6 @@
-import {Role} from '../model/role';
-import {SessionFactory} from '../util/session-factory';
+import { Role } from '../model/role';
+import { SessionFactory } from '../util/session-factory';
+
 
 export class RoleDAO {
 
@@ -7,13 +8,14 @@ export class RoleDAO {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
         const result = await client.query('SELECT * from "role"');
-
         const role = result.rows;
-        const roleData = [];
+        
+        const roleData=role;
         role.forEach(r => {
-            roleData.push(new Role(
-                r.roleid,
-                r.role
+          
+          roleData.push(new Role(
+             r.roleid,
+             r.role
             ));
 
         });
@@ -22,4 +24,7 @@ export class RoleDAO {
 
 
     }
+
+   
+
 }

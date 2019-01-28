@@ -52,14 +52,12 @@ export class ReimbursementDAO {
         });
 
         return reimbursementData;
-
-
-    }
+   }
 
     /**
-     * Reimbursements by user id
+     * GET REIMBURSEMENTS BY USER ID
      */
-    public async getReimbursementsByUserId(user_id: number): Promise<Reimbursement[]> {
+    public static async getReimbursementsByUserId(user_id: number): Promise<any> {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
         const result = await client.query(`SELECT * from reimbursement where author=${user_id}`);
@@ -85,16 +83,11 @@ export class ReimbursementDAO {
 
     }
 
+    //INSERT REIMBURSEMENTS IN THE TABLE REIMBURSEMENT 
     public async addReimbursements(author: number, amount: number, dateSubmitted: number,
         dateResolved: number, description: string, resolver: number, status: number,
         type: number) {
         let pool = SessionFactory.getConnectionPool();
-        //console.log(reimbursementid, amount, author, description, resolver);
-        //const client = await pool.connect();
-        
-        // const text = `INSERT INTO reimbursement (author, amount, dateSubmitted, dateResolved, description, resolver, status,
-        //    "type") VALUES (${author}, ${amount}, ${dateSubmitted}, ${dateResolved}, 
-        //               '${description}', ${resolver}, ${status}, ${type});`;
         const text = `INSERT INTO reimbursement (author, amount, dateSubmitted, dateResolved, description, resolver, status,
             "type") VALUES (${author}, ${amount}, ${dateSubmitted}, ${dateResolved}, 
                 '${description}', ${resolver}, ${status}, ${type});`;
@@ -102,9 +95,31 @@ export class ReimbursementDAO {
             console.log('-----1------')
             const res = await pool.query(text);
             console.log(res.rows[0])
+
         } catch (err) {
             console.log(err.stack);
         }
 
+    }
+
+
+    //UDATE REIMBURSEMENTS --- TESTED => WORKING JUST FINE!!!!
+    public static async updateReimbursement(reqBody): Promise<Reimbursement> {
+        const client = await SessionFactory.getConnectionPool().connect();
+        await client.query(
+            'UPDATE reimbursement ' +
+            `set author = ${reqBody.author}, ` +
+            `amount  = ${reqBody.amount}, ` +
+            `datesubmitted = ${reqBody.dateSubmitted}, ` +
+            `dateresolved = ${reqBody.dateResolved}, ` +
+            `description = '${reqBody.description}', ` +
+            `resolver=${reqBody.resolver}, ` +
+            `status=${reqBody.status}, ` +
+            `"type"=${reqBody.type} ` +
+            ` WHERE reimbursementid = ${reqBody.reimbursementId};`
+        );
+
+        client.release();
+        return this.getReimbursementsByUserId(reqBody.reimbursementId);
     }
 }

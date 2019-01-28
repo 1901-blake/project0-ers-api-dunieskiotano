@@ -5,29 +5,28 @@ import { resolvePtr } from 'dns';
 import { ReimbursementDAO } from '../DAOs/reimbursementDAO';
 import { ReimbursementStatusDAO } from '../DAOs/reimbursementestatusDAO';
 import { Reimbursement } from '../model/reimbursement';
-//import * as Objects from '../data';
-//import { users, reimbursements, reimbursementStatus } from '../data';
+import {
+  authFinancialManagerMiddleware, authAssociateMiddleware,
+  authAdminAndFinancialManagerMiddleware
+} from '../middleware/authentication-middleware';
+
 
 
 
 let reimbursements = new ReimbursementDAO();
 export const reimbursementRouter = express.Router();
 
-/**
- * Gets all reimbursements
- */
+//GETS ALL REIMBURSEMENTS -- ADMIN AND FINANCIAL MANAGER
 reimbursementRouter.get('', (req, res) => {
   reimbursements.getAllReimbursements().then(function (result) {
     res.json(result);
   })
 })
 
-/**
- * Reimbursement by User
- *It's working*/
-reimbursementRouter.get('/author/:userId', (req, res) => {
+//FINDS REIMBURSEMENTS BY USER ID
+reimbursementRouter.get('/author/:userId', [authFinancialManagerMiddleware, (req, res) => {
   const idParam = +req.params.userId;
-  const promiseReimbursement = Promise.resolve(reimbursements.getReimbursementsByUserId(idParam));
+  const promiseReimbursement = Promise.resolve(ReimbursementDAO.getReimbursementsByUserId(idParam));
   promiseReimbursement.then(function (value) {
     value.forEach(element => {
       console.log(element);
@@ -37,17 +36,11 @@ reimbursementRouter.get('/author/:userId', (req, res) => {
     })
     res.status(401).send("Oops! Something went wrong");
 
-  }
-  )
-}
-)
+  })
+}]);
 
-
-/**
- * Find Reimbursement by Status
- */
-
-reimbursementRouter.get('/status/:statusId', (req, res) => {
+//FINDS REIMBURSEMENTS BY STATUS
+reimbursementRouter.get('/status/:statusId', [authFinancialManagerMiddleware, (req, res) => {
   const idParam = +req.params.statusId;
   const promiseReimbursementStatus = Promise.resolve(reimbursements.getReimbursementsByStatus(idParam));
   promiseReimbursementStatus.then(function (value) {
@@ -59,19 +52,10 @@ reimbursementRouter.get('/status/:statusId', (req, res) => {
     res.status(401).send("Oops! Something went wrong");
 
   })
-})
+}]);
 
-
-
-
-
-
-
-
-/**
- * Submit reimbursement
- */
-reimbursementRouter.post('', (req, res) => {
+//SUBMITS REIMBURSEMENTS BY ANY USER --- TESTED => WORKING JUST FINE
+reimbursementRouter.post('', [authAssociateMiddleware, authAdminAndFinancialManagerMiddleware, (req, res) => {
   let reqBody = req.body;
   console.log(reqBody);
   const users = reimbursements.addReimbursements(
@@ -83,13 +67,12 @@ reimbursementRouter.post('', (req, res) => {
     reqBody.resolver,
     reqBody.status,
     reqBody.type)
-    res.status(200).send("Your reimbursement has been created!!! Good job!");
-
-    
-    
-    
-
-});
+  res.status(200).send("Your reimbursement has been created!!! Good job!");
+}]);
 
 
-
+//UPDATES REIMBURSEMENTS BY FINANCIAL MANAGER --- TESTED =>=> WORKING JUST FINE
+reimbursementRouter.patch('/', [authFinancialManagerMiddleware, async (req, res) => {
+  let reimbursement = await ReimbursementDAO.updateReimbursement(req.body);
+  res.status(201).send(reimbursement);
+}]);

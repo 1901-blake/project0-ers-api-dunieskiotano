@@ -2,10 +2,16 @@ import { User } from '../model/user';
 import { SessionFactory } from '../util/session-factory';
 import { ClientBase } from 'pg';
 import { callbackify } from 'util';
+import { RoleDAO } from '../DAOs/roleDAO';
+import { Role } from '../model/role';
+import session from 'express-session';
+
+
 
 
 export class UserDAO {
 
+    //THIS GETS ALL THE USERS -- FINANCIAL MANAGER AND ADMIN => WORKING JUST FINE
     public async getAllUsers(): Promise<User[]> {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
@@ -24,6 +30,7 @@ export class UserDAO {
             ));
 
         });
+
         return userData;
 
 
@@ -54,18 +61,8 @@ export class UserDAO {
     }
 
 
-    public static async updateUser(req, user_id: number): Promise<User> {
-        let reqBody = req.body;
+    public static async updateUser(reqBody): Promise<User> {
         const client = await SessionFactory.getConnectionPool().connect();
-        console.log(
-            'UPDATE "user" ' +
-            `set username = '${reqBody.username}', ` +
-            `"password" = '${reqBody.password}', ` +
-            `firstname = '${reqBody.firstName}', ` +
-            `lastname = '${reqBody.lastName}', ` +
-            `"role" = ${reqBody.role} ` +
-            `WHERE userid = ${reqBody.userId};`
-        )
         await client.query(
             'UPDATE "user" ' +
             `set username = '${reqBody.username}', ` +
