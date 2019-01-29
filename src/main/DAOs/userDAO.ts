@@ -14,24 +14,21 @@ export class UserDAO {
     public async getAllUsers(): Promise<User[]> {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
-        const result = await client.query('SELECT * from "user"');
+        const result = await client.query('SELECT * FROM "user" AS u INNER JOIN "role"  AS r ON u.userid=r.roleid;');
         const user = result.rows;
-        const userData = [];
         user.forEach(u => {
-            userData.push(new User(
-                u.userid,
+            u.userid,
                 u.username,
                 u.password,
                 u.firstname,
                 u.lastname,
                 u.email,
-                u.role
-            ));
+                u.role,
+                u.roleid
 
-        });
-        console.log(userData)
+        })
         client.release();
-        return userData;
+        return user;
 
 
     }
@@ -44,21 +41,20 @@ export class UserDAO {
         SELECT userId, username, "password", firstname, lastname, email,"role" from "user" where userId=${userid}`
         );
         const user = result.rows;
-        const userInfo = [];
-        user.forEach(ui => {
-            userInfo.push(
-                ui.userid,
+            user.forEach(ui => {
+            ui.userid,
                 ui.username,
                 ui.password,
                 ui.firstname,
                 ui.lastname,
                 ui.email,
-                ui.role
-            )
+                ui.role,
+                ui.roleid
+
         })
 
         client.release();
-        return userInfo;
+        return user;
     }
 
     //UPDATES USERS BASED ON ID

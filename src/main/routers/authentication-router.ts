@@ -21,7 +21,8 @@ authRouter.post('/login', (req, res) => {
                 if (element.password === req.body.password) {
                     req.session.user = element;
                     flag = true;
-                    res.status(200).send(`Welcome, ${element.firstName} ${element.lastName}. You're logged in...`);
+                    res.status(200).send("Welcome, " + req.session.user.firstname + " " + req.session.user.lastname +
+                        ". Your're logged in. \nRole: " + req.session.user.role);
                 }
                 else {
                     flag = true;

@@ -1,7 +1,7 @@
 import { Role } from './role';
 
 export class User {
-	userId: number;
+	userid: number;
 	username: string;
 	password: string;
 	firstName: string;
@@ -10,9 +10,9 @@ export class User {
 	role: Role;
 
 
-	constructor(userId: number = 0, username: string = '', password: string = '', firstName: string = '', lastName: string = '',
+	constructor(userid: number = 0, username: string = '', password: string = '', firstName: string = '', lastName: string = '',
 		email: string = '', role: Role) {
-		this.userId = userId;
+		this.userid = userid;
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;

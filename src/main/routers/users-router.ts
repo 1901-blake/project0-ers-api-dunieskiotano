@@ -35,12 +35,11 @@ userRouter.get('', [authAdminAndFinancialManagerMiddleware, (req, res) => {
 userRouter.get('/:id', [authAdminAndFinancialManagerMiddleware,
     (req, res) => {
         const idParam = +req.params.id;
-        console.log(idParam);
-        promise1.then(function (value) {
-            value.forEach(element => {
-                console.log(element.userId, idParam);
-                if (element.userId === idParam) {
-                    res.status(200).send(element);
+        console.log('PARAMETER', idParam);
+        promise1.then(function (result) {
+            result.map(elem => {
+                if (elem.userid === idParam) {
+                    res.json(elem);
                 }
             })
             //PRINTS A MESSAGE IF USER IS NOT FOUND
@@ -61,9 +60,8 @@ userRouter.patch('/', [authFinancialManagerMiddleware, async (req, res) => {
 
 //CREATES A USER  --- ADMIN AND FINANCIAL MANAGER
 userRouter.post('', [authAdminAndFinancialManagerMiddleware, (req, res) => {
-
     let reqBody = req.body;
-    const user = users.addUsers(
+    users.addUsers(
         reqBody.username,
         reqBody.password,
         reqBody.firstName,
@@ -71,5 +69,5 @@ userRouter.post('', [authAdminAndFinancialManagerMiddleware, (req, res) => {
         reqBody.email,
         reqBody.role)
 
-        res.status(200).send("Your user has been created!!! Good job!");
+    res.status(200).send("Success!! User has been created!!! Good job!");
 }]);

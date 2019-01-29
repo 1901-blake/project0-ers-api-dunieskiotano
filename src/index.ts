@@ -51,6 +51,7 @@ app.use(bodyParse.urlencoded({ extended: true }));
 app.use((req, res, next) => {
     console.log(`request was made with url: ${req.path}
     and method: ${req.method}`);
+    
     next(); // will pass the request on to search for the next piece of middleware
 });
 
@@ -74,4 +75,5 @@ app.use('/reimbursements/', reimbursementRouter);
 app.listen(3200);
 //PRINTS CONFIRMATION THAT HAS SESSION STARTED SUCCESSFULLY
 console.log("Session started successfully");
+
 

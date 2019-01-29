@@ -9,8 +9,10 @@ export class RoleDAO {
         const client = await pool.connect();
         const result = await client.query('SELECT * from "role"');
         let role = result.rows;
-        client.release();
-        return role;
+        return role.map(e => {
+            return new Role(e.role, e.roleid)
+        });
+
     }
 
 

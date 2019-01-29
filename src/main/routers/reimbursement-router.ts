@@ -57,8 +57,7 @@ reimbursementRouter.get('/status/:statusId', [authFinancialManagerMiddleware, (r
 //SUBMITS REIMBURSEMENTS BY ANY USER --- TESTED => WORKING JUST FINE
 reimbursementRouter.post('', [authAssociateMiddleware, authAdminAndFinancialManagerMiddleware, (req, res) => {
   let reqBody = req.body;
-  console.log(reqBody);
-  const users = reimbursements.addReimbursements(
+  reimbursements.addReimbursements(
     reqBody.author,
     reqBody.amount,
     reqBody.dateSubmitted,

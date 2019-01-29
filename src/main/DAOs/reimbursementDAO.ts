@@ -7,12 +7,9 @@ export class ReimbursementDAO {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
         const result = await client.query('SELECT * from reimbursement');
-
         const reimbursement = result.rows;
-        const reimbursementData = [];
         reimbursement.forEach(rei => {
-            reimbursementData.push(new Reimbursement(
-                rei.reimbursementid,
+            rei.reimbursementid,
                 rei.author,
                 rei.amount,
                 rei.dateSubmitted,
@@ -21,11 +18,9 @@ export class ReimbursementDAO {
                 rei.resolver,
                 rei.status,
                 rei.type
-            ));
-
         });
         client.release();
-        return reimbursementData;
+        return reimbursement;
 
 
     }
@@ -52,7 +47,7 @@ export class ReimbursementDAO {
         });
         client.release();
         return reimbursementData;
-   }
+    }
 
     /**
      * GET REIMBURSEMENTS BY USER ID
@@ -62,9 +57,9 @@ export class ReimbursementDAO {
         const client = await pool.connect();
         const result = await client.query(`SELECT * from reimbursement where author=${user_id}`);
         const reimbursement = result.rows;
-        const reimbursementData = [];
+        
         reimbursement.forEach(rei => {
-            reimbursementData.push(new Reimbursement(
+           
                 rei.reimbursementid,
                 rei.author,
                 rei.amount,
@@ -74,13 +69,13 @@ export class ReimbursementDAO {
                 rei.resolver,
                 rei.status,
                 rei.type
-            ));
+            
 
         });
         client.release();
-        return reimbursementData;
+        return reimbursement;
 
-        
+
     }
 
     //INSERT REIMBURSEMENTS IN THE TABLE REIMBURSEMENT 
@@ -110,16 +105,16 @@ export class ReimbursementDAO {
             'UPDATE reimbursement ' +
             `set author = ${reqBody.author}, ` +
             `amount  = ${reqBody.amount}, ` +
-            `datesubmitted = ${reqBody.dateSubmitted}, ` +
-            `dateresolved = ${reqBody.dateResolved}, ` +
+            `datesubmitted = ${reqBody.datesubmitted}, ` +
+            `dateresolved = ${reqBody.dateresolved}, ` +
             `description = '${reqBody.description}', ` +
             `resolver=${reqBody.resolver}, ` +
             `status=${reqBody.status}, ` +
             `"type"=${reqBody.type} ` +
-            ` WHERE reimbursementid = ${reqBody.reimbursementId};`
+            ` WHERE reimbursementid = ${reqBody.reimbursementid};`
         );
 
         client.release();
-        return this.getReimbursementsByUserId(reqBody.reimbursementId);
+        return this.getReimbursementsByUserId(reqBody.reimbursementid);
     }
 }
