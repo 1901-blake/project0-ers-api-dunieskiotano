@@ -44,24 +44,21 @@ reimbursementRouter.get('/status/:statusId', [authFinancialManagerMiddleware, (r
   const idParam = +req.params.statusId;
   const promiseReimbursementStatus = Promise.resolve(reimbursements.getReimbursementsByStatus(idParam));
   promiseReimbursementStatus.then(function (value) {
-    value.forEach(elem => {
-      if (elem.status === idParam) {
-        res.status(200).send(elem);
-      }
-    })
-    res.status(401).send("Oops! Something went wrong. It seems that the reimbursement you're trying to find does not exist");
-
+    res.json(value);
   })
 }]);
 
+
+
+
 //SUBMITS REIMBURSEMENTS BY ANY USER --- TESTED => WORKING JUST FINE
-reimbursementRouter.post('', [authAssociateMiddleware, authAdminAndFinancialManagerMiddleware, (req, res) => {
+reimbursementRouter.post('', [authAdminAndFinancialManagerMiddleware, (req, res) => {
   let reqBody = req.body;
   reimbursements.addReimbursements(
     reqBody.author,
     reqBody.amount,
-    reqBody.dateSubmitted,
-    reqBody.dateResolved,
+    reqBody.datesubmitted,
+    reqBody.dateresolved,
     reqBody.description,
     reqBody.resolver,
     reqBody.status,

@@ -39,7 +39,7 @@ userRouter.get('/:id', [authAdminAndFinancialManagerMiddleware,
         promise1.then(function (result) {
             result.map(elem => {
                 if (elem.userid === idParam) {
-                    res.json(elem);
+                    res.json(elem)
                 }
             })
             //PRINTS A MESSAGE IF USER IS NOT FOUND

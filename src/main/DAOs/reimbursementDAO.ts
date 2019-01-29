@@ -28,25 +28,21 @@ export class ReimbursementDAO {
     public async getReimbursementsByStatus(reimbursement_id: number): Promise<Reimbursement[]> {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
-        const result = await client.query(`SELECT * from reimbursement where status=${reimbursement_id}`);
+        const result = await client.query(`SELECT * from reimbursement where status=${reimbursement_id} ORDER BY datesubmitted`);
         const reimbursement = result.rows;
-        const reimbursementData = [];
-        reimbursement.forEach(rei => {
-            reimbursementData.push(new Reimbursement(
-                rei.reimbursementid,
-                rei.author,
-                rei.amount,
-                rei.dateSubmitted,
-                rei.dateResolved,
-                rei.description,
-                rei.resolver,
-                rei.status,
-                rei.type
-            ));
-
-        });
+        //reimbursement.forEach(rei => {
+            //rei.reimbursementid,
+               // rei.author,
+               // rei.amount,
+                ///rei.datesubmitted,
+                //rei.dateresolved,
+                //rei.description,
+                //rei.resolver,
+                //rei.status,
+                //rei.type
+        //});
         client.release();
-        return reimbursementData;
+        return reimbursement;
     }
 
     /**
@@ -57,10 +53,8 @@ export class ReimbursementDAO {
         const client = await pool.connect();
         const result = await client.query(`SELECT * from reimbursement where author=${user_id}`);
         const reimbursement = result.rows;
-        
         reimbursement.forEach(rei => {
-           
-                rei.reimbursementid,
+            rei.reimbursementid,
                 rei.author,
                 rei.amount,
                 rei.dateSubmitted,
@@ -69,7 +63,7 @@ export class ReimbursementDAO {
                 rei.resolver,
                 rei.status,
                 rei.type
-            
+
 
         });
         client.release();
@@ -83,11 +77,10 @@ export class ReimbursementDAO {
         dateResolved: number, description: string, resolver: number, status: number,
         type: number) {
         let pool = SessionFactory.getConnectionPool();
-        const text = `INSERT INTO reimbursement (author, amount, dateSubmitted, dateResolved, description, resolver, status,
+        const text = `INSERT INTO reimbursement (author, amount, datesubmitted, dateresolved, description, resolver, status,
             "type") VALUES (${author}, ${amount}, ${dateSubmitted}, ${dateResolved}, 
                 '${description}', ${resolver}, ${status}, ${type});`;
         try {
-            console.log('-----1------')
             const res = await pool.query(text);
             console.log(res.rows[0])
 
