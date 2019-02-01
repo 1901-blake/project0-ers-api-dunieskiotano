@@ -13,10 +13,11 @@ import { ReimbursementTypeDAO } from './main/DAOs/reimbursementtypeDAO';
 import { ReimbursementStatusDAO } from './main/DAOs/reimbursementestatusDAO';
 //////////////////////
 const app = express();
-
+app.use('/', express.static(__dirname + '/main/Public/'));
 //BODY-PARSER MIDDLEWARE IS CREATED HERE TO PARSE JSON INTO JS
 app.use(bodyParse.json())
 app.use(bodyParse.urlencoded({ extended: true }));
+
 
 //CREATES LOGIN MIDDLEWARE HERE
 app.use((req, res, next) => {
