@@ -1,0 +1,28 @@
+{
+  "name": "expense-reimbursement-system",
+  "version": "1.0.0",
+  "description": "an API fo Expense Reimbursement System",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "ts-node src/index.ts",
+    "start": "nodemon --exec ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dunieski Otano",
+  "license": "ISC",
+  "dependencies": {
+    "@types/pg": "^7.4.11",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "password-hash": "^1.2.2",
+    "pg": "^7.8.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.0",
+    "@types/express-session": "^1.15.11",
+    "nodemon": "^1.18.9",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.4"
+  }
+}
