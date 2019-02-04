@@ -16,7 +16,7 @@ export const reimbursementRouter = express.Router();
 //GETS ALL REIMBURSEMENTS ==> ADMIN AND FINANCIAL MANAGER
 reimbursementRouter.get('', [authMiddleWare('finance-manager'), (req, res) => {
   ReimbursementDAO.getAllReimbursements().then(function (result) {
-    console.log(result);
+    
     res.json(result);
   })
 }])
@@ -36,12 +36,22 @@ reimbursementRouter.get('/author/:userId', [authMiddleWare('finance-manager'), a
 
 
 //FINDS REIMBURSEMENTS BY STATUS
-reimbursementRouter.get('/status/:statusId', [authMiddleWare('finance-manager'), (req, res) => {
-  const idParam = +req.params.statusId;
-  const promiseReimbursementStatus = Promise.resolve(ReimbursementDAO.getReimbursementsByStatus(idParam));
-  promiseReimbursementStatus.then(function (value) {
-    res.json(value);
-  })
+reimbursementRouter.get('/status/:statusId', [authMiddleWare('finance-manager'), async (req, res) => {
+  try {
+    const idParam = +req.params.statusId;
+    const reimbursement = await ReimbursementDAO.getReimbursementsByStatus(idParam);
+    if (reimbursement && reimbursement.length) {
+      res.json(reimbursement);
+    }
+    else {
+     res.sendStatus(404);
+      
+    }
+
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
 }]);
 
 

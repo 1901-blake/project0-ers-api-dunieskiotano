@@ -6,9 +6,6 @@ import { RoleDAO } from '../DAOs/roleDAO';
 import { Role } from '../model/role';
 
 
-
-
-
 export class UserDAO {
 
     //THIS GETS ALL THE USERS -- FINANCIAL MANAGER AND ADMIN => WORKING JUST FINE
@@ -16,7 +13,7 @@ export class UserDAO {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
         try {
-            const result = await client.query('SELECT * FROM "user" AS u INNER JOIN "role" USING(roleid)');
+            const result = await client.query('SELECT * FROM "user" INNER JOIN "role" USING(roleid)');
             return result.rows.map(user => {
                 return {
                     userid: user["userid"],
@@ -29,13 +26,13 @@ export class UserDAO {
                         roleId: user["roleid"],
                         role: user["role"]
                     }
+
                 }
             })
         } finally {
             client.release();
         }
     }
-
 
     //GETS ALL USERS BY ID
     public static async getAllUsersById(userid: number): Promise<any> {
@@ -83,13 +80,10 @@ export class UserDAO {
         } finally {
             return this.getAllUsersById(reqBody.userid);
         }
-
-
     }
 
-
     //INSERT USERS IN THE TABLE "user" 
-    public async addUsers(user: User): Promise<User> {
+    public static async createUsers(user: User): Promise<User> {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
         try {

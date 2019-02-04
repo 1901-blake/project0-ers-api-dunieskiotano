@@ -2,37 +2,50 @@ import express from 'express';
 import { User } from '../model/user';
 import { appendFile } from 'fs';
 import { UserDAO } from '../DAOs/userDAO';
-import { authMiddleware } from '../middleware/authentication-middleware';
+
 import session from 'express-session';
 import { authMiddleWare } from '../middleware/authentication-middleware';
-const users = new UserDAO();
-
-
-let promise1 = Promise.resolve(UserDAO.getAllUsers());
 export const userRouter = express.Router();
+
+
+
 
 //FINDS ALL USERS
 userRouter.all('', [
-    authMiddleware,
+    authMiddleWare('admin', 'finance-manager'),
     (req, res, next) => {
         //res.json(users);
         next();
     }]);
 
 
-userRouter.get('', [authMiddleWare('admin', 'finance-manager'), (req, res) => {
-    UserDAO.getAllUsers().then(function (result) {
-        res.json(result);
-    })
+userRouter.get('', [authMiddleWare('finance-manager', 'admin'), async (req, res) => {
+    try {
+        const users = await UserDAO.getAllUsers();
+        res.json(users);
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
 }])
 
-/*// FINDS ALL USERS
-userRouter.get('', [authMiddleware('finance-manager', 'admin'), (req, res) => {
-    users.getAllUsers().then(function (result) {
-        res.json(result);
-    })
+// FINDS ALL USERS
+userRouter.get('', [authMiddleWare('finance-manager', 'admin'), async (req, res) => {
+    try {
+        const user = await UserDAO.getAllUsers()
+        if (user && user.length) {
+            res.json(user);
+        }
+        else {
+            res.sendStatus(404);
+        }
+    }
+    catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
 }])
-*/
+
 
 //FINDS ALL USERS BY ID 
 userRouter.get('/:id', [authMiddleWare('finance-manager'),
@@ -40,24 +53,17 @@ async (req, res) => {
     const idParam = +req.params.id;
     try {
         const users = await UserDAO.getAllUsersById(idParam);
-        res.json(users);
+        if (users) {
+            res.json(users);
+        }
+        else {
+            res.sendStatus(404);
+        }
     }
     catch (err) {
         console.log(err);
         res.sendStatus(500);
     }
-    //console.log('PARAMETER', idParam);
-    //promise1.then(function (result) {
-    // result.map(elem => {
-    //if (elem.userid === idParam) {
-    //    res.json(elem)
-    // }
-    // })
-    //PRINTS A MESSAGE IF USER IS NOT FOUND
-    // res.status(401).send("Oops! Something went wrong. It seems that the user you're trying to find does not exist");
-
-    // }
-    //)
 }])
 
 
@@ -78,11 +84,16 @@ userRouter.patch('/', [authMiddleWare('admin'), async (req, res) => {
 //CREATES A USER  --- ADMIN AND FINANCIAL MANAGER
 userRouter.post('', [authMiddleWare('admin', 'finance-manager'), async (req, res) => {
     let reqBody = req.body;
-    let createdUser = await users.addUsers(reqBody);
-    if (createdUser) {
-        res.status(201).json(createdUser);
-    }
-    else {
+    try {
+        let createdUser = await UserDAO.createUsers(reqBody);
+        if (createdUser) {
+            res.status(201).json(createdUser);
+        }
+        else {
+            res.sendStatus(500);
+        }
+    } catch (err) {
+        console.log(err);
         res.sendStatus(500);
     }
 }]);
