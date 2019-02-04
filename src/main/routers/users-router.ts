@@ -1,88 +1,79 @@
 import express from 'express';
-import { User } from '../model/user';
 import { appendFile } from 'fs';
 import { UserDAO } from '../DAOs/userDAO';
-import { authMiddleware } from '../middleware/authentication-middleware';
 import session from 'express-session';
 import { authMiddleWare } from '../middleware/authentication-middleware';
-const users = new UserDAO();
-
-
-let promise1 = Promise.resolve(UserDAO.getAllUsers());
 export const userRouter = express.Router();
 
-//FINDS ALL USERS
+//middleware to give way if all credentials are correct
 userRouter.all('', [
-    authMiddleware,
+    authMiddleWare,
     (req, res, next) => {
-        //res.json(users);
         next();
     }]);
 
-
-userRouter.get('', [authMiddleWare('admin', 'finance-manager'), (req, res) => {
-    UserDAO.getAllUsers().then(function (result) {
-        res.json(result);
-    })
+//Finds all users -- Roles allowed: Admin & Finance Manager
+userRouter.get('', [authMiddleWare('admin', 'finance-manager'), async (req, res) => {
+    try {
+        const users = await UserDAO.getAllUsers()
+        console.log(users);
+        if (users && users.length) {//checks for an empty array
+            res.json(users);//if array users is not empty, json is sent with the object
+        } else {
+            res.sendStatus(404);//if it is, message Not Found is displayed
+        }
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);//If there is an internal server error, message server will be displayed
+    }
 }])
 
-/*// FINDS ALL USERS
-userRouter.get('', [authMiddleware('finance-manager', 'admin'), (req, res) => {
-    users.getAllUsers().then(function (result) {
-        res.json(result);
-    })
-}])
-*/
-
-//FINDS ALL USERS BY ID 
+//Finds users by ID -- Roles allowed: Finance Manager only!
 userRouter.get('/:id', [authMiddleWare('finance-manager'),
 async (req, res) => {
     const idParam = +req.params.id;
     try {
         const users = await UserDAO.getAllUsersById(idParam);
-        res.json(users);
+        if (users && users.length) {//checks for an empty array
+            res.json(users);//if there is no emptty array, then the object is sent
+        } else {
+            res.sendStatus(404);//else a message of not found will be displayed
+        }
     }
     catch (err) {
         console.log(err);
-        res.sendStatus(500);
+        res.sendStatus(500);//if there is an internal server error, the appropiate message will be displayed
     }
-    //console.log('PARAMETER', idParam);
-    //promise1.then(function (result) {
-    // result.map(elem => {
-    //if (elem.userid === idParam) {
-    //    res.json(elem)
-    // }
-    // })
-    //PRINTS A MESSAGE IF USER IS NOT FOUND
-    // res.status(401).send("Oops! Something went wrong. It seems that the user you're trying to find does not exist");
-
-    // }
-    //)
 }])
 
 
-//UPDATES USERS 
+//Updates user
 userRouter.patch('/', [authMiddleWare('admin'), async (req, res) => {
     try {
-        let user = await UserDAO.updateUser(req.body);
-        res.status(201).send(user);
+        let user = await UserDAO.updateUser(req.body);//the request body is passed to the method updateUser in the UserDAO class
+        res.status(201).send(user);//if everything is ok, object user is sent and messaje Ok is displayed
     }
     catch (err) {
         console.log(err);
-        res.sendStatus(500);
+        res.sendStatus(500);//if there is any internal server error, the appropiate message will be displayed
     }
 
 }]);
 
-
-//CREATES A USER  --- ADMIN AND FINANCIAL MANAGER
+//Creates user --- Roles allowed: Admin && Finance Manager
 userRouter.post('', [authMiddleWare('admin', 'finance-manager'), async (req, res) => {
     let reqBody = req.body;
-    let createdUser = await users.addUsers(reqBody);
-    if (createdUser) {
-        res.status(201).json(createdUser);
-    }
-    else {
+    try {
+        let createdUser = await UserDAO.createUsers(reqBody);//request body is passed to method createUsers from UserDAO class
+        if (createdUser) {//checks if the user is created successfully
+            res.status(201).json(createdUser);//if ok, message Created will be displayed.
+        }
+        else {
+            res.sendStatus(404);
+        }
+    } catch (err) {
+        console.log(err);
         res.sendStatus(500);
+
     }
 }]);

@@ -89,7 +89,7 @@ export class UserDAO {
 
 
     //INSERT USERS IN THE TABLE "user" 
-    public async addUsers(user: User): Promise<User> {
+    public static async createUsers(user: User): Promise<User> {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
         try {

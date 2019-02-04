@@ -3,8 +3,6 @@ import { json } from 'body-parser';
 import session from 'express-session';
 import { resolvePtr } from 'dns';
 import { ReimbursementDAO } from '../DAOs/reimbursementDAO';
-import { ReimbursementStatusDAO } from '../DAOs/reimbursementestatusDAO';
-import { Reimbursement } from '../model/reimbursement';
 import { authMiddleWare } from '../middleware/authentication-middleware';
 
 
@@ -14,11 +12,18 @@ let reimbursements = new ReimbursementDAO();
 export const reimbursementRouter = express.Router();
 
 //GETS ALL REIMBURSEMENTS ==> ADMIN AND FINANCIAL MANAGER
-reimbursementRouter.get('', [authMiddleWare('finance-manager'), (req, res) => {
-  ReimbursementDAO.getAllReimbursements().then(function (result) {
-    console.log(result);
-    res.json(result);
-  })
+reimbursementRouter.get('', [authMiddleWare('finance-manager'), async (req, res) => {
+  try {
+    const reimbursement = await ReimbursementDAO.getAllReimbursements()
+    if (reimbursement && reimbursement.length) {
+      res.json(reimbursement);
+    }
+    else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    res.sendStatus(500);
+  }
 }])
 
 //FINDS REIMBURSEMENTS BY USER ID
@@ -26,7 +31,12 @@ reimbursementRouter.get('/author/:userId', [authMiddleWare('finance-manager'), a
   const idParam = +req.params.userId;
   try {
     const reimbursements = await ReimbursementDAO.getReimbursementsByUserId(idParam)
-    res.json(reimbursements);
+    if (reimbursements && reimbursements.length) {
+      res.json(reimbursements);
+    }
+    else {
+      res.sendStatus(404);
+    }
   }
   catch (err) {
     console.log(err);
@@ -36,28 +46,43 @@ reimbursementRouter.get('/author/:userId', [authMiddleWare('finance-manager'), a
 
 
 //FINDS REIMBURSEMENTS BY STATUS
-reimbursementRouter.get('/status/:statusId', [authMiddleWare('finance-manager'), (req, res) => {
+reimbursementRouter.get('/status/:statusId', [authMiddleWare('finance-manager'), async (req, res) => {
   const idParam = +req.params.statusId;
-  const promiseReimbursementStatus = Promise.resolve(ReimbursementDAO.getReimbursementsByStatus(idParam));
-  promiseReimbursementStatus.then(function (value) {
-    res.json(value);
-  })
+  try {
+    const reimbursement = await ReimbursementDAO.getReimbursementsByStatus(idParam);
+    if (reimbursement && reimbursement.length) {
+      res.json(reimbursement);
+    }
+    else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
 }]);
-
-
-
 
 //SUBMITS REIMBURSEMENTS BY ANY USER --- TESTED => WORKING JUST FINE
 reimbursementRouter.post('', async (req, res) => {
   let reqBody = req.body;
-  const reimb = await ReimbursementDAO.submitReimbursement(reqBody);
-  res.status(201);
-  res.json(reimb);
+  try {
+    const reimb = await ReimbursementDAO.submitReimbursement(reqBody);
+    res.status(201);
+    res.json(reimb);
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500);
+  }
 });
 
 
 //UPDATES REIMBURSEMENTS BY FINANCIAL MANAGER --- TESTED =>=> WORKING JUST FINE
 reimbursementRouter.patch('/', [authMiddleWare('finance-manager'), async (req, res) => {
-  let reimbursement = await ReimbursementDAO.updateReimbursement(req.body);
-  res.status(201).send(reimbursement);
+  try {
+    let reimbursement = await ReimbursementDAO.updateReimbursement(req.body);
+    res.status(201).send(reimbursement);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
 }]);
