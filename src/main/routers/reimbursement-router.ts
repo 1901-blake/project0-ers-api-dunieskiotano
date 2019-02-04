@@ -5,10 +5,7 @@ import { resolvePtr } from 'dns';
 import { ReimbursementDAO } from '../DAOs/reimbursementDAO';
 import { ReimbursementStatusDAO } from '../DAOs/reimbursementestatusDAO';
 import { Reimbursement } from '../model/reimbursement';
-import {
-  authFinancialManagerMiddleware, authAssociateMiddleware,
-  authAdminAndFinancialManagerAssociateMiddleware
-} from '../middleware/authentication-middleware';
+import { authMiddleWare } from '../middleware/authentication-middleware';
 
 
 
@@ -17,14 +14,15 @@ let reimbursements = new ReimbursementDAO();
 export const reimbursementRouter = express.Router();
 
 //GETS ALL REIMBURSEMENTS ==> ADMIN AND FINANCIAL MANAGER
-reimbursementRouter.get('', (req, res) => {
-  reimbursements.getAllReimbursements().then(function (result) {
+reimbursementRouter.get('', [authMiddleWare('finance-manager'), (req, res) => {
+  ReimbursementDAO.getAllReimbursements().then(function (result) {
+    console.log(result);
     res.json(result);
   })
-})
+}])
 
 //FINDS REIMBURSEMENTS BY USER ID
-reimbursementRouter.get('/author/:userId', [authFinancialManagerMiddleware, async (req, res) => {
+reimbursementRouter.get('/author/:userId', [authMiddleWare('finance-manager'), async (req, res) => {
   const idParam = +req.params.userId;
   try {
     const reimbursements = await ReimbursementDAO.getReimbursementsByUserId(idParam)
@@ -38,9 +36,9 @@ reimbursementRouter.get('/author/:userId', [authFinancialManagerMiddleware, asyn
 
 
 //FINDS REIMBURSEMENTS BY STATUS
-reimbursementRouter.get('/status/:statusId', [authFinancialManagerMiddleware, (req, res) => {
+reimbursementRouter.get('/status/:statusId', [authMiddleWare('finance-manager'), (req, res) => {
   const idParam = +req.params.statusId;
-  const promiseReimbursementStatus = Promise.resolve(reimbursements.getReimbursementsByStatus(idParam));
+  const promiseReimbursementStatus = Promise.resolve(ReimbursementDAO.getReimbursementsByStatus(idParam));
   promiseReimbursementStatus.then(function (value) {
     res.json(value);
   })
@@ -50,23 +48,16 @@ reimbursementRouter.get('/status/:statusId', [authFinancialManagerMiddleware, (r
 
 
 //SUBMITS REIMBURSEMENTS BY ANY USER --- TESTED => WORKING JUST FINE
-reimbursementRouter.post('', [authAdminAndFinancialManagerAssociateMiddleware, (req, res) => {
+reimbursementRouter.post('', async (req, res) => {
   let reqBody = req.body;
-  reimbursements.addReimbursements(
-    reqBody.author,
-    reqBody.amount,
-    reqBody.datesubmitted,
-    reqBody.dateresolved,
-    reqBody.description,
-    reqBody.resolver,
-    reqBody.status,
-    reqBody.type)
-  res.status(200).send("Your reimbursement has been created!!! Good job!");
-}]);
+  const reimb = await ReimbursementDAO.submitReimbursement(reqBody);
+  res.status(201);
+  res.json(reimb);
+});
 
 
 //UPDATES REIMBURSEMENTS BY FINANCIAL MANAGER --- TESTED =>=> WORKING JUST FINE
-reimbursementRouter.patch('/', [authFinancialManagerMiddleware, async (req, res) => {
+reimbursementRouter.patch('/', [authMiddleWare('finance-manager'), async (req, res) => {
   let reimbursement = await ReimbursementDAO.updateReimbursement(req.body);
   res.status(201).send(reimbursement);
 }]);

@@ -10,14 +10,15 @@ import { promises } from 'fs';
 
 export const authRouter = express.Router();
 const users = new UserDAO();
-let promise1 = Promise.resolve(users.getAllUsers());
+let promise1 = Promise.resolve(UserDAO.getAllUsers());
 
 //CHECKS FOR CREDENTIALS AND ALLOWS ACCESS IF CREDENTIALS MATCH DATABASE RECORDS
 authRouter.post('/login', async (req, res) => {
     let flag = false;
-    const result = await users.getAllUsers();
+    const result = await UserDAO.getAllUsers();
     result.forEach(element => {
-        console.log(element.username, element.password);
+        console.log(element.username, req.body.username);
+        console.log(element.password, req.body.password);
         if (element.username === req.body.username) {
             if (element.password === req.body.password) {
                 req.session.user = element;

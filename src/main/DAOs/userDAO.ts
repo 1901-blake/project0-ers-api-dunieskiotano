@@ -12,7 +12,7 @@ import { Role } from '../model/role';
 export class UserDAO {
 
     //THIS GETS ALL THE USERS -- FINANCIAL MANAGER AND ADMIN => WORKING JUST FINE
-    public async getAllUsers(): Promise<User[]> {
+    public static async getAllUsers(): Promise<User[]> {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
         try {
@@ -55,7 +55,7 @@ export class UserDAO {
                     email: usersql['email'],
                     role: {
                         role: usersql['role'],
-                        roleid: usersql['userid']
+                        roleid: usersql['roleid']
                     }
                 }
             }
@@ -67,32 +67,38 @@ export class UserDAO {
 
     //UPDATES USERS BASED ON ID
     public static async updateUser(reqBody): Promise<User> {
-        const client = await SessionFactory.getConnectionPool().connect();
-        await client.query(
-            'UPDATE "user" ' +
-            `set username = '${reqBody.username}', ` +
-            `"password" = '${reqBody.password}', ` +
-            `firstname = '${reqBody.firstName}', ` +
-            `lastname = '${reqBody.lastName}', ` +
-            `"roleid" = ${reqBody.role} ` +
-            `WHERE userid = ${reqBody.userid};`
-        );
-        client.release();
-        return this.getAllUsersById(reqBody.userid);
+        try {
+            const client = await SessionFactory.getConnectionPool().connect();
+            await client.query(
+                'UPDATE "user" ' +
+                `set username = '${reqBody.username} ', ` +
+                `"password" = '${reqBody.password} ', ` +
+                `firstname = '${reqBody.firstName} ', ` +
+                `lastname = '${reqBody.lastName} ', ` +
+                `email = '${reqBody.email} ', ` +
+                `"roleid" = ${reqBody.role} ` +
+                `WHERE userid = ${reqBody.userid};`
+            )
+            client.release();
+        } finally {
+            return this.getAllUsersById(reqBody.userid);
+        }
+
+
     }
 
-    //INSERT USERS IN THE TABLE "user" 
-    public async addUsers(username: string, password: string, firstname: string, lastname: string,
-        email: string, role: number) {
-        let pool = SessionFactory.getConnectionPool();
-        const text = `INSERT INTO "user" (username, "password", firstname, lastname, email, roleid) VALUES 
-                     ('${username}', '${password}', '${firstname}', '${lastname}', '${email}', ${role});`;
-        try {
-            const res = await pool.query(text);
-            console.log(res.rows[0])
 
-        } catch (err) {
-            console.log(err.stack);
+    //INSERT USERS IN THE TABLE "user" 
+    public async addUsers(user: User): Promise<User> {
+        let pool = SessionFactory.getConnectionPool();
+        const client = await pool.connect();
+        try {
+            const result = await client.query(`INSERT INTO "user" (username, "password", firstname, lastname, email, roleid) 
+        VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+                [user.username, user.password, user.firstName, user.lastName, user.email, user.userid]);
+            return result.rows[0];
+        } finally {
+            client.release(); // release connection
         }
 
     }
@@ -100,15 +106,5 @@ export class UserDAO {
 
 
 }
-
-
-
-
-
-
-
-
-
-
 
 

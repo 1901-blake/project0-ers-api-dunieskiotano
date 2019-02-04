@@ -1,16 +1,19 @@
+import {User} from '../model/user';
+import{ReimbursementStatus} from '../model/reimbursement-status';
+import {ReimbursementType} from '../model/reimbursement-type';
 export class Reimbursement {
     reimbursementid: number;
-    author: number;
+    author: User;
     amount: number;
-    dateSubmitted: number;
-    dateResolved: number;
+    dateSubmitted: string;
+    dateResolved: string;
     description: string;
     resolver: number;
-    status: number;
-    type: number;
+    status: ReimbursementStatus;
+    type: ReimbursementType;
 
-    constructor(reimbursementid: number=0, author: number=0, amount: number=0, dateSubmitted: number=0, dateResolved: number=0,
-    description: string='', resolver: number=0, status: number=0, type: number=0){
+    constructor(reimbursementid: number=0, author: User, amount: number=0, dateSubmitted: string='', dateResolved: string='',
+    description: string='', resolver: number=0, status: ReimbursementStatus, type: ReimbursementType){
         this.reimbursementid=reimbursementid;
         this.author=author;
         this.amount=amount;

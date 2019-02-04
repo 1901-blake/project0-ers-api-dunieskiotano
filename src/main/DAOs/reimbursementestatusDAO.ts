@@ -6,7 +6,7 @@ import { Reimbursement } from '../model/reimbursement';
 
 export class ReimbursementStatusDAO {
 
-    public async getAllReimbursementStatuses(): Promise<ReimbursementStatus[]> {
+    public static async getAllReimbursementStatuses(): Promise<ReimbursementStatus[]> {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
         const result = await client.query('SELECT * from reimbursementstatus');

@@ -1,9 +1,9 @@
-import {ReimbursementType} from '../model/reimbursement-type';
-import {SessionFactory} from '../util/session-factory';
+import { ReimbursementType } from '../model/reimbursement-type';
+import { SessionFactory } from '../util/session-factory';
 
 export class ReimbursementTypeDAO {
 
-    public async getAllReimbursementTypes(): Promise<ReimbursementType[]> {
+    public static async getAllReimbursementTypes(): Promise<ReimbursementType[]> {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
         const result = await client.query('SELECT * from reimbursementtype');
