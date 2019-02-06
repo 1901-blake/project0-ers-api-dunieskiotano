@@ -1,7 +1,7 @@
-import { ReimbursementStatus } from '../model/reimbursement-status';
+import { ReimbursementStatus } from '../models/reimbursement-status';
 import { SessionFactory } from '../util/session-factory';
 import { UserDAO } from './userDAO';
-import { Reimbursement } from '../model/reimbursement';
+import { Reimbursement } from '../models/reimbursement';
 
 
 export class ReimbursementStatusDAO {

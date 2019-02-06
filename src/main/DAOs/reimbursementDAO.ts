@@ -1,4 +1,4 @@
-import { Reimbursement } from '../model/reimbursement';
+import { Reimbursement } from '../models/reimbursement';
 import { SessionFactory } from '../util/session-factory';
 import { Client } from 'pg';;
 
@@ -111,7 +111,6 @@ export class ReimbursementDAO {
         return reimbursement.map(rei => {
             let dateS = this.convertUnixTimeToDate(rei['datesubmitted']);
             let dateR = rei['dateresolved'];
-            console.log(dateR);
             if (dateR === 0) {
                 dateR = 0;
             }

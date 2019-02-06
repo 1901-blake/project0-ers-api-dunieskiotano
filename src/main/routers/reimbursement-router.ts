@@ -3,7 +3,7 @@ import { json } from 'body-parser';
 import session from 'express-session';
 import { resolvePtr } from 'dns';
 import { ReimbursementDAO } from '../DAOs/reimbursementDAO';
-import { authMiddleWare } from '../middleware/authentication-middleware';
+import { authMiddleWare } from '../security/authentication-middleware';
 
 
 
@@ -12,7 +12,7 @@ let reimbursements = new ReimbursementDAO();
 export const reimbursementRouter = express.Router();
 
 //GETS ALL REIMBURSEMENTS ==> ADMIN AND FINANCIAL MANAGER
-reimbursementRouter.get('', [authMiddleWare('finance-manager'), async (req, res) => {
+reimbursementRouter.get('', [authMiddleWare('admin', 'finance-manager'), async (req, res) => {
   try {
     const reimbursement = await ReimbursementDAO.getAllReimbursements()
     if (reimbursement && reimbursement.length) {
@@ -27,26 +27,32 @@ reimbursementRouter.get('', [authMiddleWare('finance-manager'), async (req, res)
 }])
 
 //FINDS REIMBURSEMENTS BY USER ID
-reimbursementRouter.get('/author/:userId', [authMiddleWare('finance-manager'), async (req, res) => {
+reimbursementRouter.get('/author/:userId', async (req, res) => {
+  const user_id = req.session.user.userid;
+  const role = req.session.user.role.role;
   const idParam = +req.params.userId;
   try {
     const reimbursements = await ReimbursementDAO.getReimbursementsByUserId(idParam)
-    if (reimbursements && reimbursements.length) {
-      res.json(reimbursements);
+    if (user_id === +idParam || role !== 'associate') {
+      if (reimbursements && reimbursements.length) {
+        res.json(reimbursements);
+      }
+      else {
+        res.sendStatus(404);
+      }
+    } else {
+      res.sendStatus(401);
+
     }
-    else {
-      res.sendStatus(404);
-    }
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
     res.sendStatus(500);
   }
-}])
+})
 
 
 //FINDS REIMBURSEMENTS BY STATUS
-reimbursementRouter.get('/status/:statusId', [authMiddleWare('finance-manager'), async (req, res) => {
+reimbursementRouter.get('/status/:statusId', [authMiddleWare('finance-manager', 'admin'), async (req, res) => {
   const idParam = +req.params.statusId;
   try {
     const reimbursement = await ReimbursementDAO.getReimbursementsByStatus(idParam);

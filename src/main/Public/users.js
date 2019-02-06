@@ -1,4 +1,5 @@
-fetch('http://localhost:3200/users', {
+//send an http get request to the url below
+fetch('http://localhost:3200/users/', {
     credentials: 'include'
 }).then(resp => resp.json())
     .then(users => {
@@ -7,58 +8,77 @@ fetch('http://localhost:3200/users', {
         tbody.innerHTML = '';
 
         //RETRIEVES USERS FROM DATABASE
-        users.forEach(element => {
+        users.forEach(user => {
             const tr = document.createElement('tr');
 
-            //ADD NAME DATA TO THE ROW
-            let nameData = document.createElement('td');
-            nameData.innerText = users.userid;
-            tr.appendChild(nameData);
+            //ADD ID DATA TO THE ROW
+            let idData = document.createElement('td');
+            idData.innerText = user.userid;
+            tr.appendChild(idData);
 
             //ADD USERNAME DATA TO THE ROW;
             let usernameData = document.createElement('td');
-            usernameData.innerText = users.username;
+            usernameData.innerText = user.username;
             tr.appendChild(usernameData);
+
+            //ADD PASSWORD DATA TO THE ROW
+            let passwordData = document.createElement('td');
+            passwordData.innerText = user.password;
+            tr.appendChild(passwordData);
 
             //ADD FIRST NAME DATA TO THE ROW
             let firstNameData = document.createElement('td');
-            firstNameData.innerText = users.firstname;
-            tr.appendChild.firstNameData;
+            firstNameData.innerText = user.firstName;
+            tr.appendChild(firstNameData);
 
             //ADD LAST NAME DATA TO THE ROW
             let lastNameData = document.createElement('td');
-            lastNameData.innerText = users.lastaname;
+            lastNameData.innerText = user.lastName;
+            tr.appendChild(lastNameData);
 
             //ADD EMAIL DATA TO THE ROW
             let email = document.createElement('td');
-            email.innerText = users.email;
+            email.innerText = user.email;
             tr.appendChild(email);
 
             //ADD ROLE DATA TO THE ROW
             let roles = document.createElement('td');
-            roles.innerText = users.role;
+            roles.innerText = user.role.role;
             tr.appendChild(roles);
 
             //ADD ROLE ID DATA TO THE ROW
             let rolesid = document.createElement('td');
-            rolesid.innerText = users.roleid;
+            rolesid.innerText = user.role.roleId;
             tr.appendChild(rolesid);
 
             //ADD A DELETE BUTTON TO THE ROW
             let updateButton = document.createElement('button');
             updateButton.innerText = 'UPDATE';
             updateButton.className = 'btn btn-primary';
-            updateButton.onclick = "updateUser()";
+            updateButton.addEventListener('click', (e) =>{
+            localStorage.setItem('user', JSON.stringify(user));
+            console.log(user);
+            window.location.href="update-user.html";
+            });
             tr.appendChild(updateButton);
-
-
             tbody.appendChild(tr);
-        });
+            
 
 
 
 
-    }).catch(console.log);
+
+    }
+    
+
+
+
+    );
+
+
+
+
+    }).catch (console.log);
 
 
 

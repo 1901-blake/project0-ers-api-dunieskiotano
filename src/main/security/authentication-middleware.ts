@@ -3,9 +3,7 @@ import session from 'express-session';
 //Middleware created to grant permissions based on roles and business rules
 export function authMiddleWare(...roles: string[]) {
     return (req, res, next) => {
-
         const user = req.session.user;
-        console.log(user);
         if (!user) {
             res.sendStatus(401).send('The incoming token has expired');
             return;
@@ -22,7 +20,7 @@ export function authMiddleWare(...roles: string[]) {
             next();
         }
         else {
-            res.sendStatus(403);
+            res.sendStatus(401);
         }
     }
 }

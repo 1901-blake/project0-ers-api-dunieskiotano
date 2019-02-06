@@ -2,12 +2,12 @@ import express from 'express';
 import { appendFile } from 'fs';
 import { UserDAO } from '../DAOs/userDAO';
 import session from 'express-session';
-import { authMiddleWare } from '../middleware/authentication-middleware';
+import { authMiddleWare } from '../security/authentication-middleware';
 export const userRouter = express.Router();
 
 //middleware to give way if all credentials are correct
 userRouter.all('', [
-    authMiddleWare,
+    authMiddleWare('admin', 'finance-manager'),
     (req, res, next) => {
         next();
     }]);
@@ -29,22 +29,29 @@ userRouter.get('', [authMiddleWare('admin', 'finance-manager'), async (req, res)
 }])
 
 //Finds users by ID -- Roles allowed: Finance Manager only!
-userRouter.get('/:id', [authMiddleWare('finance-manager'),
-async (req, res) => {
-    const idParam = +req.params.id;
-    try {
-        const users = await UserDAO.getAllUsersById(idParam);
-        if (users && users.length) {//checks for an empty array
-            res.json(users);//if there is no emptty array, then the object is sent
-        } else {
-            res.sendStatus(404);//else a message of not found will be displayed
+userRouter.get('/:id',
+    async (req, res) => {
+        const idParam = +req.params.id;
+        const user_id = req.session.user.userid;
+        const role = req.session.user.role.role;
+        try {
+            const users = await UserDAO.getAllUsersById(idParam)
+            if (user_id === +idParam || role !== 'associate') {
+                if (users) {
+                    res.json(users);//if there is no emptty array, then the object is sent
+                } else {
+                    res.sendStatus(404);//else a message of not found will be displayed
+                }
+            } else {
+                res.sendStatus(401);
+            }
         }
-    }
-    catch (err) {
-        console.log(err);
-        res.sendStatus(500);//if there is an internal server error, the appropiate message will be displayed
-    }
-}])
+
+        catch (err) {
+            console.log(err);
+            res.sendStatus(500);//if there is an internal server error, the appropiate message will be displayed
+        }
+    })
 
 
 //Updates user

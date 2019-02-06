@@ -1,8 +1,23 @@
-
+.navbar {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 0px;
+    
+}
 #navbarERS{
     color: black;
     
-    background-color:#f8f9fa
+    background-color:white;
+}
+.navbar-expand-lg{
+background-color: white;
 }
 .navbar-nav>div>li>a  {
     color: black;
@@ -21,21 +36,29 @@
 .container{
     text-align: center;
 }
-
+img{
+    padding: 10px;
+}
 #services{
     padding: 5px;
     margin-top: 10px;
-    background-color: rgb(126, 121, 121);
+    background-color: rgb(64, 88, 139);
     color: white;
 }
 button{
     padding: 10px;
 }
-
-.navbar navbar-custom {
-  
-    
+legend{
+    background-color: #6610f2;
+    color: white;
+    border: darkblue;
 }
+
+.navbar-left{
+   float:left;
+   height: auto;
+}
+
 :root {
     --blue: #007bff;
     --indigo: #6610f2;

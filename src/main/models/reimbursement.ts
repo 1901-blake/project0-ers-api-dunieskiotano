@@ -1,6 +1,6 @@
-import {User} from '../model/user';
-import{ReimbursementStatus} from '../model/reimbursement-status';
-import {ReimbursementType} from '../model/reimbursement-type';
+import {User} from '../models/user';
+import{ReimbursementStatus} from '../models/reimbursement-status';
+import {ReimbursementType} from '../models/reimbursement-type';
 export class Reimbursement {
     reimbursementid: number;
     author: User;

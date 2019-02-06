@@ -6,6 +6,7 @@ async function login(event) {
         username,
         password
     }
+    console.log(credentials);
     const res = await fetch('http://localhost:3200/auth/login', {
         method: 'POST',
         body: JSON.stringify(credentials),
@@ -16,7 +17,9 @@ async function login(event) {
     })
 
     if (res.status === 200) {
-        window.location = './users/users.html';
+        //sessionStorage.setItem('user', credentials);
+        window.location.href = 'users.html';
+        console.log("login successful")
     } else {
         console.log('failed to login');
         document.getElementById('username-input').value = '';

@@ -10,10 +10,8 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="bootstrap-social.css">
-    <link rel="stylesheet" href="../boostrap/bootstrap.less">
-    <link rel="stylesheet" href="_root.scss">
-    <link rel="stylesheet" href="../CSS/ERS-style.css">
+
+    <link rel="stylesheet" href="ERS-style.css">
 
 </head>
 <title>Expense Reimbursement System</title>
@@ -67,30 +65,28 @@
 
     <div class="jumbotron-fluid">
         <div class="container">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Reimbursement ID</th>
-                        <th scope="col">Author</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Date Submitted</th>
-                        <th scope="col">Date Resolved</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Resolver</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Type</th>
+            <fieldset>
+                <legend>REIMBURSEMENTS</legend>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Date Submitted</th>
+                            <th scope="col">Date Resolved</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Resolver</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Type</th>
+                        </tr>
 
-                    </tr>
+                    </thead>
+                    <tbody id="table-reimbursements-body">
 
-                </thead>
-                <tbody id="table-users-body">
-                    <tr>
-                        <td>
-
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+                </textfield>
         </div>
     </div>
 
@@ -107,8 +103,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
 </script>
-<link src="users.js">
-</script>
+<script src="reimbursements.js"></script>
 
 
 </html>

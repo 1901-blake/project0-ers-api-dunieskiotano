@@ -5,15 +5,10 @@ import { userRouter } from './main/routers/users-router';
 import session from 'express-session';
 import { authRouter } from './main/routers/authentication-router';
 import { reimbursementRouter } from './main/routers/reimbursement-router';
-import { SSL_OP_NO_SSLv2 } from 'constants';
-import { UserDAO } from './main/DAOs/userDAO';
-import { RoleDAO } from './main/DAOs/roleDAO';
-import { ReimbursementDAO } from './main/DAOs/reimbursementDAO';
-import { ReimbursementTypeDAO } from './main/DAOs/reimbursementtypeDAO';
-import { ReimbursementStatusDAO } from './main/DAOs/reimbursementestatusDAO';
+
 //////////////////////
 const app = express();
-app.use('/test/', express.static(__dirname + '/main/Public/'));
+app.use('/', express.static(__dirname + '/main/public/'));
 //BODY-PARSER MIDDLEWARE IS CREATED HERE TO PARSE JSON INTO JS
 app.use(bodyParse.json())
 app.use(bodyParse.urlencoded({ extended: true }));

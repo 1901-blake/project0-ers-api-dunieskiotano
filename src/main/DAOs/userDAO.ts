@@ -1,9 +1,9 @@
-import { User } from '../model/user';
+import { User } from '../models/user';
 import { SessionFactory } from '../util/session-factory';
 import { ClientBase } from 'pg';
 import { callbackify } from 'util';
 import { RoleDAO } from '../DAOs/roleDAO';
-import { Role } from '../model/role';
+import { Role } from '../models/role';
 
 
 export class UserDAO {
@@ -13,7 +13,7 @@ export class UserDAO {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
         try {
-            const result = await client.query('SELECT * FROM "user" INNER JOIN "role" USING(roleid)');
+            const result = await client.query('SELECT * FROM "user" INNER JOIN "role" USING(roleid) ORDER BY "user".userid');
             return result.rows.map(user => {
                 return {
                     userid: user["userid"],
@@ -43,18 +43,18 @@ export class UserDAO {
             const users = result.rows;
             const usersql = users[0];
             if (usersql) {
-                return {
-                    userid: usersql['userid'],
-                    username: usersql['username'],
-                    password: usersql['password'],
-                    firstName: usersql['firstname'],
-                    lastName: usersql['lastname'],
-                    email: usersql['email'],
-                    role: {
-                        role: usersql['role'],
-                        roleid: usersql['roleid']
-                    }
-                }
+                return new User(
+                    usersql['userid'],
+                    usersql['username'],
+                    usersql['password'],
+                    usersql['firstname'],
+                    usersql['lastname'],
+                    usersql['email'],
+                    new Role(
+                        usersql['roleid'],
+                        usersql['role']
+                    )
+                )
             }
 
         } finally {
@@ -63,22 +63,16 @@ export class UserDAO {
     }
 
     //UPDATES USERS BASED ON ID
-    public static async updateUser(reqBody): Promise<User> {
+    public static async updateUser(user: User): Promise<User> {
         try {
             const client = await SessionFactory.getConnectionPool().connect();
-            await client.query(
-                'UPDATE "user" ' +
-                `set username = '${reqBody.username} ', ` +
-                `"password" = '${reqBody.password} ', ` +
-                `firstname = '${reqBody.firstName} ', ` +
-                `lastname = '${reqBody.lastName} ', ` +
-                `email = '${reqBody.email} ', ` +
-                `"roleid" = ${reqBody.role} ` +
-                `WHERE userid = ${reqBody.userid};`
-            )
+            await client.query(`UPDATE "user" SET username=$1, password=$2, firstname=$3, lastname=$4, 
+                               email=$5, roleid=$6 WHERE userid=$7 RETURNING *`,
+                [user.username, user.password, user.firstName, user.lastName, user.email,
+                user.role.roleId, user.userid]);
             client.release();
         } finally {
-            return this.getAllUsersById(reqBody.userid);
+            return this.getAllUsersById(user.userid);
         }
     }
 
@@ -92,7 +86,7 @@ export class UserDAO {
                 [user.username, user.password, user.firstName, user.lastName, user.email, user.userid]);
             return result.rows[0];
         } finally {
-            client.release(); // release connection
+            client.release(); // releases connection
         }
 
     }

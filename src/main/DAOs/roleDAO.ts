@@ -1,4 +1,4 @@
-import { Role } from '../model/role';
+import { Role } from '../models/role';
 import { SessionFactory } from '../util/session-factory';
 
 

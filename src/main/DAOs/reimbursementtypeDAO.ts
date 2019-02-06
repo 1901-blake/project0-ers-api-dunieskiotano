@@ -1,4 +1,4 @@
-import { ReimbursementType } from '../model/reimbursement-type';
+import { ReimbursementType } from '../models/reimbursement-type';
 import { SessionFactory } from '../util/session-factory';
 
 export class ReimbursementTypeDAO {

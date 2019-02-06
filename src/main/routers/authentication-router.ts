@@ -25,6 +25,6 @@ authRouter.post('/login', async (req, res) => {
     if (flag) {
 
     } else {
-        res.status(401).send("Invalid Credentials!!");
+        res.status(400).send("Invalid Credentials!!");
     }
 })
