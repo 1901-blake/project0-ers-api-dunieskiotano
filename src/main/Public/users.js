@@ -1,3 +1,18 @@
+
+const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
+const sessionUserLink = document.getElementById('sessionUser');
+sessionUserLink.innerHTML = sessionUser.username;
+
+let logout = document.getElementById('logout');
+logout.addEventListener('click', (e) => {
+    if (typeof (Storage) !== undefined) {
+        sessionStorage.clear();
+
+    }
+   
+    window.location.href = "home.html";
+})
+
 //send an http get request to the url below
 fetch('http://localhost:3200/users/', {
     credentials: 'include'
@@ -55,30 +70,27 @@ fetch('http://localhost:3200/users/', {
             let updateButton = document.createElement('button');
             updateButton.innerText = 'UPDATE';
             updateButton.className = 'btn btn-primary';
-            updateButton.addEventListener('click', (e) =>{
-            localStorage.setItem('user', JSON.stringify(user));
-            console.log(user);
-            window.location.href="update-user.html";
+            updateButton.addEventListener('click', (e) => {
+                localStorage.setItem('user', JSON.stringify(user));
+                window.location.href = "update-user.html";
             });
             tr.appendChild(updateButton);
+
+            let deleteButton=document.createElement('button');
+            deleteButton.innerHTML="DELETE";
+            deleteButton.className="btn btn-danger";
+            deleteButton.addEventListener('clicl', (e) =>{
+
+            })
+            tr.appendChild(deleteButton);
             tbody.appendChild(tr);
-            
+        }
+        );
+    }).catch(console.log);
 
 
 
 
-
-    }
-    
-
-
-
-    );
-
-
-
-
-    }).catch (console.log);
 
 
 

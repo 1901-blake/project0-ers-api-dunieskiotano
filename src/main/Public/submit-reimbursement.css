@@ -1,0 +1,36 @@
+table{
+    padding: 20px;
+    text-align: center;
+    margin: auto;
+    font-weight: bold;
+    background-color: white'
+}
+table th{
+    background-color: rgb(3, 8, 51);
+    color: white;
+
+}
+tr{
+    background-color: white;
+    color: black;
+}
+
+.container{
+    padding: 20px;
+    margin-top: 10px;
+    background-color: rgb(192, 198, 216);
+    border-radius: 12px 12px 12px 12px;
+}
+#buttonSubmit{
+    padding: 10x;
+    margin: 10px;
+    width: 20%;
+    height: 20%;
+    font-family: Tahoma;
+    border-radius: 22px 22px 22px 22px;
+    font-weight: bold;
+}
+input{
+    width:100%;
+    text-align: center;
+}

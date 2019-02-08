@@ -6,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Expense Reimbursement System</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <link rel="stylesheet" href="ERS-style.css">
-    <link rel="stylesheet" href="reimbursements.css">
-
+    <link rel="stylesheet" href="submit-reimbursement.css">
 
 </head>
 <title>Expense Reimbursement System</title>
@@ -79,37 +78,40 @@
 
 
 
-    
-        <div class="container">
-            <h1>REIMBURSEMENT INFORMATION</h1>
-                <table class="table table-hover" border="1">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Author</th>
-                            <th scope="col">Author's First Name</th>
-                            <th scope="col">Author's Last Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Date Submitted</th>
-                            <th scope="col">Date Resolved</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Resolver</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Status ID</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Type ID</th>
-                            <th scope="col">ACTION</th>
-                        </tr>
 
-                    </thead>
-                    <tbody id="table-reimbursements-body">
+    <div class="container">
+        <h1>SUBMIT A REIMBURSEMENT</h1>
+        <form method="post" onsubmit="submitReimbursement(event)">
+            <table border="1" cellpadding="10">
+                <th colspan="5">Fill out the following form</th>
+                <tr>
+                    <td>Author ID</td>
+                    <td>Amount</td>
+                    <td>Description</td>
+                    <td>Type</td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="author-input" readonly /></td>
+                    <td><input type="number" min="0.00" max="10000.00" step="0.01" id="amount-input" placeholder="$"  required/></td>
+                    <td><textarea id="description-input" rows="1" cols="50">
+                        </textarea></td>
+                              
+                    <td><select id="typeSelection">
+                            <option value=''></option>
+                            <option value='Lodging'>Lodging</option>
+                            <option value='Travel'>Travel</option>
+                            <option value='Food'>Food</option>
+                            <option value='Other'>Other</option>
+                        </select></td>
+                </tr>
+            </table>
+            <div>
+                <button class="btn  btn-primary" id="buttonSubmit" type="submit">Submit</button>
+            </div>
 
-                    </tbody>
-                </table>
-                
-        </div>
-    
+        </form>
+    </div>
+
 
 
 </body>
@@ -117,14 +119,16 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
     crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
+<script src="submit-reimbursement.js">
 </script>
-<script src="reimbursements.js"></script>
-
 
 </html>

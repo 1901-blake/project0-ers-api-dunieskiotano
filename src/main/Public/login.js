@@ -8,17 +8,22 @@ async function login(event) {
     }
     console.log(credentials);
     const res = await fetch('http://localhost:3200/auth/login', {
+        
         method: 'POST',
         body: JSON.stringify(credentials),
         headers: {
             'Content-Type': 'application/json'
         },
         credentials: 'include'
+        
     })
+    console.log(res);
 
     if (res.status === 200) {
-        //sessionStorage.setItem('user', credentials);
-        window.location.href = 'users.html';
+        if (typeof(Storage) !== "undefined") {
+        sessionStorage.setItem('credentials', JSON.stringify(credentials));
+        }
+        window.location.href = 'user-landing-page.html';
         console.log("login successful")
     } else {
         console.log('failed to login');

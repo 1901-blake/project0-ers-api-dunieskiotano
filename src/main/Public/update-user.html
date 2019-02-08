@@ -10,8 +10,9 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
         crossorigin="anonymous">
-  
+
     <link rel="stylesheet" href="ERS-style.css">
+    <link rel="stylesheet" href="update-user.css">
 
 </head>
 <title>Expense Reimbursement System</title>
@@ -21,58 +22,106 @@
 
         <nav class="navbar navbar-expand-lg navbar-light .bg-light" id="navbarERS">
                 <!-- <a class="navbar-brand" href="#">ERS</a>-->
-                 <a href="#" class="navbar-left"><img src="../assets/ers.png" alt width="82" height="62"></a>
-                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                     <span class="navbar-toggler-icon"></span>
-                 </button>
-         
-                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                     <ul class="navbar-nav mr-auto">
-                         <li class="nav-item active">
-                             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                         </li>
-                         <li class="nav-item">
-                             <a class="nav-link" href="#">About</a>
-                         </li>
-                         <li class="nav-item">
-                             <a class="nav-link" href="login.html" tabindex="-1">Your Account</a>
-                         </li>
-                         <li class="nav-item dropdown">
-                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                                 aria-haspopup="true" aria-expanded="false">
-                                 Contact Us
-                             </a>
-                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                 <a class="dropdown-item" href="#">Reach us</a>
-                                 <div class="dropdown-divider"></div>
-                                 <a class="dropdown-item" href="mailto:dunieskior@gmail.com">Email</a>
-                                 <a class="dropdown-item" href="#">Phone</a>
-         
-                             </div>
-                             <li class="nav-item active" >
-                                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                                 </li>
-                         </li>
-         
-                     </ul>
-                     
-                     <form class="form-inline my-2 my-lg-0">
-                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                         <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-                     </form>
-                 </div>
-             </nav>
-
+                <a href="#" class="navbar-left"><img src="../assets/ers.png" alt width="82" height="62"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+        
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="home.html">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html" tabindex="-1">Your Account</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Contact Us
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Reach us</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="mailto:dunieskior@gmail.com">Email</a>
+                                <a class="dropdown-item" href="#">Phone</a>
+        
+                            </div>
+                        </li>
+                        <img src="../assets/man-user.png" alt width="20" height="18"></a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" id="sessionUser" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+        
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Reach us</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" id='logout' href="#">Log out</a>
+        
+                            </div>
+                        </li>
+        
+                    </ul>
+        
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
 
 
     <div class="jumbotron-fluid">
         <div class="container">
-            <input type="text" id="idInput"></input>
+            <div class="col-sm-6">
+                <form>
+                    <div class="block">
+                        <label for="id-input">User ID</label>
+                        <input type="text" id="id-input" class="form-control" readonly></input>
+                    </div>
+                    <label for="username-input">Username</label>
+                    <input type="text" id="username-input" class="form-control"></input>
+
+                    <label for="password-input">Password</label>
+                    <input type="text" id="password-input" class="form-control"></input>
+
+                    <label for="firstname-input">First Name</label>
+                    <input type="text" id="firstname-input" class="form-control"></input>
+
+
+                    <label for="lastname-input">Last Name</label>
+                    <input type="text" id="lastname-input" class="form-control"></input>
+
+                    <label for="email-input">Email</label>
+                    <input type="text" id="email-input" class="form-control"></input>
+
+                    <label for="role-input">Role</label>
+                    <input type="text" id="role-input" class="form-control"></input>
+
+                    <label for="roleid-input">Role ID</label>
+                    <input type="text" id="roleid-input" class="form-control"></input>
+                    <div id="buttonSubmit">
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="container">
+            <div class="col-sm-6">
+                <p id="result">dfgdfg</p>
+
+            </div>
         </div>
     </div>
 
-    
+
 </body>
 
 

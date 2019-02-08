@@ -8,12 +8,9 @@
     <title>Expense Reimbursement System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="bootstrap-social.css">
-    <link rel="stylesheet" href="../boostrap/bootstrap.less">
-    <link rel="stylesheet" href="_root.scss">
-    <link rel="stylesheet" href="../CSS/ERS-style.css">
+   
+    <link rel="stylesheet" href="ERS-style.css">
+    <link rel="stylesheet" href="reimbursementbystatus.css">
 
 </head>
 <title>Expense Reimbursement System</title>
@@ -21,8 +18,9 @@
 
 <body>
 
-    <nav class="navbar navbar-custom" id="navbarERS">
-        <a class="navbar-brand" href="#">ERS</a>
+    <nav class="navbar navbar-expand-lg navbar-light .bg-light" id="navbarERS">
+        <!-- <a class="navbar-brand" href="#">ERS</a>-->
+        <a href="#" class="navbar-left"><img src="../assets/ers.png" alt width="82" height="62"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -31,13 +29,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="home.html">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="www.login.html" tabindex="-1">Your Account</a>
+                    <a class="nav-link" href="login.html" tabindex="-1">Your Account</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -52,11 +50,23 @@
 
                     </div>
                 </li>
+                <img src="../assets/man-user.png" alt width="20" height="18"></a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" id="sessionUser" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Reach us</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" id='logout' href="#">Log out</a>
+
+                    </div>
+                </li>
 
             </ul>
-            <a class="btn btn-social-icon btn-twitter">
-                <span class="fa fa-twitter"></span>
-            </a>
+
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
@@ -65,12 +75,19 @@
     </nav>
 
 
-    <div class="jumbotron-fluid">
+
+
+
+
+    
         <div class="container">
+            <div>
+                <h1>REIMBURSEMENT BY STATUS</h1>
+            </div>
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Reimbursement ID</th>
+                        <th scope="col">ID</th>
                         <th scope="col">Author</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Date Submitted</th>
@@ -79,20 +96,17 @@
                         <th scope="col">Resolver</th>
                         <th scope="col">Status</th>
                         <th scope="col">Type</th>
+                        <th scope="col">ACTION</th>
 
                     </tr>
 
                 </thead>
-                <tbody id="table-users-body">
-                    <tr>
-                        <td>
-
-                        </td>
-                    </tr>
+                <tbody id="table-reimbursementsbystatus-body">
+                    
                 </tbody>
             </table>
         </div>
-    </div>
+    
 
 
 </body>
@@ -107,7 +121,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
 </script>
-<link src="reimbursementbystatus.js">
+<script src="reimbursementbystatus.js">
 </script>
 
 

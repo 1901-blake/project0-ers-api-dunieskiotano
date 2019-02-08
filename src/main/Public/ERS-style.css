@@ -22,12 +22,7 @@ background-color: white;
 .navbar-nav>div>li>a  {
     color: black;
 }
-.jumbotron-fluid{
-    text-align: center;
-    background-color: #e4edf5;
-    color: rgb(59, 27, 27);
-    padding: 20px;
-}
+
 .welcomeblock{
     background-color: #f8f9fa;
     font-family: Helvetica;
@@ -35,6 +30,7 @@ background-color: white;
 
 .container{
     text-align: center;
+    
 }
 img{
     padding: 10px;
@@ -89,3 +85,6 @@ legend{
     --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
+  a{
+    font-weight: bold;
+}

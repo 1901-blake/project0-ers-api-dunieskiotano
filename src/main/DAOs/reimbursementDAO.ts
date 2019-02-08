@@ -127,7 +127,7 @@ export class ReimbursementDAO {
                 dateSubmitted: dateS,
                 dateResolved: dateR,
                 description: rei['description'],
-                resolver: 'Luis Acosta',
+                resolver: rei['resolver'],
                 status: rei['status'],
                 statuid: rei['statusid'],
                 type: rei['type'],
