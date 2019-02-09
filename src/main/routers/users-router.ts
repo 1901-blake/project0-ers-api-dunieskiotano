@@ -56,6 +56,7 @@ userRouter.get('/:id',
 
 //Updates user
 userRouter.patch('/', [authMiddleWare('admin'), async (req, res) => {
+    console.log('i just entered user patch function');
     try {
         let user = await UserDAO.updateUser(req.body);//the request body is passed to the method updateUser in the UserDAO class
         res.status(201).send(user);//if everything is ok, object user is sent and messaje Ok is displayed

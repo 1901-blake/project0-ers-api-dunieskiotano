@@ -1,11 +1,11 @@
 
 let h1 = document.createElement('h1');
 const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
-h1.innerHTML = `Welcome Back, ${sessionUser.username}!!`;
+h1.innerHTML = `Welcome Back, ${sessionUser.firstName} ${sessionUser.lastName}!!`;
 document.getElementById('welcome').appendChild(h1);
 const sessionUserLink = document.getElementById('sessionUser');
 console.log(sessionUserLink);
-sessionUserLink.innerHTML = sessionUser.username;
+sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}`;
 
 //this section logs out the user at will
 let logout = document.getElementById('logout');
@@ -31,7 +31,7 @@ retrieveUsers.addEventListener('click', (e) => {
 let createUser = document.getElementById('action2');
 let buttonCreateUser = document.createElement('button');
 buttonCreateUser.className = "btn btn-primary";
-buttonCreateUser.innerHTML = "Create New User";
+buttonCreateUser.innerHTML = " + Create New User";
 createUser.appendChild(buttonCreateUser);
 buttonCreateUser.addEventListener('click', (e) => {
 
@@ -78,7 +78,7 @@ buttonRetrieveReimbursements.addEventListener('click', (e) => {
 let submitReimbursement = document.getElementById('action6');
 let buttonSubmitReimbursement = document.createElement('button');
 buttonSubmitReimbursement.className = "btn btn-primary";
-buttonSubmitReimbursement.innerHTML = "Submit a Reimbursement Request";
+buttonSubmitReimbursement.innerHTML = " + Submit a Reimbursement Request";
 submitReimbursement.appendChild(buttonSubmitReimbursement);
 buttonSubmitReimbursement.addEventListener('click', (e) => {
     

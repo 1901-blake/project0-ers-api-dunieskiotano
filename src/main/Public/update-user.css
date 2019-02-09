@@ -58,18 +58,53 @@ input[type=text]{
     text-indent:5px;
     background-color:rgb(255, 255, 255);
     border-radius:2px;
-    border:none;
+    border: 1px solid black;
     font-size:15px;
     color:black;
     font-family:'Open Sans', sans-serif;
     font-weight:200;
 }
-.jumbotron{
-padding: 2rem 1rem;
-margin-bottom: 2rem;
-background-color: rgb(245, 229, 229);
-border-radius: .3rem;
+
+
+#alert{
+    text-align: center;
+    margin-left: 180px;
+    margin-top: 30px;
+    display: none;
 }
-body{
-    background-color: rgb(241, 233, 233);
+.container{
+    margin-top: 90px;
+    margin-left: 115px;
+    text-align: center;
+    
+
+}
+th{
+    text-align: center;
+}
+#buttonSubmit{
+margin-left: 10px;
+width: 200px;
+height: 50px;
+
+}
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: white;
+    margin-left: 120px;
+}
+#th1{
+    background-color: rgb(53, 15, 15);
+    color: white;
+    height: 50%;
+}
+.buttonBack{
+margin-left: 40px ;
+width: 10%;
+font-weight: bold;
+border: 1px solid back;
+}
+.buttonBack:hover{
+    background-color: beige;
 }

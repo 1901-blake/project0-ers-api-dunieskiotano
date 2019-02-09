@@ -2,6 +2,10 @@ const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
 const sessionUserLink = document.getElementById('sessionUser');
 sessionUserLink.innerHTML = sessionUser.username;
 
+let buttonBack = document.getElementById('buttonGoBack');
+buttonBack.addEventListener('click', (e) => {
+    window.history.back();
+})
 
 const status = JSON.parse(localStorage.getItem('reimbursermentstatus'));
 console.log(status);

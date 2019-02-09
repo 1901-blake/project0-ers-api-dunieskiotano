@@ -6,6 +6,10 @@ const id=JSON.parse(localStorage.getItem('id'));
 
 console.log(id);
 
+let buttonBack=document.getElementById('buttonGoBack');
+buttonBack.addEventListener('click', (e) =>{
+    window.history.back();
+})
 
 fetch(`http://localhost:3200/users/${id}/`, {
     credentials: 'include'

@@ -3,6 +3,10 @@ const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
 const sessionUserLink = document.getElementById('sessionUser');
 sessionUserLink.innerHTML = sessionUser.username;
 
+let buttonBack=document.getElementById('buttonGoBack');
+buttonBack.addEventListener('click', (e) =>{
+    window.history.back();
+})
 let logout = document.getElementById('logout');
 logout.addEventListener('click', (e) => {
     if (typeof (Storage) !== undefined) {
@@ -79,7 +83,7 @@ fetch('http://localhost:3200/users/', {
             let deleteButton=document.createElement('button');
             deleteButton.innerHTML="DELETE";
             deleteButton.className="btn btn-danger";
-            deleteButton.addEventListener('clicl', (e) =>{
+            deleteButton.addEventListener('click', (e) =>{
 
             })
             tr.appendChild(deleteButton);

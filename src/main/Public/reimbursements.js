@@ -3,6 +3,12 @@ const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
 const sessionUserLink = document.getElementById('sessionUser');
 sessionUserLink.innerHTML = sessionUser.username;
 
+let buttonBack = document.getElementById('buttonGoBack');
+buttonBack.addEventListener('click', (e) => {
+    window.history.back();
+})
+
+
 //send an http get request to the url below
 fetch('http://localhost:3200/reimbursements/', {
     credentials: 'include'
@@ -88,7 +94,7 @@ fetch('http://localhost:3200/reimbursements/', {
             updateButton.innerText = 'UPDATE';
             updateButton.className = 'btn btn-primary';
             updateButton.addEventListener('click', (e) => {
-                window.location.href = "update-user.html";
+                window.location.href = "update-reimbursement.html";
             });
             tr.appendChild(updateButton);
             tbody.appendChild(tr);

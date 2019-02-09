@@ -76,6 +76,7 @@ export class ReimbursementDAO {
 
     //UDATE REIMBURSEMENTS --- TESTED => WORKING JUST FINE!!!!
     public static async updateReimbursement(reqBody): Promise<Reimbursement[]> {
+        console.log("entering update function");
         const client = await SessionFactory.getConnectionPool().connect();
         let dateSubmitted = this.convertDateToUnixTime(reqBody.dateSubmitted);
         let dateResolved;

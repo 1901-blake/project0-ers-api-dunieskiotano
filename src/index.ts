@@ -16,31 +16,41 @@ app.use(bodyParse.urlencoded({ extended: true }));
 
 //CREATES LOGIN MIDDLEWARE HERE
 app.use((req, res, next) => {
-    console.log(`request was made with url: ${req.path}
+  console.log(`request was made with url: ${req.path}
     and method: ${req.method}`);
-    
-    next(); // will pass the request on to search for the next piece of middleware
+
+  next(); // will pass the request on to search for the next piece of middleware
 });
 
 // SET UP EXPRESS TO ATTACH SESSIONS
 const sess = {
-    secret: 'created',
-    cookie: { secure: false },
-    resave: false,
-    saveUninitialized: false
+  secret: 'created',
+  cookie: { secure: false },
+  resave: false,
+  saveUninitialized: false
 }
 
 app.use(session(sess));
 
-///ALLOW CROSS ORIGINS
 app.use((req, resp, next) => {
+  (process.env.MOVIE_API_STAGE === 'prod')
+    ? resp.header('Access-Control-Allow-Origin', process.env.DEMO_APP_URL)
+    : resp.header('Access-Control-Allow-Origin', 'http://localhost:5500');
+  resp.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  resp.header('Access-Control-Allow-Credentials', 'true');
+  resp.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+  next();
+});
+
+///ALLOW CROSS ORIGINS
+/*app.use((req, resp, next) => {
  (process.env.MOVIE_API_STAGE === 'prod')
    ? resp.header('Access-Control-Allow-Origin', process.env.DEMO_APP_URL)
    : resp.header('Access-Control-Allow-Origin', 'http://localhost:5500',);
  resp.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
  resp.header('Access-Control-Allow-Credentials', 'true');
  next();
-});
+});*/
 
 //AUTH MIDDLEWARE
 app.use('/auth', authRouter);

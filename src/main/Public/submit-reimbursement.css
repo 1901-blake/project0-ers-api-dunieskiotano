@@ -1,10 +1,19 @@
 table{
     padding: 20px;
     text-align: center;
-    margin: auto;
+    margin: 40px auto;
     font-weight: bold;
-    background-color: white'
+    background-color: white;
+    box-shadow: 0 2px 2px #eee;
+    
+    
 }
+.buttonBack{
+    margin-left: 40px ;
+    width: 10%;
+    font-weight: bold;
+    border: 1px solid back;
+    }
 table th{
     background-color: rgb(3, 8, 51);
     color: white;
@@ -34,3 +43,15 @@ input{
     width:100%;
     text-align: center;
 }
+body{
+    background-color:white;
+}
+.buttonBack{
+    margin-left: 40px ;
+    width: 10%;
+    font-weight: bold;
+    border: 1px solid back;
+    }
+    .buttonBack:hover{
+        background-color: beige;
+    }

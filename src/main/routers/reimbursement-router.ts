@@ -84,6 +84,7 @@ reimbursementRouter.post('', async (req, res) => {
 
 //UPDATES REIMBURSEMENTS BY FINANCIAL MANAGER --- TESTED =>=> WORKING JUST FINE
 reimbursementRouter.patch('/', [authMiddleWare('finance-manager'), async (req, res) => {
+  console.log('I am just entered patch function');
   try {
     let reimbursement = await ReimbursementDAO.updateReimbursement(req.body);
     res.status(201).send(reimbursement);

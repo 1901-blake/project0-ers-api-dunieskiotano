@@ -17,11 +17,12 @@ async function login(event) {
         credentials: 'include'
         
     })
-    console.log(res);
+    let temp = await res.json();
+    console.log(temp);
 
     if (res.status === 200) {
         if (typeof(Storage) !== "undefined") {
-        sessionStorage.setItem('credentials', JSON.stringify(credentials));
+        sessionStorage.setItem('credentials', JSON.stringify(temp));
         }
         window.location.href = 'user-landing-page.html';
         console.log("login successful")
@@ -32,4 +33,3 @@ async function login(event) {
 
     }
 }
-

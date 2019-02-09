@@ -2,10 +2,13 @@ import session from 'express-session';
 
 //Middleware created to grant permissions based on roles and business rules
 export function authMiddleWare(...roles: string[]) {
+    console.log('enter auth middleware');
     return (req, res, next) => {
         const user = req.session.user;
+        console.log('I am ', user);
         if (!user) {
-            res.sendStatus(401).send('The incoming token has expired');
+            res.sendStatus(401);
+            //res.send('The incoming token has expired');
             return;
         }
         const isPermitted = roles.some(role => {
