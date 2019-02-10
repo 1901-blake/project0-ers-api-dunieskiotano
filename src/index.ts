@@ -9,8 +9,9 @@ import { reimbursementRouter } from './main/routers/reimbursement-router';
 //////////////////////
 const app = express();
 app.use('/', express.static(__dirname + '/main/public/'));
+app.use('/src/main/assets/',express.static(__dirname + '/main/assets/'));
 //BODY-PARSER MIDDLEWARE IS CREATED HERE TO PARSE JSON INTO JS
-app.use(bodyParse.json())
+app.use(bodyParse.json());
 app.use(bodyParse.urlencoded({ extended: true }));
 
 

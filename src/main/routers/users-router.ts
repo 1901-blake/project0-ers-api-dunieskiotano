@@ -4,13 +4,15 @@ import { UserDAO } from '../DAOs/userDAO';
 import session from 'express-session';
 import { authMiddleWare } from '../security/authentication-middleware';
 export const userRouter = express.Router();
+import { User } from '../models/user'
+import { Role } from '../models/role'
 
 //middleware to give way if all credentials are correct
-userRouter.all('', [
-    authMiddleWare('admin', 'finance-manager'),
-    (req, res, next) => {
-        next();
-    }]);
+// userRouter.all('', [
+//     authMiddleWare('admin', 'finance-manager'),
+//     (req, res, next) => {
+//         next();
+//     }]);
 
 //Finds all users -- Roles allowed: Admin & Finance Manager
 userRouter.get('', [authMiddleWare('admin', 'finance-manager'), async (req, res) => {
@@ -56,10 +58,30 @@ userRouter.get('/:id',
 
 //Updates user
 userRouter.patch('/', [authMiddleWare('admin'), async (req, res) => {
-    console.log('i just entered user patch function');
+  
     try {
-        let user = await UserDAO.updateUser(req.body);//the request body is passed to the method updateUser in the UserDAO class
-        res.status(201).send(user);//if everything is ok, object user is sent and messaje Ok is displayed
+        console.log(req.body);
+        let u = new User(
+            req.body.userid,
+            req.body.username,
+            req.body.password,
+            req.body.firstname,
+            req.body.lastname,
+            req.body.email,
+            new Role(
+                req.body.roleid,
+                req.body.role
+            )
+        );
+        let user = await UserDAO.updateUser(u);//the request body is passed to the method updateUser in the UserDAO class
+        if (user) {
+            console.log(200);
+            res.status(201).send(user);//if everything is ok, object user is sent and messaje Ok is displayed
+        }
+        else {
+            console.log(201)
+            res.status(201).send("Not Updated");
+        }
     }
     catch (err) {
         console.log(err);
@@ -70,9 +92,19 @@ userRouter.patch('/', [authMiddleWare('admin'), async (req, res) => {
 
 //Creates user --- Roles allowed: Admin && Finance Manager
 userRouter.post('', [authMiddleWare('admin', 'finance-manager'), async (req, res) => {
-    let reqBody = req.body;
+    
     try {
-        let createdUser = await UserDAO.createUsers(reqBody);//request body is passed to method createUsers from UserDAO class
+        let u = new User(
+            req.body.userid,
+            req.body.username,
+            req.body.password,
+            req.body.firstName,
+            req.body.lastName,
+            req.body.email,
+            req.body.role
+        )
+console.log('I am printing here', u);
+        let createdUser = await UserDAO.createUsers(u);//request body is passed to method createUsers from UserDAO class
         if (createdUser) {//checks if the user is created successfully
             res.status(201).json(createdUser);//if ok, message Created will be displayed.
         }

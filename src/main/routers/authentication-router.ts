@@ -13,6 +13,7 @@ authRouter.post('/login', async (req, res) => {
         if (user.username === req.body.username) {
             if (user.password === req.body.password) {
                 req.session.user = user;
+                
                 flag = true;
                 res.json(user);
                 //res.status(200).json(`Welcome, ${user.firstName} ${user.lastName}. Your're logged in as '${user.role.role}'`);

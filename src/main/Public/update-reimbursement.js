@@ -5,25 +5,29 @@ console.log(sessionUser);
 const sessionUserLink = document.getElementById('sessionUser');
 
 //Assigns name & last name to sessionUserLink
-sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}`
-
-
+sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}!!`
 
 //Assigns current values to textboxes
-//const reimbursement = JSON.parse(localStorage.getItem('reimbursement'));
-
-//Assigns values to fields that needs no input
-document.getElementById('author-input').value = sessionUser.userid;
-document.getElementById('firstname-input').value = sessionUser.firstName;
-document.getElementById('lastname-input').value = sessionUser.lastName;
-
-//Stores values of fields that need input
-let email=document.getElementById('email-input').value;
-let amount=document.getElementById('amount-input').value;
-let description=document.getElementById('description-input').value;
-
-
+const reimbursement = JSON.parse(localStorage.getItem('reimbursement'));
+console.log(reimbursement);
+document.getElementById('id-input').value = JSON.stringify(reimbursement.reimbursementid);
+document.getElementById('author-input').value = reimbursement.author;
+document.getElementById('firstname-input').value = reimbursement["first name"];
+document.getElementById('lastname-input').value = reimbursement["last name"];
+document.getElementById('email-input').value = reimbursement["email"];
+document.getElementById('amount-input').value = reimbursement.amount;
+document.getElementById('datesubmitted-input').value = reimbursement.dateSubmitted;
+document.getElementById('dateresolved-input').value = " ";
+document.getElementById('description-input').value = reimbursement.description;
+document.getElementById('resolver-input').value = reimbursement.resolver;
+document.getElementById('status-input').value = reimbursement.status;
+document.getElementById('statusid-input').value = reimbursement.statusid;
+document.getElementById('type-input').value = reimbursement.type;
+document.getElementById('typeid-input').value = reimbursement.typeid;
+console.log(reimbursement.status, reimbursement.type)
+//Finds button with id buttonBack
 let buttonBack = document.getElementById('buttonGoBack');
+
 //Adds event listeniner to buttonBack button
 buttonBack.addEventListener('click', (e) => {
     window.history.back();//pages go back to previous page based on history
@@ -44,7 +48,7 @@ logout.addEventListener('click', (e) => {
 })
 
 //executes update action
-function submitReimbursement(event) {
+function updateReimbursement(event) {
 
     //prevent input from rendering html (prevents html injection)
     event.preventDefault();
@@ -57,12 +61,14 @@ function submitReimbursement(event) {
         case 'Pending':
             statusid = 1;
             break;
-        case 'Aproved':
+        case 'Approved':
             statusid = 2;
             break;
-        default:
+        case 'Denied':
             statusid = 3;
-
+            break;
+        default:
+            console.log('Invalid status');
     }
     let typeSelect = document.getElementById('type-input');
     let type = typeSelect.options[typeSelect.selectedIndex].value;
@@ -82,23 +88,33 @@ function submitReimbursement(event) {
     }
     console.log(status, type);
     //Creates object userUpdated to be sent to DB
-    let reimbursementSubmitted = {
-        author: inputs[1].value,
-        amount: inputs[4].value,
-        datesubmitted: Math.floor(Date.now()/1000),
-        dateresolved: null,
-        description: inputs[5].value,
-        resolver: 2,
+    let reimbursementUpdated = {
+        reimbursementid: inputs[1].value,
+        author: inputs[2].value,
+        amount: inputs[6].value,
+        datesubmitted: inputs[7].value,
+        dateresolved: inputs[8].value,
+        description: inputs[9].value,
+        resolver: inputs[10].value,
         status: statusid,
         type: typeid
     }
 
-    console.log(reimbursementSubmitted);
+    console.log(inputs[1].value,
+        inputs[2].value,
+        inputs[6].value,
+        inputs[7].value,
+        inputs[8].value,
+        inputs[9].value,
+        inputs[10].value,
+        statusid,
+        typeid)
+
     //fetches the url and performs update
     fetch('http://localhost:3200/reimbursements/', {
 
-        method: 'POST',
-        body: JSON.stringify(reimbursementSubmitted),
+        method: 'PATCH',
+        body: JSON.stringify(reimbursementUpdated),
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

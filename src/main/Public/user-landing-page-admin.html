@@ -12,7 +12,7 @@
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <link rel="stylesheet" href="ERS-style.css">
-    <link rel="stylesheet" href="submit-reimbursement.css">
+    <link rel="stylesheet" href="user-landing-page-admin.css">
 
 </head>
 <title>Expense Reimbursement System</title>
@@ -78,67 +78,65 @@
 
 
 
-    <div id="buttonGoBack" class="buttonBack">
-        <img src="../assets/goback.PNG" alt width="72">Go Back</img></div>
-    <div class="container">
-
-        <div class="col-sm-6">
-            <div class="alert alert-success" id="alert">
-                <strong></strong>
+    <div class="jumbotron-fluid">
+        <div class="container">
+            <div id="welcome">
             </div>
-            <div id="reimbursementHeading">
-                <hi>REIMBURSEMENT SUBMISSION</hi>
-            </div>
-            <form method="POST" onsubmit="submitReimbursement(event)">
-                <table cellpadding="5" border="1">
-                    <tr>
-                        <th id="th1" colspan="4">FILL OUT THIS FORM</th>
-                    </tr>
-                    <tr>
-                        <td><label for="author-input">Author</label>
-                            <input type="text" id="author-input" class="form-control" readonly></input>
-                        </td>
 
-                        <td><label for="firstname-input">Author's First Name</label>
-                            <input type="text" id="firstname-input" class="form-control" readonly></input>
-                        </td>
-                        <td><label for="lastname-input">Author's Last Name</label>
-                            <input type="text" id="lastname-input" class="form-control" readonly=""></input>
-                        </td>
-                        <td>
-                            <label for="amount-input">Amount</label>
-                            <input type="number" id="amount-input" class="form-control" min="0" step=".01"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="description-input">Description</label>
-                            <input type="text" id="description-input" class="form-control"></input>
-                        </td>
-                        <td>
-                            <label for="status-input">Status</label>
-                            <select id="status-input" class="form-control">
-                                <option value="Pending">Pending</option>
-                                <option value="Approved">Approved</option>
-                                <option value="Denied">Denied</option>
-                            </select>
-                        </td>
-                        <td>
-                            <label for="type-input">Type</label>
-                            <select id="type-input" class="form-control">
-                                <option value="Lodging">Lodging</option>
-                                <option value="Travel">Travel</option>
-                                <option value="Food">Food</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </td>
-                        <td><button class="btn btn-primary" id="buttonSubmit" type="submit">Submit</button></td>
-                    </tr>
-                </table>
-            </form>
+
+
         </div>
     </div>
+    <div id="surroundingBox">
+        <div class="row">
+            <hr class="my-4">
+            <div class=col-sm-6>
+                <table border="1" cellpadding="15">
+                    <tr>
+                        <th></th>
 
+                        <th> USER DATA MANINULATION </th>
+
+                    </tr>
+                    <tr>
+                        <th rowspan="4">Actions</th>
+                        <th id="action1"></th>
+                    <tr>
+                        <td id="action2"></td>
+                    </tr>
+                    <tr>
+                        <td id="action3"></td>
+                    </tr>
+                    
+                    </tr>
+
+                </table>
+            </div>
+            <div class=col-sm-6>
+                <table border="1" cellpadding="15" id="tableReimbursement">
+                    <tr>
+                        <th></th>
+
+                        <th> REIMBURSEMENT DATA MANINULATION </th>
+
+                    </tr>
+                    <tr>
+                        <th rowspan="4">Actions</th>
+                        <th id="action5"></th>
+                    <tr>
+                        <td id="action6"></td>
+                    </tr>
+                    <tr>
+                        <td id="action7"></td>
+                    </tr>
+                    <tr>
+                        <td id="action8"></td>
+                    </tr>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
 
 
 </body>
@@ -155,7 +153,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
     integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
-<script src="submit-reimbursement.js">
+<script src="user-landing-page-admin.js">
 </script>
 
 </html>

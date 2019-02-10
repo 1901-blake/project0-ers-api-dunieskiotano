@@ -1,13 +1,20 @@
-
 const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
 const sessionUserLink = document.getElementById('sessionUser');
-sessionUserLink.innerHTML = sessionUser.username;
+sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}`;
 
-let buttonBack = document.getElementById('buttonGoBack');
-buttonBack.addEventListener('click', (e) => {
+let buttonBack=document.getElementById('buttonGoBack');
+buttonBack.addEventListener('click', (e) =>{
     window.history.back();
 })
+let logout = document.getElementById('logout');
+logout.addEventListener('click', (e) => {
+    if (typeof (Storage) !== undefined) {
+        sessionStorage.clear();
 
+    }
+   
+    window.location.href = "home.html";
+})
 
 //send an http get request to the url below
 fetch('http://localhost:3200/reimbursements/', {
@@ -59,7 +66,11 @@ fetch('http://localhost:3200/reimbursements/', {
             
             //Adds reimbursement dateresolved to the row
              let reimbursementDateResolvedData = document.createElement('td');
-             reimbursementDateResolvedData.innerText = reimbursement.dateResolved;
+             if(reimbursement.dateResolved === undefined){
+                reimbursementDateResolvedData.innerText = '';
+             }else{
+                reimbursementDateResolvedData.innerText = reimbursement.dateResolved;
+             }
              tr.appendChild(reimbursementDateResolvedData);
 
               //Adds reimbursement description to the row
@@ -87,14 +98,16 @@ fetch('http://localhost:3200/reimbursements/', {
               let reimbursementTypeIdData = document.createElement('td');
               reimbursementTypeIdData.innerText = reimbursement.typeid;
               tr.appendChild(reimbursementTypeIdData);
-             
+             console.log(reimbursement);
 
             //ADD A DELETE BUTTON TO THE ROW
             let updateButton = document.createElement('button');
             updateButton.innerText = 'UPDATE';
             updateButton.className = 'btn btn-primary';
             updateButton.addEventListener('click', (e) => {
-                window.location.href = "update-reimbursement.html";
+            localStorage.setItem('reimbursement', JSON.stringify(reimbursement));
+            console.log(reimbursement);
+            window.location.href = "update-reimbursement.html";
             });
             tr.appendChild(updateButton);
             tbody.appendChild(tr);

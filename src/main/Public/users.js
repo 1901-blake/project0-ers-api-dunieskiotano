@@ -1,7 +1,6 @@
-
 const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
 const sessionUserLink = document.getElementById('sessionUser');
-sessionUserLink.innerHTML = sessionUser.username;
+sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}`;
 
 let buttonBack=document.getElementById('buttonGoBack');
 buttonBack.addEventListener('click', (e) =>{

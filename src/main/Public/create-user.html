@@ -12,7 +12,7 @@
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <link rel="stylesheet" href="ERS-style.css">
-    <link rel="stylesheet" href="update-reimbursement.css">
+    <link rel="stylesheet" href="create-user.css">
 
 </head>
 <title>Expense Reimbursement System</title>
@@ -77,6 +77,7 @@
     </nav>
 
 
+
     <div id="buttonGoBack" class="buttonBack">
         <img src="../assets/goback.PNG" alt width="72">Go Back</img></div>
     <div class="container">
@@ -85,112 +86,49 @@
             <div class="alert alert-success" id="alert">
                 <strong></strong>
             </div>
-
-            <form method="POST" onsubmit="updateReimbursement(event)">
+            <div id="reimbursementHeading">
+                <hi>CREATE USER</hi>
+            </div>
+            <form method="POST" onsubmit="createUser(event)">
                 <table cellpadding="5" border="1">
                     <tr>
-                        <th id="th1" colspan="4">UPDATE REIMBURSEMENT INFORMATION</th>
+                        <th id="th1" colspan="4">FILL OUT THIS FORM</th>
                     </tr>
                     <tr>
-                        <td>
-                            <div class="block">
-                                <label for="id-input">ID</label>
-                                <input type="text" id="id-input" class="form-control" readonly></input>
-                            </div>
+                        <td><label for="username1-input">Username</label>
+                            <input type="text" id="username1-input" class="form-control"></input>
                         </td>
 
-
-                        <td><label for="author-input">Author</label>
-                            <input type="text" id="author-input" class="form-control"></input>
+                        <td><label for="password1-input">Password</label>
+                            <input type="password" id="password1-input" class="form-control"></input>
                         </td>
-
-                        <td><label for="firstname-input">Author's First Name</label>
+                        <td><label for="firstname-input">First Name</label>
                             <input type="text" id="firstname-input" class="form-control"></input>
                         </td>
-                        <td><label for="lastname-input">Author's Last Name</label>
+                        <td><label for="lastname-input">Last Name</label>
                             <input type="text" id="lastname-input" class="form-control"></input>
                         </td>
-
-                    </tr>
-
-
-                    <tr>
-                        <td><label for="email-input">Email</label>
+                        <tr>
+                        <td>
+                            <label for="email-input">Email</label>
                             <input type="text" id="email-input" class="form-control"></input>
                         </td>
                         <td>
-                            <label for="amount-input">Amount</label>
-                            <input type="number" id="amount-input" class="form-control" min="0" step=".01" ></input>
-                        </td>
-                        <td>
-                            <label for="datesubmitted-input">Date Submitted</label>
-                            <input type="text" id="datesubmitted-input" class="form-control" readonly></input>
-                        </td>
-                        <td><label for="dateresolved-input">Date Resolved</label>
-                            <input type="text" id="dateresolved-input" class="form-control" readonly></input>
-                        </td>
-
-                    <tr>
-                        <th colspan="4"></th>
-
-                    <tr>
-                        <td>
-                            <label for="description-input">Description</label>
-                            <input type="text" id="description-input" class="form-control"></input>
-                        </td>
-
-
-                        <td>
-                            <label for="resolver-input">Resolver</label>
-                            <input type="text" id="resolver-input" class="form-control"></input>
-                        </td>
-
-                        <td>
-                            <label for="status-input">Status</label>
-                            <select id="status-input"  class="form-control">
-                                <option value="Pending">Pending</option>
-                                <option value="Approved">Approved</option>
-                                <option value="Denied">Denied</option>
+                            <label for="role-input">Role</label>
+                            <select id="role-input" class="form-control">
+                                <option value="admin">Admin</option>
+                                <option value="finance-manager">Finance Manager</option>
+                                <option value="associate">Associate</option>
                             </select>
                         </td>
-                        <td>
-                                <label for="statusid-input">Status ID</label>
-                                <input type="text" id="statusid-input" class="form-control" readonly></input>
-                            </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="type-input">Type</label>
-                            <select id="type-input"  class="form-control">
-                                <option value="Lodging">Lodging</option>
-                                <option value="Travel">Travel</option>
-                                <option value="Food">Food</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </td>
-                        <td>
-                                <label for="typeid-input">Type ID</label>
-                                <input type="text" id="typeid-input" class="form-control" readonly></input>
-                            </td>
-
-                        <th colspan="4">
-
-                            <button class="btn btn-primary" id="buttonSubmit" type="submit">Submit</button>
-                        </th>
+                        
+                        <td><button class="btn btn-primary" id="buttonSubmit" type="submit">Submit</button></td>
                     </tr>
                 </table>
             </form>
         </div>
-
-
-
-        <div class="container">
-            <div class="col-sm-6">
-
-
-            </div>
-        </div>
     </div>
+
 
 
 </body>
@@ -207,6 +145,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
     integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
-<script src="update-reimbursement.js"></script>
+<script src="create-user.js">
+</script>
 
 </html>

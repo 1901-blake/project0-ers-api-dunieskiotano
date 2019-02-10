@@ -90,7 +90,7 @@ height: 50px;
 }
 .table {
     width: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: 5rem;
     background-color: white;
     margin-left: 120px;
 }
@@ -111,15 +111,4 @@ border: 1px solid back;
 input, select{
     color: rgb(8, 8, 92);
     text-align: center;
-}
-#reimbursementHeading{
-    margin-left: 340px;
-    margin-top: 0.5em;
-    width: 100%;
-    border: 1px solid black;
-    box-shadow: 0 2px 2x #eee;
-    margin-bottom: 0.5em;
-    height: 50px;
-    text-align: center;
-    font-size: 2pc;
 }

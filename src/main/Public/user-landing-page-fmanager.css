@@ -1,0 +1,42 @@
+#sessionUser{
+    justify-content: flex-end;
+}
+img{
+    padding: 0;
+    margin-top:10px;
+}
+#welcome{
+   color: #ff7300;
+}
+
+table{
+    margin-left: 100px;
+    text-align:  center;
+    margin-top: 40px;
+}
+#findButton{
+    padding: 10px;
+    margin: 5px;
+}
+#findReimbursementButton{
+    padding: 10px;
+    margin: 5px;
+}
+input{
+    text-align: center;
+}
+#surroundingBox{
+    box-shadow: 0 2px 2px #ccc;
+    margin: 5px 30px 30px 120px;
+    border: 1px solid black;
+    display: inline-block;
+    padding: 10px;
+    background-color: rgb(250, 249, 249);
+    border-radius: 20px 20px 20px 20px;
+}
+#tableReimbursement{
+    margin: 20px;
+}
+.container{
+    background-color: beige;
+}

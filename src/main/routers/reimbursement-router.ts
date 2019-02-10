@@ -4,6 +4,9 @@ import session from 'express-session';
 import { resolvePtr } from 'dns';
 import { ReimbursementDAO } from '../DAOs/reimbursementDAO';
 import { authMiddleWare } from '../security/authentication-middleware';
+import { Reimbursement } from '../models/reimbursement';
+import { ReimbursementStatus } from '../models/reimbursement-status';
+import { ReimbursementType } from '../models/reimbursement-type';
 
 
 
@@ -52,7 +55,7 @@ reimbursementRouter.get('/author/:userId', async (req, res) => {
 
 
 //FINDS REIMBURSEMENTS BY STATUS
-reimbursementRouter.get('/status/:statusId', [authMiddleWare('finance-manager', 'admin'), async (req, res) => {
+reimbursementRouter.get('/status/:statusId', [authMiddleWare('admin', 'finance-manager'), async (req, res) => {
   const idParam = +req.params.statusId;
   try {
     const reimbursement = await ReimbursementDAO.getReimbursementsByStatus(idParam);
@@ -85,9 +88,13 @@ reimbursementRouter.post('', async (req, res) => {
 //UPDATES REIMBURSEMENTS BY FINANCIAL MANAGER --- TESTED =>=> WORKING JUST FINE
 reimbursementRouter.patch('/', [authMiddleWare('finance-manager'), async (req, res) => {
   console.log('I am just entered patch function');
+
   try {
+    console.log(req.body);
+    console.log('in try')
     let reimbursement = await ReimbursementDAO.updateReimbursement(req.body);
-    res.status(201).send(reimbursement);
+    
+    res.sendStatus(201).send(reimbursement);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);

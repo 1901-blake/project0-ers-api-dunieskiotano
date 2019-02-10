@@ -1,15 +1,25 @@
 const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
 const sessionUserLink = document.getElementById('sessionUser');
-sessionUserLink.innerHTML = sessionUser.username;
-
-const id=JSON.parse(localStorage.getItem('id'));
-
-console.log(id);
+sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}`;
 
 let buttonBack=document.getElementById('buttonGoBack');
 buttonBack.addEventListener('click', (e) =>{
     window.history.back();
 })
+let logout = document.getElementById('logout');
+logout.addEventListener('click', (e) => {
+    if (typeof (Storage) !== undefined) {
+        sessionStorage.clear();
+
+    }
+   
+    window.location.href = "home.html";
+})
+
+const id=JSON.parse(localStorage.getItem('id'));
+
+console.log(id);
+
 
 fetch(`http://localhost:3200/users/${id}/`, {
     credentials: 'include'

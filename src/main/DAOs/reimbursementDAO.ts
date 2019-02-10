@@ -1,6 +1,6 @@
 import { Reimbursement } from '../models/reimbursement';
 import { SessionFactory } from '../util/session-factory';
-import { Client } from 'pg';;
+
 
 
 export class ReimbursementDAO {
@@ -12,7 +12,7 @@ export class ReimbursementDAO {
         const client = await pool.connect();
         const query = ['select * from reimbursement as reimb inner join "user" as u on reimb.author=u.userid',
             'inner join reimbursementstatus as rs on reimb.status=rs.statusid',
-            'inner join reimbursementtype as rt on reimb."type"=rt.typeid;'].join(" ");
+            'inner join reimbursementtype as rt on reimb."type"=rt.typeid ORDER BY datesubmitted;'].join(" ");
         try {
             const result = await client.query(query);
             const reimbursement = this.mapData(result.rows);
@@ -43,7 +43,7 @@ export class ReimbursementDAO {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
         try {
-            const result = await client.query('SELECT * from reimbursement where author=$1', [user_id]);
+            const result = await client.query('SELECT * from reimbursement where author=$1 ORDER BY datesubmitted', [user_id]);
             const reimbursement = this.mapData(result.rows);
             //let reimbursementsql = reimbursement[0];
             return reimbursement;
@@ -77,16 +77,29 @@ export class ReimbursementDAO {
     //UDATE REIMBURSEMENTS --- TESTED => WORKING JUST FINE!!!!
     public static async updateReimbursement(reqBody): Promise<Reimbursement[]> {
         console.log("entering update function");
+        console.log("Date submitted:", reqBody.datesubmitted);
         const client = await SessionFactory.getConnectionPool().connect();
-        let dateSubmitted = this.convertDateToUnixTime(reqBody.dateSubmitted);
-        let dateResolved;
-        if (reqBody.dateresolved === 0) {
-            dateResolved = 0;
-        }
-        else {
-            dateResolved = this.convertDateToUnixTime(reqBody.dateResolved);
-        }
+        let dateSubmitted = this.convertDateToUnixTime(reqBody.datesubmitted);
+        
+        let dateResolved = 0;
 
+        console.log("Date 'resolved':", reqBody.dateresolved);
+        if (reqBody.dateresolved === ' '){
+            dateResolved = Math.floor(Date.now()/1000);
+        }else{
+            dateResolved = this.convertDateToUnixTime(reqBody.dateresolved);
+        }
+        console.log("Date resolved:", dateResolved);
+        console.log('UPDATE reimbursement ' +
+        `set author = ${reqBody.author}, ` +
+        `amount  = ${reqBody.amount}, ` +
+        `datesubmitted = ${dateSubmitted}, ` +
+        `dateresolved = ${dateResolved}, ` +
+        `description = '${reqBody.description}', ` +
+        `resolver=${reqBody.resolver}, ` +
+        `status=${reqBody.status}, ` +
+        `"type"=${reqBody.type} ` +
+        ` WHERE reimbursementid = ${reqBody.reimbursementid};`);
         try {
             await client.query(
                 'UPDATE reimbursement ' +
@@ -100,7 +113,7 @@ export class ReimbursementDAO {
                 `"type"=${reqBody.type} ` +
                 ` WHERE reimbursementid = ${reqBody.reimbursementid};`
             );
-
+            console.log('sucess?')
             return this.getReimbursementsByUserId(reqBody.reimbursementid);
         } finally {
             client.release();
@@ -130,7 +143,7 @@ export class ReimbursementDAO {
                 description: rei['description'],
                 resolver: rei['resolver'],
                 status: rei['status'],
-                statuid: rei['statusid'],
+                statusid: rei['statusid'],
                 type: rei['type'],
                 typeid: rei['typeid']
             }
@@ -139,13 +152,17 @@ export class ReimbursementDAO {
 
     }
     public static convertUnixTimeToDate(dateData: number): string {
-        let date = new Date(1970, 0, 1);
-        date.setSeconds(dateData);
-        return date.toDateString();
+        console.log(dateData);
+        if(dateData===null){
+            return undefined;
+        }
+        let date = new Date(dateData*1000).toLocaleDateString("en-US");
+        console.log(date);
+        return date;
     }
     public static convertDateToUnixTime(dateData: Date): number {
         let date = new Date(dateData);
-        let unixTimeStamp = Math.floor(date.getTime() / 1000);
+        let unixTimeStamp = Math.floor(date.getTime()/1000);
         return unixTimeStamp;
 
     }

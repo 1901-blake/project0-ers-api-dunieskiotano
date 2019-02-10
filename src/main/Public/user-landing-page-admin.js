@@ -34,7 +34,7 @@ buttonCreateUser.className = "btn btn-primary";
 buttonCreateUser.innerHTML = " + Create New User";
 createUser.appendChild(buttonCreateUser);
 buttonCreateUser.addEventListener('click', (e) => {
-
+   window.location.href="create-user.html";
 })
 
 //Creates button and textbox to find users by user id

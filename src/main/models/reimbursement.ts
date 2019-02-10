@@ -5,14 +5,14 @@ export class Reimbursement {
     reimbursementid: number;
     author: User;
     amount: number;
-    dateSubmitted: string;
-    dateResolved: string;
+    dateSubmitted: number;
+    dateResolved: number;
     description: string;
     resolver: number;
     status: ReimbursementStatus;
     type: ReimbursementType;
 
-    constructor(reimbursementid: number=0, author: User, amount: number=0, dateSubmitted: string='', dateResolved: string='',
+    constructor(reimbursementid: number=0, author: User, amount: number=0, dateSubmitted: number=0, dateResolved: number=0,
     description: string='', resolver: number=0, status: ReimbursementStatus, type: ReimbursementType){
         this.reimbursementid=reimbursementid;
         this.author=author;
