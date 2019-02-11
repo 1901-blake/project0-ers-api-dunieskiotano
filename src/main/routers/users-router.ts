@@ -58,7 +58,7 @@ userRouter.get('/:id',
 
 //Updates user
 userRouter.patch('/', [authMiddleWare('admin'), async (req, res) => {
-  
+
     try {
         console.log(req.body);
         let u = new User(
@@ -76,11 +76,11 @@ userRouter.patch('/', [authMiddleWare('admin'), async (req, res) => {
         let user = await UserDAO.updateUser(u);//the request body is passed to the method updateUser in the UserDAO class
         if (user) {
             console.log(200);
-            res.status(201).send(user);//if everything is ok, object user is sent and messaje Ok is displayed
+            res.status(200).send(user);//if everything is ok, object user is sent and messaje Ok is displayed
         }
         else {
             console.log(201)
-            res.status(201).send("Not Updated");
+            res.status(401).send("Not Updated");
         }
     }
     catch (err) {
@@ -92,7 +92,7 @@ userRouter.patch('/', [authMiddleWare('admin'), async (req, res) => {
 
 //Creates user --- Roles allowed: Admin && Finance Manager
 userRouter.post('', [authMiddleWare('admin', 'finance-manager'), async (req, res) => {
-    
+
     try {
         let u = new User(
             req.body.userid,
@@ -103,7 +103,7 @@ userRouter.post('', [authMiddleWare('admin', 'finance-manager'), async (req, res
             req.body.email,
             req.body.role
         )
-console.log('I am printing here', u);
+
         let createdUser = await UserDAO.createUsers(u);//request body is passed to method createUsers from UserDAO class
         if (createdUser) {//checks if the user is created successfully
             res.status(201).json(createdUser);//if ok, message Created will be displayed.
@@ -117,3 +117,15 @@ console.log('I am printing here', u);
 
     }
 }]);
+
+userRouter.delete('/:id', [authMiddleWare('admin'), async (req, res) => {
+    try {
+
+        let idParams = +req.params.id;
+        let userDeleted=UserDAO.deleteUser(idParams);
+        res.status(200).json(userDeleted);
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+}])

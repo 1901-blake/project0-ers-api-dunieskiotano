@@ -6,7 +6,7 @@ th{
 
 .table {
     width: 100%;
-    margin-bottom: 1rem;
+    margin-top: 3em;
     background-color: white;
     margin-left: 120px;
 }
@@ -17,6 +17,7 @@ h1{
 }
 .container{
     margin-left: 60px;
+    margin-top: 7em;
 }
 body{
     background-color:white;
@@ -31,4 +32,15 @@ body{
     .buttonBack:hover{
         background-color: beige;
     }
-    
+#alert{
+      display: none;
+      width: 37%;
+      margin: auto;
+      margin-bottom: 0px;
+      padding: 10px;
+      text-align: center;
+  }  
+
+#tableUsers{
+    margin-top:300px;
+}

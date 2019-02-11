@@ -93,14 +93,14 @@ function updateUser(event) {
         },
         credentials: 'include'
 
-    }).catch(console.log());
+    }).then(function (response) {
+        if (response.ok) {
+            window.location.href="users.html";
+        }
+    })
 
 
 
-
-    //if (res.status === 200) {
-
-    //}
 
 }
 

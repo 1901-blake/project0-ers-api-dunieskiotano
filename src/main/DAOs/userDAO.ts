@@ -65,7 +65,7 @@ export class UserDAO {
     //UPDATES USERS BASED ON ID
     public static async updateUser(user: User): Promise<User> {
         try {
-            
+
             const client = await SessionFactory.getConnectionPool().connect();
             await client.query(`UPDATE "user" SET username=$1, password=$2, firstname=$3, lastname=$4, 
                                email=$5, roleid=$6 WHERE userid=$7 RETURNING *`,
@@ -78,15 +78,13 @@ export class UserDAO {
     }
 
     //INSERT USERS IN THE TABLE "user" 
-    public static async createUsers(user:User): Promise<User> {
+    public static async createUsers(user: User): Promise<User> {
         let pool = SessionFactory.getConnectionPool();
         const client = await pool.connect();
         try {
             const result = await client.query(`INSERT INTO "user" (username, "password", firstname, lastname, email, roleid) 
         VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
                 [user.username, user.password, user.firstName, user.lastName, user.email, user.role]);
-                
-               
             return result.rows[0];
         } finally {
             client.release(); // releases connection
@@ -94,8 +92,19 @@ export class UserDAO {
 
     }
 
+    public static async deleteUser(userid: number): Promise<User> {
+        let pool = SessionFactory.getConnectionPool();
+        const client = await pool.connect();
+        try {
+            const result = await client.query(`DELETE FROM "user" WHERE userid=$1`, [userid]);
+            return result.rows[0];
 
+        } finally {
+            client.release();
+        }
+
+
+
+    }
 
 }
-
-
