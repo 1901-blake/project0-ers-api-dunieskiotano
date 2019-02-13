@@ -71,6 +71,7 @@ export class UserDAO {
                                email=$5, roleid=$6 WHERE userid=$7 RETURNING *`,
                 [user.username, user.password, user.firstName, user.lastName, user.email,
                 user.role.roleId, user.userid]);
+                
             client.release();
         } finally {
             return this.getAllUsersById(user.userid);

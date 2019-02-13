@@ -19,8 +19,8 @@ document.getElementById('lastname-input').value = sessionUser.lastName;
 
 //Stores values of fields that need input
 //let email=document.getElementById('email-input').value;
-let amount=document.getElementById('amount-input').value;
-let description=document.getElementById('description-input').value;
+let amount = document.getElementById('amount-input').value;
+let description = document.getElementById('description-input').value;
 
 
 let buttonBack = document.getElementById('buttonGoBack');
@@ -49,21 +49,7 @@ function submitReimbursement(event) {
     //prevent input from rendering html (prevents html injection)
     event.preventDefault();
     let inputs = document.getElementsByTagName('input');
-    let statusSelect = document.getElementById('status-input');
-    let status = statusSelect.options[statusSelect.selectedIndex].value;
-    let statusid;
     let typeid;
-    switch (status) {
-        case 'Pending':
-            statusid = 1;
-            break;
-        case 'Aproved':
-            statusid = 2;
-            break;
-        default:
-            statusid = 3;
-
-    }
     let typeSelect = document.getElementById('type-input');
     let type = typeSelect.options[typeSelect.selectedIndex].value;
     switch (type) {
@@ -85,11 +71,11 @@ function submitReimbursement(event) {
     let reimbursementSubmitted = {
         author: inputs[1].value,
         amount: inputs[4].value,
-        datesubmitted: Math.floor(Date.now()/1000),
+        datesubmitted: Math.floor(Date.now() / 1000),
         dateresolved: null,
         description: inputs[5].value,
         resolver: 2,
-        status: statusid,
+        status: 1,
         type: typeid
     }
 

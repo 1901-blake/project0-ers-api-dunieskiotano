@@ -1,0 +1,83 @@
+#sessionUser{
+    justify-content: flex-end;
+    color: red;
+}
+img{
+    padding: 0;
+    margin-top:10px;
+    margin-left: 10px;
+}
+
+#welcome{
+   color: black;
+   text-shadow: 0 16px 16px black;
+   font-size:3em;
+   font-weight: bold;
+   
+}
+button{
+    border-radius: 20px 20px 20px 20px;
+    border: 1px solid black;
+}
+
+t
+#surroundingBox{
+    box-shadow: 0 13px 13px black;
+    margin: 5px 10px 30px 130px;
+    border: 1px solid rgb(12, 1, 1);
+    display: inline-block;
+    padding: 20px;
+    background-color: aliceblue;
+}
+
+body{
+    background-color: rgb(212, 182, 182);
+}
+#tableAssociate{
+    margin-top: 2em;
+    margin-left: 580px;
+    background-color: white;
+    text-align: center;
+    
+}
+#tableAssociateReimbursement{
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 0 13px 13px black;
+    display: none;
+
+}
+#footerBox{
+    color: black;
+    margin-left: 540px;
+    font-family: Helvetica;
+    font-size: 16px;
+    text-shadow: 0 16px 16px black;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 60px;
+}
+nav{
+    text-shadow: 0 14px 14px black;
+}
+#profile{
+    width: 50%;
+}
+#tableAssociateProfile{
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 0 13px 13px black;
+    display: none;
+    margin: 30px;
+}
+#footerBox{
+    color: white;
+    margin-left: 550px;
+    font-family: Helvetica;
+    font-size: 16px;
+    text-shadow: 0 16px 16px black;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+}
+

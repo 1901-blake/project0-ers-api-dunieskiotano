@@ -6,13 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Expense Reimbursement System</title>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-
     <link rel="stylesheet" href="ERS-style.css">
-    <link rel="stylesheet" href="reimbursements.css">
+    <link rel="stylesheet" href="user-landing-page-associate.css">
 
 
 </head>
@@ -23,7 +21,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light .bg-light" id="navbarERS">
         <!-- <a class="navbar-brand" href="#">ERS</a>-->
-        <a href="#" class="navbar-left"><img src="../assets/ers.png" alt width="82" height="62"></a>
+        <a href="#" class="navbar-left"><img src="../assets/ers.png" alt width="95" height="62"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -32,7 +30,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="home.html">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="home.html">Home</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
@@ -53,10 +51,28 @@
 
                     </div>
                 </li>
-                <img src="../assets/man-user.png" alt width="20" height="18"></a>
+
+                <!--<img src="../assets/man-user.png" alt width="20" height="18">--></a>
+                <!-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#"
+                            role="button" id="sessionUser" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+
+                        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Reach us</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" id='logout' href="#">Log out</a>
+
+                    </div>
+                </li>-->
+
+
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" id="sessionUser" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
+                        aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-user"></span>
 
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -67,23 +83,70 @@
 
                     </div>
                 </li>
-
             </ul>
-
 
         </div>
     </nav>
 
 
 
-    <div class="buttonBack">
-        <a href="#" id="buttonGoBack">
-            BACK</a>&nbsp;&nbsp;| <a href="#" id="mainMenu">MAIN MENU
-        </a>
+    <div class="jumbotron-fluid">
+        <div class="container">
+            <div id="welcome">
+            </div>
+
+
+
+        </div>
     </div>
+    <div id="surroundingBox">
+        <div class="row">
+            <hr class="my-4">
+            <div class=col-sm-12>
+
+                <table border="1" id="tableAssociate" cellpadding="25">
+                    <tr>
+                        <th colspan="2">ASSOCIATE</th>
+                    </tr>
+
+                    <tr>
+                        <td id="profile"><a href="#" id="profileLink">PROFILE</a></td>
+                        <td id="reimbursements"><a href="#" id="reimbLink">REIMBURSEMENTS</a></td>
+                    </tr>
+                    <tr >
+                            <th colspan="2"><button class="btn btn-primary" id="submitReimbursementAssociate"> + Submit Reimbursement Request</button></th>
+                        </tr>
+                </table>
+                <div class="container">
+                    <table class="table table-hover" border=1" id="tableAssociateProfile">
+                        <thead>
+                            <tr>
+                                <th scope="col">User ID</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Role ID</th>
+
+
+                            </tr>
+
+                        </thead>
+                        <tbody id="table-user-body">
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
     <div class="container">
-        <h1>REIMBURSEMENT INFORMATION</h1>
-        <table class="table table-hover" border="1" id="tableReimb">
+
+        <table class="table table-hover" border="1" id="tableAssociateReimbursement">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -97,11 +160,9 @@
                     <th scope="col">Description</th>
                     <th scope="col">Resolver</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Status ID</th>
                     <th scope="col">Type</th>
-                    <th scope="col">Type ID</th>
-                    <th scope="col">UPDATE</th>
-                   
+
+
                 </tr>
 
             </thead>
@@ -112,11 +173,13 @@
 
     </div>
 
+
     <footer>
         <div id="footerBox">
             &copy Copyright 2019 - E R S - All Rights Reserved.
         </div>
     </footer>
+
 
 </body>
 
@@ -132,8 +195,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
     integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
-</script>
-<script src="reimbursements.js"></script>
-
+<script src="user-landing-page-associate.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </html>

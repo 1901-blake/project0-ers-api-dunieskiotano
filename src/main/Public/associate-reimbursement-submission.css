@@ -68,25 +68,16 @@ input[type=text]{
 
 #alert{
     text-align: center;
-    margin-left: 480px;
+    margin-left: 180px;
     margin-top: 30px;
     display: none;
-    width:40%;
-    font-weight: bold;
-    color: black;
-    box-shadow: 0 13px 13px black;
-    border: 1px solid black;
 }
 .container{
-    margin-left: 180px;
-    margin-top: 5em;
-    border: 1px solid black;
+    margin-top: 90px;
+    margin-left: 115px;
     text-align: center;
-    box-shadow: 0 16px 16px black;
-    background-color: #eee;
-    width: 100%;
-    height: 430px;
-    padding: 30px;
+    
+
 }
 th{
     text-align: center;
@@ -95,74 +86,40 @@ th{
 margin-left: 10px;
 width: 200px;
 height: 50px;
-border: 1px solid black;
-float: right;
-}
-#buttonCancel{
-margin-left: 10px;
-width: 200px;
-height: 50px;
-border: 1px solid black;
-float: right;
+
 }
 .table {
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     background-color: white;
     margin-left: 120px;
-    margin-top: 30px;
-    background-color: white;
 }
 #th1{
-    background-color:rgb(155, 206, 121);
-    color: black;
-    height: 70%;
-    letter-spacing: 0.3pc;
-    font-size: 20px;
-    text-shadow: 0 15px 15px black;
+    background-color: rgb(53, 15, 15);
+    color: white;
+    height: 50%;
 }
 .buttonBack{
-    margin-left: 160px ;
-    margin-top: 50px;
-    font-size: 15px;
-    font-weight: bold;
-    border: 1px solid back;
-    font-size: 18px;
-    text-shadow: 0 14px 14px black;
-    
-    
-    }
-
-
-#footerBox{
-    color: black;
-    margin-left: 550px;
-    font-family: Helvetica;
-    font-size: 16px;
-    text-shadow: 0 16px 16px black;
-    letter-spacing: 0.5px;
-    font-weight: bold;
-    padding: 30px;
+margin-left: 40px ;
+width: 10%;
+font-weight: bold;
+border: 1px solid back;
 }
-#sessionUser{
-    color: red;
+.buttonBack:hover{
+    background-color: beige;
 }
-body{
-    background-color: rgb(238, 242, 247);
+input, select{
+    color: rgb(8, 8, 92);
+    text-align: center;
 }
-#tableUsers{
-    background-color: white;
-    box-shadow: 0 16px 16px black;
-    
-}
-nav{
-    text-shadow: 0 14px 14px black;
-}
-#role-input{
-    width: 86%;
-    margin-left: 23px;
-}
-#mainMenu{
-    font-size: 18px;
-    text-shadow: 0 14px 14px black;
+#reimbursementHeading{
+    margin-left: 340px;
+    margin-top: 0.5em;
+    width: 100%;
+    border: 1px solid black;
+    box-shadow: 0 2px 2x #eee;
+    margin-bottom: 0.5em;
+    height: 50px;
+    text-align: center;
+    font-size: 2pc;
 }

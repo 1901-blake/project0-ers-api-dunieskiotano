@@ -46,6 +46,10 @@ logout.addEventListener('click', (e) => {
     //redirects to home page
     window.location.href = "home.html";
 })
+let mainMenuLink=document.getElementById('mainMenu');
+mainMenuLink.addEventListener('click', (e) =>{
+    window.location.href=`user-landing-page-${sessionUser.role.role}.html`;
+})
 
 //executes update action
 function updateReimbursement(event) {

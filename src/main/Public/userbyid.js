@@ -1,6 +1,6 @@
 const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
 const sessionUserLink = document.getElementById('sessionUser');
-sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}`;
+sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName} (${sessionUser.role.role})`;
 
 let buttonBack=document.getElementById('buttonGoBack');
 buttonBack.addEventListener('click', (e) =>{
@@ -15,7 +15,10 @@ logout.addEventListener('click', (e) => {
    
     window.location.href = "home.html";
 })
-
+let mainMenuLink = document.getElementById('mainMenu');
+mainMenuLink.addEventListener('click', (e) => {
+    window.location.href = `user-landing-page-${sessionUser.role.role}.html`;
+})
 const id=JSON.parse(localStorage.getItem('id'));
 
 console.log(id);

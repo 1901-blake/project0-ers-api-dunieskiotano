@@ -18,20 +18,20 @@ async function login(event) {
 
     })
     try {
-        let temp = await res.json();
-        console.log(temp);
+        let user = await res.json();
+        console.log(user);
 
         if (res.status === 200) {
             if (typeof (Storage) !== "undefined") {
-                sessionStorage.setItem('credentials', JSON.stringify(temp));
+                sessionStorage.setItem('credentials', JSON.stringify(user));
             }
-            switch (temp.role.role) {
+            switch (user.role.role) {
                 case 'admin':
                     window.location.href = 'user-landing-page-admin.html';
                     console.log("login successful");
                     break;
                 case 'finance-manager':
-                    window.location.href = 'user-landing-page-fmanager.html';
+                    window.location.href = 'user-landing-page-finance-manager.html';
                     console.log("login successful");
                     break;
                 case 'associate':
@@ -39,12 +39,6 @@ async function login(event) {
                     console.log("login successful");
                     break;
             }
-
-
-            console.log('failed to login');
-            document.getElementById('input-username').value = '';
-            document.getElementById('error-message').innerHTML = 'Login Failed. Try Again';
-
         }
     } catch (err) {
         console.log(err);

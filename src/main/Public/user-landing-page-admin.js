@@ -1,11 +1,11 @@
 
 let h1 = document.createElement('h1');
 const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
-h1.innerHTML = `Welcome Back, ${sessionUser.firstName} ${sessionUser.lastName}!!`;
+h1.innerHTML = (`Welcome Back, ${sessionUser.firstName} ${sessionUser.lastName}`).toUpperCase();
 document.getElementById('welcome').appendChild(h1);
 const sessionUserLink = document.getElementById('sessionUser');
 console.log(sessionUserLink);
-sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}`;
+sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName} (${sessionUser.role.role})`;
 
 //this section logs out the user at will
 let logout = document.getElementById('logout');
@@ -30,11 +30,11 @@ retrieveUsers.addEventListener('click', (e) => {
 //Creates button to create users
 let createUser = document.getElementById('action2');
 let buttonCreateUser = document.createElement('button');
-buttonCreateUser.className = "btn btn-primary";
+buttonCreateUser.className = "btn btn-dark";
 buttonCreateUser.innerHTML = " + Create New User";
 createUser.appendChild(buttonCreateUser);
 buttonCreateUser.addEventListener('click', (e) => {
-   window.location.href="create-user.html";
+    window.location.href = "create-user.html";
 })
 
 //Creates button and textbox to find users by user id
@@ -51,16 +51,17 @@ findButton.className = 'btn btn-primary';
 findButton.id = "findButton";
 findButton.innerHTML = "Retrieve a User by ID";
 findUserById.appendChild(findButton);
-let id = document.getElementById
+//let id = document.getElementById
 
 findButton.addEventListener('click', (e) => {
-    let id = document.getElementById('id').value;
-  
+    if (id && id.value) {
+        let id = document.getElementById('id').value;
         localStorage.setItem("id", JSON.stringify(id));
         window.location.href = "userbyid.html";
-    
-   
-    
+    } else {
+        alert("Invalid entry. You must enter a value");
+        return;
+    }
 })
 
 
@@ -77,13 +78,14 @@ buttonRetrieveReimbursements.addEventListener('click', (e) => {
 //Creates button to submit users
 let submitReimbursement = document.getElementById('action6');
 let buttonSubmitReimbursement = document.createElement('button');
-buttonSubmitReimbursement.className = "btn btn-primary";
+buttonSubmitReimbursement.className = "btn btn-dark";
 buttonSubmitReimbursement.innerHTML = " + Submit a Reimbursement Request";
 submitReimbursement.appendChild(buttonSubmitReimbursement);
 buttonSubmitReimbursement.addEventListener('click', (e) => {
-    
-  window.location.href="submit-reimbursement.html";
+
+    window.location.href = "submit-reimbursement.html";
 })
+
 
 //Creates button and textbox to find reimbursements by status id
 let findReimbursementByStatus = document.getElementById('action7');
@@ -93,6 +95,7 @@ inputReimbursement.placeholder = "Enter Status ID";
 inputReimbursement.type = "text";
 findReimbursementByStatus.appendChild(inputReimbursement);
 
+
 let findReimbursementButton = document.createElement('button');
 findReimbursementButton.className = 'btn btn-primary';
 findReimbursementButton.id = "findReimbursementButton";
@@ -100,9 +103,13 @@ findReimbursementButton.innerHTML = "Find a Reimbursement By Status ID";
 findReimbursementByStatus.appendChild(findReimbursementButton);
 
 findReimbursementButton.addEventListener('click', (e) => {
-    let reimbursermentstatus = document.getElementById('reimbstatus').value;
-    localStorage.setItem("reimbursermentstatus", JSON.stringify(reimbursermentstatus));
-    window.location.href = "reimbursementbystatus.html";
+    if (reimbstatus && reimbstatus.value) {
+        let reimbursermentstatus = document.getElementById('reimbstatus').value;
+        localStorage.setItem("reimbursermentstatus", JSON.stringify(reimbursermentstatus));
+        window.location.href = "reimbursementbystatus.html";
+    } else {
+        alert("Invalid entry. You much enter a value");
+    }
 
 }
 )
@@ -111,6 +118,7 @@ findReimbursementButton.addEventListener('click', (e) => {
 let findReimbursementByUserId = document.getElementById('action8');
 let inputReimbursementByUserId = document.createElement('input');
 inputReimbursementByUserId.id = "userid";
+
 inputReimbursementByUserId.placeholder = "Enter User ID";
 inputReimbursementByUserId.type = "text";
 findReimbursementByUserId.appendChild(inputReimbursementByUserId);
@@ -122,10 +130,14 @@ findReimbursementByUserIdButton.innerHTML = "Find a Reimbursement By User ID";
 findReimbursementByUserId.appendChild(findReimbursementByUserIdButton);
 
 findReimbursementByUserIdButton.addEventListener('click', (e) => {
-    
-    let userid = document.getElementById('userid').value;
-    
-    localStorage.setItem("userid", JSON.stringify(userid));
-    
-   window.location.href = "reimbursementbyid.html";
+    if (inputReimbursementByUserId && inputReimbursementByUserId.value) {
+        let userid = document.getElementById('userid').value;
+        localStorage.setItem("userid", JSON.stringify(userid));
+        window.location.href = "reimbursementbyid.html";
+    }
+    else {
+        alert('You must enter a value');
+        return;
+    }
+
 })

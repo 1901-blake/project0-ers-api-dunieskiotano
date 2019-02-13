@@ -69,28 +69,30 @@
 
             </ul>
 
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-            </form>
+
         </div>
     </nav>
 
 
 
-    <div id="buttonGoBack" class="buttonBack">
-        <img src="../assets/goback.PNG" alt width="72">Go Back</img></div>
+    <div class="buttonBack">
+        <a href="#" id="buttonGoBack">
+            BACK</a>&nbsp;&nbsp;| <a href="#" id="mainMenu">MAIN MENU
+        </a>
+    </div>
+    <div class="alert alert-success" id="alert">
+            
+        </div>
+
     <div class="container">
 
         <div class="col-sm-6">
-            <div class="alert alert-success" id="alert">
-                <strong></strong>
-            </div>
+           
             <div id="reimbursementHeading">
                 <hi>CREATE USER</hi>
             </div>
             <form method="POST" onsubmit="createUser(event)">
-                <table cellpadding="5" border="1">
+                <table cellpadding="5" border="1" id="tableUsers">
                     <tr>
                         <th id="th1" colspan="4">FILL OUT THIS FORM</th>
                     </tr>
@@ -105,31 +107,42 @@
                         <td><label for="firstname-input">First Name</label>
                             <input type="text" id="firstname-input" class="form-control"></input>
                         </td>
+                    <tr>
+                    <tr>
                         <td><label for="lastname-input">Last Name</label>
                             <input type="text" id="lastname-input" class="form-control"></input>
                         </td>
-                        <tr>
+
                         <td>
                             <label for="email-input">Email</label>
                             <input type="text" id="email-input" class="form-control"></input>
                         </td>
                         <td>
                             <label for="role-input">Role</label>
-                            <select id="role-input" class="form-control">
+                            <select class="custom-select" id="role-input" class="form-control">
+                                <option>Choose Role</option>
                                 <option value="admin">Admin</option>
                                 <option value="finance-manager">Finance Manager</option>
                                 <option value="associate">Associate</option>
                             </select>
                         </td>
-                        
-                        <td><button class="btn btn-primary" id="buttonSubmit" type="submit">Submit</button></td>
+                    </tr>
+                    <tr>
+                        <th colspan="4">
+                            <button class="btn btn-danger" id="buttonCancel">Cancel</button>
+                            <button class="btn btn-primary" id="buttonSubmit" type="submit">Submit</button></th>
+
                     </tr>
                 </table>
             </form>
         </div>
     </div>
 
-
+    <footer>
+            <div id="footerBox">
+                    &copy Copyright 2019 - E R S - All Rights Reserved.
+            </div>
+        </footer>
 
 </body>
 

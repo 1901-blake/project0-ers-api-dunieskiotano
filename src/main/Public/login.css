@@ -10,15 +10,18 @@ body {
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: white;
+  background-color: rgb(63, 63, 194);
+ 
 }
 
 .form-signin {
-  width: 100%;
+  width: 80%;
   max-width: 330px;
   padding: 15px;
   margin: auto;
   background-color: white;
+  
+  
 }
 .form-signin .checkbox {
   font-weight: 400;
@@ -30,6 +33,14 @@ body {
   padding: 10px;
   font-size: 16px;
 }
+h1{
+  text-shadow: 0 13px 13px black;
+  font-weight: bold;
+  font-family: Arial;
+  letter-spacing: 1pc;
+  font-size: 18px;
+}
+
 .form-signin .form-control:focus {
   z-index: 2;
 }
@@ -54,4 +65,25 @@ body {
   }
   #error-message{
     color: red;
+}
+.container{
+  border: 1px solid black;
+  box-shadow: 0 13px 13px black;
+  width: 30%;
+  height: 60%;
+  margin: auto;
+  background-color: white;
+  border-radius: 20px 20px 20px 20px;
+}
+span{
+  font-family: Helvetica;
+  font-size: 1.1pc;
+  font-weight: bold;
+  float: left;
+  padding: 10px;
+}
+#signinLogo{
+  background-color: white;
+  width: 100%;
+  margin: auto;
 }

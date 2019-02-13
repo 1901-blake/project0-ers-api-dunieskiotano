@@ -6,7 +6,7 @@ const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
 const sessionUserLink = document.getElementById('sessionUser');
 
 //Assigns name & last name to sessionUserLink
-sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}!!`
+sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName} (${sessionUser.role.role})`;
 
 //Assigns current values to textboxes
 const user = JSON.parse(localStorage.getItem('user'));
@@ -26,7 +26,10 @@ let buttonBack = document.getElementById('buttonGoBack');
 buttonBack.addEventListener('click', (e) => {
     window.history.back();//pages go back to previous page based on history
 })
-
+let mainMenuLink=document.getElementById('mainMenu');
+mainMenuLink.addEventListener('click', (e) =>{
+    window.location.href=`user-landing-page-${sessionUser.role.role}.html`;
+})
 let roleid;
 //finds element with id 'logout'
 let logout = document.getElementById('logout');
@@ -71,15 +74,16 @@ function updateUser(event) {
 
     //Creates object userUpdated to be sent to DB
     let userUpdated = {
-        userid: inputs[1].value,
-        username: inputs[2].value,
-        password: inputs[3].value,
-        firstname: inputs[4].value,
-        lastname: inputs[5].value,
-        email: inputs[6].value,
+        userid: inputs[0].value,
+        username: inputs[1].value,
+        password: inputs[2].value,
+        firstname: inputs[3].value,
+        lastname: inputs[4].value,
+        email: inputs[5].value,
         roleid: roleid,
         role: roles
     }
+    console.log(userUpdated);
 
 
     //fetches the url and performs update
@@ -95,7 +99,9 @@ function updateUser(event) {
 
     }).then(function (response) {
         if (response.ok) {
-            window.location.href="users.html";
+            $('#alert').show();
+            $('#alert').append("USER SUCCESSFULLY UPDATED... RELOADING UPDATED TABLE");
+           setTimeout(function () {window.location.href="users.html"}, 3500);
         }
     })
 
@@ -103,6 +109,11 @@ function updateUser(event) {
 
 
 }
+
+let cancelBtn= document.getElementById('buttonCancel');
+cancelBtn.addEventListener('click', (e) =>{
+    window.history.back();
+})
 
 
 

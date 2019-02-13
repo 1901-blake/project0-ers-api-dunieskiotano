@@ -1,10 +1,10 @@
 let h1 = document.createElement('h1');
 const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
-h1.innerHTML = `Welcome Back, ${sessionUser.firstName} ${sessionUser.lastName}!!`;
+h1.innerHTML = (`Welcome Back, ${sessionUser.firstName} ${sessionUser.lastName}`).toUpperCase();
 document.getElementById('welcome').appendChild(h1);
 const sessionUserLink = document.getElementById('sessionUser');
 console.log(sessionUserLink);
-sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}`;
+sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName} '${sessionUser.role.role}'`;
 
 //this section logs out the user at will
 let logout = document.getElementById('logout');

@@ -1,10 +1,14 @@
 const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
 const sessionUserLink = document.getElementById('sessionUser');
-sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}`;
+sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName} (${sessionUser.role.role})`;
 
 let buttonBack = document.getElementById('buttonGoBack');
 buttonBack.addEventListener('click', (e) => {
     window.history.back();
+})
+let mainMenuLink=document.getElementById('mainMenu');
+mainMenuLink.addEventListener('click', (e) =>{
+    window.location.href=`user-landing-page-${sessionUser.role.role}.html`;
 })
 let logout = document.getElementById('logout');
 logout.addEventListener('click', (e) => {
@@ -80,9 +84,14 @@ fetch('http://localhost:3200/users/', {
             tr.appendChild(updateButton);
 
             let deleteButton = document.createElement('button');
+            deleteButton.type="button";
+            deleteButton.toggleAttribute="modal";
             deleteButton.innerHTML = "DELETE";
+            
+            
             deleteButton.className = 'btn btn-danger';
             deleteButton.addEventListener('click', (e) => {
+                // $('#deteleAlert').modal('show');
                 $('#deteleAlert').show();
                 fetch(`http://localhost:3200/users/${user.userid}`, {
                     method: 'DELETE',

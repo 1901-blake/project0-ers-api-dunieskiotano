@@ -1,6 +1,6 @@
 
 th{
-    background-color: rgb(37, 94, 37);
+    background-color: rgb(22, 68, 109);
     color: black;
     color: white;
 }
@@ -12,7 +12,7 @@ th{
     margin-left: 0px;
     font-family: Helvetica;
     font-size: 15px;
-    box-shadow: 0 13px 13px #ccc;
+   
     
 }
 
@@ -28,7 +28,7 @@ h1{
     margin-top: 7em;
     border: 1px solid black;
     text-align: center;
-    box-shadow: 0 16px 16px black;
+    box-shadow: 0 13px 13px black;
     background-color: white;
     width: 100%;
 }
@@ -71,7 +71,7 @@ nav{
 }
 #footerBox{
     color: black;
-    margin-left: 550px;
+    margin-left: 450px;
     font-family: Helvetica;
     font-size: 16px;
     text-shadow: 0 16px 16px black;

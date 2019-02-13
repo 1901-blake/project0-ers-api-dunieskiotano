@@ -1,6 +1,6 @@
 const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
 const sessionUserLink = document.getElementById('sessionUser');
-sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}`;
+sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName} (${sessionUser.role.role})`;
 
 let buttonBack = document.getElementById('buttonGoBack');
 buttonBack.addEventListener('click', (e) => {
@@ -14,6 +14,10 @@ logout.addEventListener('click', (e) => {
     }
 
     window.location.href = "home.html";
+})
+let mainMenuLink=document.getElementById('mainMenu');
+mainMenuLink.addEventListener('click', (e) =>{
+    window.location.href=`user-landing-page-${sessionUser.role.role}.html`;
 })
 
 const status = JSON.parse(localStorage.getItem('reimbursermentstatus'));
@@ -54,7 +58,7 @@ fetch(`http://localhost:3200/reimbursements/${stringStatus}/${status}`, {
 
             //Adds reimbursement dateresolved to the row
             let reimbursementDateResolvedData = document.createElement('td');
-            if (reimbursement.dateResolved === undefined) {
+            if (reimbursement.dateResolved === undefined || reimbursement.dateResolved===0) {
                 reimbursementDateResolvedData.innerText = ' ';
             }
             else {
@@ -71,24 +75,40 @@ fetch(`http://localhost:3200/reimbursements/${stringStatus}/${status}`, {
             let reimbursementResolverData = document.createElement('td');
             reimbursementResolverData.innerText = reimbursement.resolver;
             tr.appendChild(reimbursementResolverData);
-
+            
             let reimbursementStatusIdData = document.createElement('td');
-            reimbursementStatusIdData.innerText = reimbursement.status;
+            switch(reimbursement.status){
+                case 1:
+                reimbursementStatusIdData.innerText="Pending";
+                break;
+                case 2:
+                reimbursementStatusIdData.innerText="Approved";
+                break;
+                case 3:
+                reimbursementStatusIdData.innerText="Denied";
+                break;
+            }
             tr.appendChild(reimbursementStatusIdData);
 
             let reimbursementTypeIdData = document.createElement('td');
-            reimbursementTypeIdData.innerText = reimbursement.type;
+            switch(reimbursement.type){
+                case 1:
+                reimbursementTypeIdData.innerText="Lodging";
+                break;
+                case 2:
+                reimbursementTypeIdData.innerText="Travel";
+                break;
+                case 3:
+                reimbursementTypeIdData.innerText="Food";
+                break;
+                case 4:
+                reimbursementTypeIdData.innerText="Other";
+                break;
+            }
             tr.appendChild(reimbursementTypeIdData);
 
 
-            //ADD A DELETE BUTTON TO THE ROW
-            let updateButton = document.createElement('button');
-            updateButton.innerText = 'UPDATE';
-            updateButton.className = 'btn btn-primary';
-            updateButton.addEventListener('click', (e) => {
-                window.location.href = "update-user.html";
-            });
-            tr.appendChild(updateButton);
+            
             tbody.appendChild(tr);
 
 

@@ -14,21 +14,64 @@ th{
     margin-top: 50px
 }
 
-h1{
+#tableHeading{
     margin-top: 10px;
-    margin-left: 240px;;
+    margin-left: 270px;;
+    background-color: white;
+    width: 50%;
+    box-shadow: 0 16px 16px black;
 }
 .container{
-    margin-left: 40px;
+    margin-left: 180px;
+    margin-top: 5em;
+    border: 1px solid black;
+    text-align: center;
+    box-shadow: 0 16px 16px black;
+    background-color: white;
+    width: 100%;
+    height: 430px;
+    padding: 30px;
 }
 
 .buttonBack{
-    margin-left: 40px ;
-    width: 10%;
+    margin-left: 160px ;
+    margin-top: 50px;
+    font-size: 15px;
     font-weight: bold;
     border: 1px solid back;
-    }
-    .buttonBack:hover{
-        background-color: beige;
-    }
+    font-size: 18px;
+    text-shadow: 0 14px 14px black;
     
+    
+    }
+    #mainMenu{
+        font-size: 18px;
+        text-shadow: 0 14px 14px black;
+    }
+    #footerBox{
+        color: black;
+        margin-left: 510px;
+        font-family: Helvetica;
+        font-size: 16px;
+        text-shadow: 0 16px 16px black;
+        letter-spacing: 0.5px;
+        font-weight: bold;
+        padding: 30px;
+    }
+    nav{
+        text-shadow: 0 14px 14px black;
+    }
+    body{
+        background-color: rgb(238, 242, 247);
+    }
+    #tableStatus{
+        margin-left: 0px;
+        box-shadow: 0 16px 16px black;
+    }
+    th{
+        background-color: rgb(94, 162, 202);
+        color: black;
+    }
+    #sessionUser{
+        color: red;
+    }

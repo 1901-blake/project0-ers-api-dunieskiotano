@@ -9,10 +9,10 @@ img{
 }
 
 #welcome{
-   color: white;
-   text-shadow: 6px 6px black;
+   color: black;
+   text-shadow: 0 16px 16px black;
    font-size:3em;
-   margin-left: 20px;
+   font-weight: bold;
    
 }
 button{
@@ -56,14 +56,15 @@ table tr :hover{
     background-color: aliceblue;
 }
 #tUserHeader{
-    background-color: rgb(197, 183, 178);
+    background-color: rgb(88, 38, 19);
     border: 1px solid transparent;
-    text-shadow: 0 13px 13px black;
+    text-shadow: 0 16px 16px black;
     font-family: Helvetica;
     font-size: 18px;
+    color: white;
 }
 #tReimbursementHeader{
-    background-color: rgb(191, 181, 218);
+    background-color: rgb(201, 202, 128);
     border: 1px solid transparent;
     text-shadow: 0 13px 13px black;
     font-family: Helvetica;
@@ -74,12 +75,12 @@ table tr :hover{
     margin-top: 22px;
 }
 body{
-    background-color: rgb(44, 93, 150);
+    background-color: rgb(172, 211, 195);
 }
 
 
 #footerBox{
-    color: white;
+    color: black;
     margin-left: 550px;
     font-family: Helvetica;
     font-size: 16px;

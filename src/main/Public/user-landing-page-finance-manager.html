@@ -12,7 +12,7 @@
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <link rel="stylesheet" href="ERS-style.css">
-    <link rel="stylesheet" href="update-user.css">
+    <link rel="stylesheet" href="user-landing-page-finance-manager.css">
 
 </head>
 <title>Expense Reimbursement System</title>
@@ -68,99 +68,76 @@
                 </li>
 
             </ul>
-
         </div>
     </nav>
 
 
-    <div class="buttonBack">
-        <a href="#" id="buttonGoBack">
-            BACK</a>&nbsp;&nbsp;| <a href="#" id="mainMenu">MAIN MENU
-        </a>
-    </div>
-    <div class="alert alert-success" id="alert">
 
-    </div>
-    <!--<img src="../assets/goback.PNG" alt width="72">Go Back</img></div>-->
+
     <div class="container">
-        <div>
-
-
-            <form method='POST' onsubmit="updateUser(event)">
-                <table cellpadding="5" border="1" id="tableUsers">
-                    <tr>
-                        <th id="th1" colspan="4">UPDATE USER INFORMATION</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="block">
-                                <label for="id-input">User ID</label>
-                                <input type="text" id="id-input" class="form-control" readonly></input>
-                            </div>
-                        </td>
-
-
-                        <td><label for="username-input">Username</label>
-                            <input type="text" id="username-input" class="form-control"></input>
-                        </td>
-                        <td>
-                            <label for="password-input">Password</label>
-                            <input type="text" id="password-input" class="form-control"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="firstname-input">First Name</label>
-                            <input type="text" id="firstname-input" class="form-control"></input>
-                        </td>
-
-
-                        <td><label for="lastname-input">Last Name</label>
-                            <input type="text" id="lastname-input" class="form-control"></input>
-                        </td>
-                        <td>
-                            <label for="email-input">Email</label>
-                            <input type="text" id="email-input" class="form-control"></input>
-                        </td>
-                    </tr>
-                    <th colspan="4"></th>
-
-                    <tr>
-                        <td>
-                            <label for="role-input">Role</label>
-                            <select id="role-input" class="form-control">
-                                <option value="admin">Admin</option>
-                                <option value="finance-manager">Finance Manager</option>
-                                <option value="associate">Associate</option>
-                            </select>
-                        </td>
-                        <td>
-                            <label for="roleid-input">Role ID</label>
-                            <input type="text" id="roleid-input" class="form-control" readonly></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th colspan="4">
-                            <button class="btn btn-danger" id="buttonCancel">Cancel</button>
-                            <button class="btn btn-primary" id="buttonSubmit" type="submit">Submit</button>
-
-                        </th>
-                    </tr>
-                </table>
-            </form>
+        <div id="welcome">
         </div>
 
 
 
-
-
     </div>
+    </div>
+    <div id="surroundingBox">
+        <div class="row">
+            <hr class="my-4">
+            <div class=col-sm-6>
+                <table border="1" cellpadding="15" id="tableUser">
+                    <tr>
+                        <th id="tUserHeader"></th>
 
+                        <th id="tUserHeader"> USER DATA MANINULATION </th>
+
+                    </tr>
+                    <tr>
+                        <th rowspan="4" id="tUserHeader">ACTIONS</th>
+                        <th id="action1"></th>
+
+                    <tr>
+                        <td id="action3"></td>
+                    </tr>
+
+                    </tr>
+
+                </table>
+            </div>
+            <div class=col-sm-6>
+                <table border="1" cellpadding="15" id="tableReimbursement">
+                    <tr>
+                        <th id="tReimbursementHeader"></th>
+
+                        <th id="tReimbursementHeader"> REIMBURSEMENT DATA MANINULATION </th>
+
+                    </tr>
+                    <tr>
+                        <th rowspan="4" id="tReimbursementHeader">ACTIONS</th>
+                        <th id="action5"></th>
+                    <tr>
+                        <td id="action6"></td>
+                    </tr>
+                    <tr>
+                        <td id="action7"></td>
+                    </tr>
+                    <tr>
+                        <td id="action8"></td>
+                    </tr>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
     <footer>
         <div id="footerBox">
             &copy Copyright 2019 - E R S - All Rights Reserved.
         </div>
     </footer>
+
+
 </body>
 
 
@@ -175,6 +152,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
     integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
-<script src="update-user.js"></script>
+<script src="user-landing-page-finance-manager.js">
+</script>
 
 </html>

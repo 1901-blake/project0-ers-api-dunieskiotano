@@ -5,7 +5,7 @@ console.log(sessionUser);
 const sessionUserLink = document.getElementById('sessionUser');
 
 //Assigns name & last name to sessionUserLink
-sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}`
+sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName} (${sessionUser.role.role})`;
 
 //Assigns current values to textboxes
 //const reimbursement = JSON.parse(localStorage.getItem('reimbursement'));
@@ -20,6 +20,10 @@ buttonBack.addEventListener('click', (e) => {
     window.history.back();//pages go back to previous page based on history
 })
 
+let mainMenuLink = document.getElementById('mainMenu');
+mainMenuLink.addEventListener('click', (e) => {
+    window.location.href = `user-landing-page-${sessionUser.role.role}.html`;
+})
 
 //finds element with id 'logout'
 let logout = document.getElementById('logout');
@@ -40,13 +44,13 @@ function createUser(event) {
 
     //prevent input from rendering html (prevents html injection)
     event.preventDefault();
-let username = document.getElementById('username1-input').value;
-let password = document.getElementById('password1-input').value;
-let firstName = document.getElementById('firstname-input').value;
-let lastName = document.getElementById('lastname-input').value;
-let email = document.getElementById('email-input').value;
+    let username = document.getElementById('username1-input').value;
+    let password = document.getElementById('password1-input').value;
+    let firstName = document.getElementById('firstname-input').value;
+    let lastName = document.getElementById('lastname-input').value;
+    let email = document.getElementById('email-input').value;
 
-    
+
     let select = document.getElementById('role-input');
     let roles = select.options[select.selectedIndex].value;
     console.log(roles);
@@ -94,9 +98,22 @@ let email = document.getElementById('email-input').value;
         },
         credentials: 'include'
 
-    }).catch(console.log());
+    }).then(function (response) {
+        if (response.ok) {
+           $('#alert').show();
+            document.getElementById('alert').append(
+                "SUCCESS!! USER HAS BEEN CREATED..WAIT...RETRIEVING UPDATED TABLE");
+            setTimeout(function () {
+                window.location.href = "users.html";
+                
+            }, 4000);
+        }
+    })
 
-
+    let cancelBtn = document.getElementById('buttonCancel');
+    cancelBtn.addEventListener('click', (e) => {
+        window.history.back();
+    })
 
 
     //if (res.status === 200) {

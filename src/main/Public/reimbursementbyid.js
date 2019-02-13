@@ -1,13 +1,24 @@
 const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
 const sessionUserLink = document.getElementById('sessionUser');
-sessionUserLink.innerHTML = sessionUser.username;
+sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName} (${sessionUser.role.role})`;
 
 let buttonBack = document.getElementById('buttonGoBack');
 buttonBack.addEventListener('click', (e) => {
     window.history.back();
 })
+let mainMenuLink=document.getElementById('mainMenu');
+mainMenuLink.addEventListener('click', (e) =>{
+    window.location.href=`user-landing-page-${sessionUser.role.role}.html`;
+})
+let logout = document.getElementById('logout');
+logout.addEventListener('click', (e) => {
+    if (typeof (Storage) !== undefined) {
+        sessionStorage.clear();
 
+    }
 
+    window.location.href = "home.html";
+})
 const id = JSON.parse(localStorage.getItem('userid'));
 
 
@@ -46,7 +57,12 @@ fetch(`http://localhost:3200/reimbursements/author/${id}`, {
             
             //Adds reimbursement dateresolved to the row
              let reimbursementDateResolvedData = document.createElement('td');
-             reimbursementDateResolvedData.innerText = reimbursement.dateResolved;
+             if (reimbursement.dateResolved === undefined) {
+                reimbursementDateResolvedData.innerText = ' ';
+            }
+            else {
+                reimbursementDateResolvedData.innerText = `${reimbursement.dateResolved}`;
+            }
              tr.appendChild(reimbursementDateResolvedData);
 
               //Adds reimbursement description to the row
@@ -60,22 +76,39 @@ fetch(`http://localhost:3200/reimbursements/author/${id}`, {
               tr.appendChild(reimbursementResolverData);
                             
               let reimbursementStatusIdData = document.createElement('td');
-              reimbursementStatusIdData.innerText = reimbursement.status;
+              switch(reimbursement.status){
+                case 1:
+                reimbursementStatusIdData.innerText="Pending";
+                break;
+                case 2:
+                reimbursementStatusIdData.innerText="Approved";
+                break;
+                case 3:
+                reimbursementStatusIdData.innerText="Denied";
+                break;
+            }
+              //reimbursementStatusIdData.innerText = reimbursement.status;
               tr.appendChild(reimbursementStatusIdData);
              
               let reimbursementTypeIdData = document.createElement('td');
-              reimbursementTypeIdData.innerText = reimbursement.type;
+              switch(reimbursement.type){
+                case 1:
+                reimbursementTypeIdData.innerText="Lodging";
+                break;
+                case 2:
+                reimbursementTypeIdData.innerText="Travel";
+                break;
+                case 3:
+                reimbursementTypeIdData.innerText="Food";
+                break;
+                case 4:
+                reimbursementTypeIdData.innerText="Other";
+                break;
+            }
               tr.appendChild(reimbursementTypeIdData);
              
 
-            //ADD A DELETE BUTTON TO THE ROW
-            let updateButton = document.createElement('button');
-            updateButton.innerText = 'UPDATE';
-            updateButton.className = 'btn btn-primary';
-            updateButton.addEventListener('click', (e) => {
-                window.location.href = "update-reimbursement.html";
-            });
-            tr.appendChild(updateButton);
+           
             tbody.appendChild(tr);
 
         }
