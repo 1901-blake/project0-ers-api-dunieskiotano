@@ -5,7 +5,7 @@ console.log(sessionUser);
 const sessionUserLink = document.getElementById('sessionUser');
 
 //Assigns name & last name to sessionUserLink
-sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}`
+sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName} (${sessionUser.role.role})`
 
 
 
@@ -42,7 +42,10 @@ logout.addEventListener('click', (e) => {
     //redirects to home page
     window.location.href = "home.html";
 })
-
+let mainMenuLink = document.getElementById('mainMenu');
+mainMenuLink.addEventListener('click', (e) => {
+    window.location.href = `user-landing-page-${sessionUser.role.role}.html`;
+})
 //executes update action
 function submitReimbursement(event) {
 
@@ -69,17 +72,17 @@ function submitReimbursement(event) {
     console.log(status, type);
     //Creates object userUpdated to be sent to DB
     let reimbursementSubmitted = {
-        author: inputs[1].value,
-        amount: inputs[4].value,
+        author: inputs[0].value,
+        amount: inputs[3].value,
         datesubmitted: Math.floor(Date.now() / 1000),
         dateresolved: null,
-        description: inputs[5].value,
-        resolver: 2,
+        description: inputs[4].value,
+        resolver: null,
         status: 1,
         type: typeid
     }
 
-    console.log(reimbursementSubmitted);
+    console.log("Reimbursement submitted", reimbursementSubmitted);
     //fetches the url and performs update
     fetch('http://localhost:3200/reimbursements/', {
 
@@ -91,7 +94,17 @@ function submitReimbursement(event) {
         },
         credentials: 'include'
 
-    }).catch(console.log());
+    }).then(function (response) {
+        if (response.ok) {
+           $('#alert').show();
+            document.getElementById('alert').append(
+                "REIMBURSEMENT SUCCESSFULLY SUBMITTED...TAKING YOU BACK TO MAIN MENU");
+            setTimeout(function () {
+                window.location.href = "user-landing-page-associate.html";
+                
+            }, 4000);
+        }
+    })
 
 
 

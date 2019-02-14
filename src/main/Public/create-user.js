@@ -80,47 +80,55 @@ function createUser(event) {
         role: roleid,
 
     }
-    console.log(username,
-        password,
-        firstName,
-        lastName,
-        email);
 
+    if ((document.getElementById('username1-input') && document.getElementById('username1-input').value) &&
+        (document.getElementById('password1-input') && document.getElementById('password1-input').value) &&
+        (document.getElementById('firstname-input') && document.getElementById('firstname-input').value) &&
+        (document.getElementById('lastname-input') && document.getElementById('lastname-input').value) &&
+        (document.getElementById('email-input') && document.getElementById('email-input').value) && (roleid)) {
+        //fetches the url and performs update
+        fetch('http://localhost:3200/users/', {
 
-    //fetches the url and performs update
-    fetch('http://localhost:3200/users/', {
+            method: 'POST',
+            body: JSON.stringify(userCreated),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
 
-        method: 'POST',
-        body: JSON.stringify(userCreated),
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        credentials: 'include'
+        }).then(function (response) {
+            if (response.ok) {
+                $('#alert').show();
+                document.getElementById('alert').append(
+                    "SUCCESS!! USER HAS BEEN CREATED..WAIT...RETRIEVING UPDATED TABLE");
+                setTimeout(function () {
+                    window.location.href = "users.html";
 
-    }).then(function (response) {
-        if (response.ok) {
-           $('#alert').show();
-            document.getElementById('alert').append(
-                "SUCCESS!! USER HAS BEEN CREATED..WAIT...RETRIEVING UPDATED TABLE");
-            setTimeout(function () {
-                window.location.href = "users.html";
-                
-            }, 4000);
-        }
-    })
+                }, 4000);
+            }
+        })
+    }
+    else {
+        $('#alertNotValidEntry').show();
+        document.getElementById('alertNotValidEntry').innerHTML = 'ALL FIELDS ARE REQUIRED. PLEASE TRY AGAIN.';
+        setTimeout(function () {
+            $('#alertNotValidEntry').hide();
+        }, 2000);
+    }
+}
 
-    let cancelBtn = document.getElementById('buttonCancel');
-    cancelBtn.addEventListener('click', (e) => {
-        window.history.back();
-    })
+let cancelBtn = document.getElementById('buttonCancel');
+cancelBtn.addEventListener('click', (e) => {
+    window.history.back();
+})
 
 
     //if (res.status === 200) {
 
     //}
 
-}
+
 
 
 

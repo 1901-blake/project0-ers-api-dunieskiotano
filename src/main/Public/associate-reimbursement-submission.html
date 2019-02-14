@@ -69,28 +69,29 @@
 
             </ul>
 
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            
+            
         </div>
     </nav>
 
 
 
-    <div id="buttonGoBack" class="buttonBack">
-        <img src="../assets/goback.PNG" alt width="72">Go Back</img></div>
-    <div class="container">
+    <div class="buttonBack">
+            <a href="#" id="buttonGoBack">
+                BACK</a>&nbsp;&nbsp;| <a href="#" id="mainMenu">MAIN MENU
+            </a>
+        </div>
+   
 
         <div class="col-sm-6">
             <div class="alert alert-success" id="alert">
-                <strong></strong>
+               
             </div>
             <div id="reimbursementHeading">
                 <hi>REIMBURSEMENT SUBMISSION</hi>
             </div>
             <form method="POST" onsubmit="submitReimbursement(event)">
-                <table cellpadding="5" border="1">
+                <table cellpadding="5" border="1" id="submitReimbursementTable">
                     <tr>
                         <th id="th1" colspan="4">FILL OUT THIS FORM</th>
                     </tr>
@@ -131,8 +132,12 @@
                 </table>
             </form>
         </div>
-    </div>
-
+    
+        <footer>
+                <div id="footerBox">
+                    &copy Copyright 2019 - E R S - All Rights Reserved.
+                </div>
+            </footer>
 
 
 </body>

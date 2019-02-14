@@ -57,8 +57,8 @@ fetch(`http://localhost:3200/reimbursements/author/${id}`, {
             
             //Adds reimbursement dateresolved to the row
              let reimbursementDateResolvedData = document.createElement('td');
-             if (reimbursement.dateResolved === undefined) {
-                reimbursementDateResolvedData.innerText = ' ';
+             if (reimbursement.dateResolved === undefined || reimbursement.dateResolved ===0) {
+                reimbursementDateResolvedData.innerText = 'Not Yet Resolved';
             }
             else {
                 reimbursementDateResolvedData.innerText = `${reimbursement.dateResolved}`;

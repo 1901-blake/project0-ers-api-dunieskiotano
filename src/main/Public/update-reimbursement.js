@@ -19,7 +19,7 @@ document.getElementById('amount-input').value = reimbursement.amount;
 document.getElementById('datesubmitted-input').value = reimbursement.dateSubmitted;
 document.getElementById('dateresolved-input').value = " ";
 document.getElementById('description-input').value = reimbursement.description;
-document.getElementById('resolver-input').value = reimbursement.resolver;
+document.getElementById('resolver-input').value = sessionUser.userid;
 document.getElementById('status-input').value = reimbursement.status;
 document.getElementById('statusid-input').value = reimbursement.statusid;
 document.getElementById('type-input').value = reimbursement.type;
@@ -99,7 +99,7 @@ function updateReimbursement(event) {
         datesubmitted: inputs[7].value,
         dateresolved: inputs[8].value,
         description: inputs[9].value,
-        resolver: inputs[10].value,
+        resolver: sessionUser.userid,
         status: statusid,
         type: typeid
     }
@@ -125,8 +125,13 @@ function updateReimbursement(event) {
         },
         credentials: 'include'
 
-    }).catch(console.log());
-
+    }).then(function (response) {
+        if (response.ok) {
+            $('#alert').show();
+            $('#alert').append("REIMBURSEMENT SUCCESSFULLY UPDATED... RELOADING UPDATED TABLE");
+           setTimeout(function () {window.location.href="reimbursements.html"}, 3500);
+        }
+    })
 
 
 

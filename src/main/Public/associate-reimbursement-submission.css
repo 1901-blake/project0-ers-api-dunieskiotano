@@ -68,9 +68,14 @@ input[type=text]{
 
 #alert{
     text-align: center;
-    margin-left: 180px;
-    margin-top: 30px;
+    margin-left: 315px;
+    margin-top: 50px;
     display: none;
+    width:110%;
+    font-weight: bold;
+    color: black;
+    box-shadow: 0 13px 13px black;
+    border: 1px solid black;
 }
 .container{
     margin-top: 90px;
@@ -100,26 +105,60 @@ height: 50px;
     height: 50%;
 }
 .buttonBack{
-margin-left: 40px ;
-width: 10%;
-font-weight: bold;
-border: 1px solid back;
-}
-.buttonBack:hover{
-    background-color: beige;
-}
+    
+        margin-left: 160px ;
+        margin-top: 50px;
+        font-size: 15px;
+        font-weight: bold;
+        border: 1px solid back;
+        font-size: 18px;
+        text-shadow: 0 14px 14px black;
+        
+        
+        }
+
 input, select{
     color: rgb(8, 8, 92);
     text-align: center;
 }
 #reimbursementHeading{
-    margin-left: 340px;
-    margin-top: 0.5em;
-    width: 100%;
+    margin-left: 430px;
+    margin-top: 3.5em;
+    width: 80%;
     border: 1px solid black;
-    box-shadow: 0 2px 2x #eee;
+    box-shadow: 0 14px 14px black;
     margin-bottom: 0.5em;
     height: 50px;
     text-align: center;
     font-size: 2pc;
+    background-color: white;
+}
+#footerBox{
+    color: black;
+    margin-left: 490px;
+    font-family: Helvetica;
+    font-size: 16px;
+    text-shadow: 0 16px 16px black;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+    padding: 60px;
+}
+nav{
+    text-shadow: 0 14px 14px black;
+    
+}
+#sessionUser{
+    color: red;
+}
+#submitReimbursementTable{
+    background-color: white;
+    margin-left: 180px;
+    margin-top:2em;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
+    box-shadow: 0 16px 16px black;
+}
+body{
+    background-color: rgb(208, 217, 224);
 }

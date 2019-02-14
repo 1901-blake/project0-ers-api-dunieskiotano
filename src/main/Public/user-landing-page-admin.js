@@ -1,4 +1,25 @@
+let userid = [];
+let statusid = [];
+fetch('http://localhost:3200/users/', {
+    credentials: 'include'
+}).then(resp => resp.json())
+    .then(users => {
+        users.forEach(user => {
+            userid.push(user['userid']);
 
+
+        });
+    })
+fetch('http://localhost:3200/reimbursements/', {
+    credentials: 'include'
+}).then(resp => resp.json())
+    .then(reimbursements => {
+        reimbursements.forEach(reimbursement => {
+            statusid.push(reimbursement['statusid']);
+        })
+    })
+console.log(userid);
+console.log(statusid);
 let h1 = document.createElement('h1');
 const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
 h1.innerHTML = (`Welcome Back, ${sessionUser.firstName} ${sessionUser.lastName}`).toUpperCase();
@@ -10,6 +31,7 @@ sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName} ($
 //this section logs out the user at will
 let logout = document.getElementById('logout');
 logout.addEventListener('click', (e) => {
+    e.preventDefault();
     if (typeof (Storage) !== undefined) {
         sessionStorage.clear();
 
@@ -24,6 +46,7 @@ buttonRetrieveUsers.className = "btn btn-info";
 buttonRetrieveUsers.innerHTML = "Retrieve All Users";
 retrieveUsers.appendChild(buttonRetrieveUsers);
 retrieveUsers.addEventListener('click', (e) => {
+    e.preventDefault();
     window.location.href = "users.html";
 })
 
@@ -34,6 +57,7 @@ buttonCreateUser.className = "btn btn-dark";
 buttonCreateUser.innerHTML = " + Create New User";
 createUser.appendChild(buttonCreateUser);
 buttonCreateUser.addEventListener('click', (e) => {
+    e.preventDefault();
     window.location.href = "create-user.html";
 })
 
@@ -51,19 +75,32 @@ findButton.className = 'btn btn-primary';
 findButton.id = "findButton";
 findButton.innerHTML = "Retrieve a User by ID";
 findUserById.appendChild(findButton);
-//let id = document.getElementById
-
 findButton.addEventListener('click', (e) => {
-    if (id && id.value) {
-        let id = document.getElementById('id').value;
-        localStorage.setItem("id", JSON.stringify(id));
-        window.location.href = "userbyid.html";
-    } else {
-        alert("Invalid entry. You must enter a value");
-        return;
+    e.preventDefault();
+    if (input && input.value) {
+        for (let i = 0; i < userid.length; i++) {
+            if (userid[i] === +input.value) {
+                let id = document.getElementById('id').value;
+                localStorage.setItem("id", JSON.stringify(id));
+                window.location.href = "userbyid.html";
+            }
+            else {
+                $('#alertNotFound').show();
+                document.getElementById('alertNotFound').innerHTML = 'USER NOT FOUND. TRY AGAIN.';
+                setTimeout(function () {
+                    $('#alertNotFound').hide();
+                }, 2500);
+            }
+        }
+    }
+    else {
+        $('#alertNotValidEntry').show();
+        document.getElementById('alertNotValidEntry').innerHTML = 'INVALID ENTRY. PLEASE TRY AGAIN.';
+        setTimeout(function () {
+            $('#alertNotValidEntry').hide();
+        }, 2000);
     }
 })
-
 
 //Creates button to retrieve reimbursements
 let retrieveReimbursements = document.getElementById('action5');
@@ -72,6 +109,7 @@ buttonRetrieveReimbursements.className = "btn btn-info";
 buttonRetrieveReimbursements.innerHTML = "Retrieve All Reimbursements";
 retrieveReimbursements.appendChild(buttonRetrieveReimbursements);
 buttonRetrieveReimbursements.addEventListener('click', (e) => {
+    e.preventDefault();
     window.location.href = "reimbursements.html";
 })
 
@@ -82,6 +120,7 @@ buttonSubmitReimbursement.className = "btn btn-dark";
 buttonSubmitReimbursement.innerHTML = " + Submit a Reimbursement Request";
 submitReimbursement.appendChild(buttonSubmitReimbursement);
 buttonSubmitReimbursement.addEventListener('click', (e) => {
+    e.preventDefault();
 
     window.location.href = "submit-reimbursement.html";
 })
@@ -95,7 +134,6 @@ inputReimbursement.placeholder = "Enter Status ID";
 inputReimbursement.type = "text";
 findReimbursementByStatus.appendChild(inputReimbursement);
 
-
 let findReimbursementButton = document.createElement('button');
 findReimbursementButton.className = 'btn btn-primary';
 findReimbursementButton.id = "findReimbursementButton";
@@ -103,24 +141,38 @@ findReimbursementButton.innerHTML = "Find a Reimbursement By Status ID";
 findReimbursementByStatus.appendChild(findReimbursementButton);
 
 findReimbursementButton.addEventListener('click', (e) => {
-    if (reimbstatus && reimbstatus.value) {
-        let reimbursermentstatus = document.getElementById('reimbstatus').value;
-        localStorage.setItem("reimbursermentstatus", JSON.stringify(reimbursermentstatus));
-        window.location.href = "reimbursementbystatus.html";
-    } else {
-        alert("Invalid entry. You much enter a value");
+    e.preventDefault();
+    if (inputReimbursement && inputReimbursement.value) {
+        for (let i = 0; i < statusid.length; i++) {
+            if (statusid[i] === +inputReimbursement.value) {
+                let reimbursermentstatus = document.getElementById('reimbstatus').value;
+                localStorage.setItem("reimbursermentstatus", JSON.stringify(reimbursermentstatus));
+                window.location.href = "reimbursementbystatus.html";
+            } else {
+                $('#alertNotFound').show();
+                document.getElementById('alertNotFound').innerHTML = 'REIMBURSEMENT NOT FOUND. TRY AGAIN.';
+                setTimeout(function () {
+                    $('#alertNotFound').hide();
+                }, 2500);
+            }
+        }
     }
-
-}
-)
+    else {
+        $('#alertNotValidEntry').show();
+        document.getElementById('alertNotValidEntry').innerHTML = 'INVALID ENTRY. PLEASE TRY AGAIN.';
+        setTimeout(function () {
+            $('#alertNotValidEntry').hide();
+        }, 2000);
+    }
+})
 
 //Creates button and textbox to find reimbursements by user id
 let findReimbursementByUserId = document.getElementById('action8');
 let inputReimbursementByUserId = document.createElement('input');
 inputReimbursementByUserId.id = "userid";
-
 inputReimbursementByUserId.placeholder = "Enter User ID";
 inputReimbursementByUserId.type = "text";
+
 findReimbursementByUserId.appendChild(inputReimbursementByUserId);
 
 let findReimbursementByUserIdButton = document.createElement('button');
@@ -130,14 +182,27 @@ findReimbursementByUserIdButton.innerHTML = "Find a Reimbursement By User ID";
 findReimbursementByUserId.appendChild(findReimbursementByUserIdButton);
 
 findReimbursementByUserIdButton.addEventListener('click', (e) => {
+    e.preventDefault();
     if (inputReimbursementByUserId && inputReimbursementByUserId.value) {
-        let userid = document.getElementById('userid').value;
-        localStorage.setItem("userid", JSON.stringify(userid));
-        window.location.href = "reimbursementbyid.html";
+        for (let i = 0; i < userid.length; i++) {
+            if (userid[i] === +inputReimbursementByUserId.value) {
+                let userid = document.getElementById('userid').value;
+                localStorage.setItem("userid", JSON.stringify(userid));
+                window.location.href = "reimbursementbyid.html";
+            } else {
+                $('#alertNotFound').show();
+                document.getElementById('alertNotFound').innerHTML = 'REIMBURSEMENT NOT FOUND. TRY AGAIN.';
+                setTimeout(function () {
+                    $('#alertNotFound').hide();
+                }, 2500);
+            }
+        }
     }
     else {
-        alert('You must enter a value');
-        return;
+        $('#alertNotValidEntry').show();
+        document.getElementById('alertNotValidEntry').innerHTML = 'INVALID ENTRY. PLEASE TRY AGAIN.';
+        setTimeout(function () {
+            $('#alertNotValidEntry').hide();
+        }, 2000);
     }
-
 })

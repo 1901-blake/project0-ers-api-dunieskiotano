@@ -33,9 +33,7 @@ h1{
     font-size: 18px;
     text-shadow: 0 14px 14px black;
     }
-    .buttonBack:hover{
-        background-color: beige;
-    }
+    
     
     #mainMenu{
         font-size: 18px;
@@ -67,3 +65,22 @@ h1{
     td{
         width: 70%;
     }
+
+    #tableReimb{
+        margin-left: 60px;
+        width: 80%;
+        text-align: center;
+        font-weight: bold;
+    }
+#userInfoHeading{
+    margin-left: 450px;
+    margin-top: 2.5em;
+    width: 40%;
+    border: 1px solid black;
+    box-shadow: 0 14px 14px black;
+    margin-bottom: 0.5em;
+    height: 50px;
+    text-align: center;
+    font-size: 2pc;
+    background-color: white;
+}

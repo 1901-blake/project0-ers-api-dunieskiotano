@@ -15,9 +15,9 @@ logout.addEventListener('click', (e) => {
 
     window.location.href = "home.html";
 })
-let mainMenuLink=document.getElementById('mainMenu');
-mainMenuLink.addEventListener('click', (e) =>{
-    window.location.href=`user-landing-page-${sessionUser.role.role}.html`;
+let mainMenuLink = document.getElementById('mainMenu');
+mainMenuLink.addEventListener('click', (e) => {
+    window.location.href = `user-landing-page-${sessionUser.role.role}.html`;
 })
 
 const status = JSON.parse(localStorage.getItem('reimbursermentstatus'));
@@ -58,8 +58,8 @@ fetch(`http://localhost:3200/reimbursements/${stringStatus}/${status}`, {
 
             //Adds reimbursement dateresolved to the row
             let reimbursementDateResolvedData = document.createElement('td');
-            if (reimbursement.dateResolved === undefined || reimbursement.dateResolved===0) {
-                reimbursementDateResolvedData.innerText = ' ';
+            if (reimbursement.dateResolved === undefined || reimbursement.dateResolved === 0) {
+                reimbursementDateResolvedData.innerText = 'Not Yet Resolved';
             }
             else {
                 reimbursementDateResolvedData.innerText = `${reimbursement.dateResolved}`;
@@ -75,56 +75,41 @@ fetch(`http://localhost:3200/reimbursements/${stringStatus}/${status}`, {
             let reimbursementResolverData = document.createElement('td');
             reimbursementResolverData.innerText = reimbursement.resolver;
             tr.appendChild(reimbursementResolverData);
-            
+
             let reimbursementStatusIdData = document.createElement('td');
-            switch(reimbursement.status){
+            switch (reimbursement.status) {
                 case 1:
-                reimbursementStatusIdData.innerText="Pending";
-                break;
+                    reimbursementStatusIdData.innerText = "Pending";
+                    break;
                 case 2:
-                reimbursementStatusIdData.innerText="Approved";
-                break;
+                    reimbursementStatusIdData.innerText = "Approved";
+                    break;
                 case 3:
-                reimbursementStatusIdData.innerText="Denied";
-                break;
+                    reimbursementStatusIdData.innerText = "Denied";
+                    break;
             }
             tr.appendChild(reimbursementStatusIdData);
 
             let reimbursementTypeIdData = document.createElement('td');
-            switch(reimbursement.type){
+            switch (reimbursement.type) {
                 case 1:
-                reimbursementTypeIdData.innerText="Lodging";
-                break;
+                    reimbursementTypeIdData.innerText = "Lodging";
+                    break;
                 case 2:
-                reimbursementTypeIdData.innerText="Travel";
-                break;
+                    reimbursementTypeIdData.innerText = "Travel";
+                    break;
                 case 3:
-                reimbursementTypeIdData.innerText="Food";
-                break;
+                    reimbursementTypeIdData.innerText = "Food";
+                    break;
                 case 4:
-                reimbursementTypeIdData.innerText="Other";
-                break;
+                    reimbursementTypeIdData.innerText = "Other";
+                    break;
             }
             tr.appendChild(reimbursementTypeIdData);
 
 
-            
+
             tbody.appendChild(tr);
-
-
-
-
-
-
         }
-
-
-
-
         );
-
-
-
-
-
     }).catch(console.log());

@@ -184,3 +184,15 @@ body{
     font-weight: bold;
     padding: 20px;
 }
+#alertNotValidEntry{
+    margin-left: 430px;
+    width: 40%;
+    display: none;
+    border: 1px solid black;
+    box-shadow: 0 16px 16px black;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    background-color: rgb(141, 41, 41);
+    margin-bottom: 0px;
+ }

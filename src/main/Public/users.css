@@ -33,7 +33,7 @@ h1{
     width: 100%;
 }
 body{
-    background-color: aliceblue;
+    background-color: rgb(237, 241, 245);
 }
 
 .buttonBack{
@@ -55,8 +55,12 @@ body{
       border: 1px solid black;
   }  
 
-#tableUsers{
-    margin-top:90px;
+#tableUser{
+    margin-top:50px;
+    margin-left: 150px;
+    width: 80%;
+    text-align: center;
+    font-weight: bold;
 }
 #buttonGoBack{
     font-size: 18px;
@@ -82,4 +86,16 @@ nav{
 #mainMenu{
     font-size: 18px;
     text-shadow: 0 14px 14px black;
+}
+#userInfoHeading{
+    margin-left: 530px;
+    margin-top: 2.5em;
+    width: 30%;
+    border: 1px solid black;
+    box-shadow: 0 14px 14px black;
+    margin-bottom: 0.5em;
+    height: 50px;
+    text-align: center;
+    font-size: 2pc;
+    background-color: white;
 }

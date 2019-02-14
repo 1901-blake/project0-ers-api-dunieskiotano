@@ -10,9 +10,13 @@ img{
 
 #welcome{
    color: black;
-   text-shadow: 0 16px 16px black;
    font-size:3em;
    font-weight: bold;
+   background-color: white;
+   margin-top: 0.5em;
+   width: 60%;
+   margin-left: 230px;
+   box-shadow: 0 16px 16px black;
    
 }
 button{
@@ -31,21 +35,58 @@ t
 }
 
 body{
-    background-color: rgb(212, 182, 182);
+    background-color: rgb(229, 234, 240);
 }
 #tableAssociate{
     margin-top: 2em;
     margin-left: 580px;
-    background-color: white;
+    background-color: #ccc;
     text-align: center;
+    box-shadow: 0 16px 16px black;
+    border: 1px solid rgb(139, 62, 62);
     
+}
+#tableAssociate td:hover{
+    background-color: rgb(199, 167, 167);
+    color: white;
+    
+}
+td>a :hover{
+    color: white;
+}
+#th1{
+    background-color: rgb(10, 10, 10);
+    color: white;
+}
+td{
+background-color: #eee;
 }
 #tableAssociateReimbursement{
     background-color: white;
     border: 1px solid black;
     box-shadow: 0 13px 13px black;
     display: none;
+    font-weight: bold;
+    margin: auto;
 
+}
+#tableAssociateProfile{
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 0 13px 13px black;
+    display: none;
+    margin: 30px;
+    font-weight: bold;
+    
+}
+#tableAssociateProfile th{
+    background-color: rgb(30, 61, 107);
+    color: white;
+}
+#tableAssociateReimbursement th{
+    background-color: rgb(30, 61, 107);
+    color: white;
+    
 }
 #footerBox{
     color: black;
@@ -72,12 +113,22 @@ nav{
     margin: 30px;
 }
 #footerBox{
-    color: white;
+    color: black;
     margin-left: 550px;
     font-family: Helvetica;
     font-size: 16px;
     text-shadow: 0 16px 16px black;
     letter-spacing: 0.5px;
     font-weight: bold;
+}
+.btn{
+    color: black;
+}
+.btn:hover{
+    background-color: black;
+    color: white;
+}
+#submitReimbursementAssociate{
+    color: white;
 }
 

@@ -16,10 +16,11 @@ th{
 
 #tableHeading{
     margin-top: 10px;
-    margin-left: 230px;;
+    margin-left: 430px;;
     background-color: white;
-    width: 60%;
+    width: 40%;
     box-shadow: 0 16px 16px black;
+    text-align: center;
 }
 .container{
     margin-left: 180px;
@@ -72,6 +73,9 @@ th{
         color: red;
     }
     #tableById{
-        margin-left: 0px;
+        margin-left: 200px;
+        width:70%;
         box-shadow: 0 16px 16px black;
+        text-align: center;
+        font-weight: bold;
     }

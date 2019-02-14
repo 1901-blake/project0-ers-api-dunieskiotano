@@ -68,9 +68,14 @@ input[type=text]{
 
 #alert{
     text-align: center;
-    margin-left: 180px;
+    margin-left: 480px;
     margin-top: 30px;
     display: none;
+    width:40%;
+    font-weight: bold;
+    color: black;
+    box-shadow: 0 13px 13px black;
+    border: 1px solid black;
 }
 .container{
     margin-top: 90px;

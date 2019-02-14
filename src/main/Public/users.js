@@ -6,9 +6,9 @@ let buttonBack = document.getElementById('buttonGoBack');
 buttonBack.addEventListener('click', (e) => {
     window.history.back();
 })
-let mainMenuLink=document.getElementById('mainMenu');
-mainMenuLink.addEventListener('click', (e) =>{
-    window.location.href=`user-landing-page-${sessionUser.role.role}.html`;
+let mainMenuLink = document.getElementById('mainMenu');
+mainMenuLink.addEventListener('click', (e) => {
+    window.location.href = `user-landing-page-${sessionUser.role.role}.html`;
 })
 let logout = document.getElementById('logout');
 logout.addEventListener('click', (e) => {
@@ -83,42 +83,11 @@ fetch('http://localhost:3200/users/', {
             });
             tr.appendChild(updateButton);
 
-            let deleteButton = document.createElement('button');
-            deleteButton.type="button";
-            deleteButton.toggleAttribute="modal";
-            deleteButton.innerHTML = "DELETE";
-            
-            
-            deleteButton.className = 'btn btn-danger';
-            deleteButton.addEventListener('click', (e) => {
-                // $('#deteleAlert').modal('show');
-                $('#deteleAlert').show();
-                fetch(`http://localhost:3200/users/${user.userid}`, {
-                    method: 'DELETE',
-                    body: JSON.stringify(user),
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    credentials: 'include'
-                }).then(function (response) {
-                    if (response.ok) {
-                        $("#alert").show();
-                        document.getElementById('alert').innerHTML =
-                            "SUCCESS!! USER HAS BEEN DELETED...WAIT...RETRIEVING UPDATED TABLE";
-                        setTimeout(function () {
-                            window.location.reload();
-                            $("#alert").hide();
-                        }, 4000);
 
-                    }
-                });
-            })
-
-            tr.appendChild(deleteButton);
             tbody.appendChild(tr);
         });
     }).catch(console.log);
+
 
 
 

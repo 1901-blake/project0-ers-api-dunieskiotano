@@ -56,7 +56,8 @@ body{
   }  
 
 #tableUsers{
-    margin-top:90px;
+    margin-top:30px;
+    font-weight: bold;
 }
 #buttonGoBack{
     font-size: 18px;

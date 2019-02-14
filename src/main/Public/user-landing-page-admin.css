@@ -90,4 +90,26 @@ body{
 nav{
     text-shadow: 0 14px 14px black;
 }
+#alertNotValidEntry{
+    margin-left: 290px;
+    width: 40%;
+    display: none;
+    border: 1px solid black;
+    box-shadow: 0 16px 16px black;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    background-color: rgb(141, 41, 41);
+ }
+ #alertNotFound{
+    margin-left: 290px;
+    width: 40%;
+    display: none;
+    border: 1px solid white;
+    box-shadow: 0 16px 16px black;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    background-color: rgb(39, 68, 126);
+ }
 

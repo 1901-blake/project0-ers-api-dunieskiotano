@@ -52,23 +52,6 @@
                     </div>
                 </li>
 
-                <!--<img src="../assets/man-user.png" alt width="20" height="18">--></a>
-                <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#"
-                            role="button" id="sessionUser" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-
-                        </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Reach us</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Profile</a>
-                        <a class="dropdown-item" id='logout' href="#">Log out</a>
-
-                    </div>
-                </li>-->
-
-
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" id="sessionUser" data-toggle="dropdown"
@@ -88,15 +71,10 @@
         </div>
     </nav>
 
-
-
     <div class="jumbotron-fluid">
         <div class="container">
             <div id="welcome">
             </div>
-
-
-
         </div>
     </div>
     <div id="surroundingBox">
@@ -106,16 +84,20 @@
 
                 <table border="1" id="tableAssociate" cellpadding="25">
                     <tr>
-                        <th colspan="2">ASSOCIATE</th>
+                        <th colspan="2" id="th1">ASSOCIATE</th>
                     </tr>
 
                     <tr>
-                        <td id="profile"><a href="#" id="profileLink">PROFILE</a></td>
-                        <td id="reimbursements"><a href="#" id="reimbLink">REIMBURSEMENTS</a></td>
+                        <td id="profile"><a href="#" id="profileLink">PROFILE</a>
+                           <br><button class="btn btn-link" id="closeProfile">Close</button></td>
+                        <td id="reimbursements"><a href="#" id="reimbLink">REIMBURSEMENTS</a>
+                           <br><button class="btn btn-link" id="closeReimbursement">Close</button></td>
+                        </td>
                     </tr>
-                    <tr >
-                            <th colspan="2"><button class="btn btn-primary" id="submitReimbursementAssociate"> + Submit Reimbursement Request</button></th>
-                        </tr>
+                    <tr>
+                        <th colspan="2"><button class="btn btn-primary" id="submitReimbursementAssociate"> + Submit
+                                Reimbursement Request</button></th>
+                    </tr>
                 </table>
                 <div class="container">
                     <table class="table table-hover" border=1" id="tableAssociateProfile">

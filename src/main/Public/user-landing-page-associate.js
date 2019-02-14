@@ -1,10 +1,15 @@
 
+//Creates an h1 element to display a welcome message to the user
 let h1 = document.createElement('h1');
 const sessionUser = JSON.parse(sessionStorage.getItem('credentials'));
 h1.innerHTML = (`Welcome Back, ${sessionUser.firstName} ${sessionUser.lastName}`).toUpperCase();
 document.getElementById('welcome').appendChild(h1);
+
+//Finds the sessionUser element and assigns to sessionUserLink constant
 const sessionUserLink = document.getElementById('sessionUser');
-console.log(sessionUserLink);
+
+
+//Shows the user's first and last name in the navigation bar
 sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}('${sessionUser.role.role}')`;
 
 //this section logs out the user at will
@@ -17,12 +22,24 @@ logout.addEventListener('click', (e) => {
     window.location.href = "home.html";
 })
 
+//Creates a button to close the associate's profile table
+let buttonProfileClose = document.getElementById("closeProfile");
+buttonProfileClose.addEventListener('click', (e) => {
+    document.getElementById('tableAssociateProfile').style.display = "none";
+})
+//Creates a button to close the associate's reimbursement table
+let buttonReimbursementClose = document.getElementById("closeReimbursement");
+buttonReimbursementClose.addEventListener('click', (e) => {
+    document.getElementById('tableAssociateReimbursement').style.display = "none";
+})
+
+//Finds the link for reimbursement table and shows it
 let reimbursementsLink = document.getElementById("reimbLink");
 reimbursementsLink.addEventListener('click', (e) => {
-    $('#tableAssociateProfile').hide();
+    $('#tableAssociateProfile').hide();//hides the profile table
     console.log(sessionUser.userid);
     $('#tableAssociateReimbursement').show();
-    fetch(`http://localhost:3200/reimbursements/author/${sessionUser.userid}`, {
+    fetch(`http://localhost:3200/reimbursements/author/${sessionUser.userid}`, {//fetches reimbursements by user id
         credentials: 'include'
     }).then(resp => resp.json())
         .then(reimbursements => {
@@ -64,7 +81,7 @@ reimbursementsLink.addEventListener('click', (e) => {
                 reimbursementAmountData.innerText = reimbursement.amount;
                 tr.appendChild(reimbursementAmountData);
 
-                //Adds reimbursement datesubmited to the row
+                //Adds reimbursement datesubmitted to the row
                 let reimbursementDateSubmittedData = document.createElement('td');
                 reimbursementDateSubmittedData.innerText = `${reimbursement.dateSubmitted}`;
                 tr.appendChild(reimbursementDateSubmittedData);
@@ -88,6 +105,7 @@ reimbursementsLink.addEventListener('click', (e) => {
                 reimbursementResolverData.innerText = reimbursement.resolver;
                 tr.appendChild(reimbursementResolverData);
 
+                //Assigns status based on status id
                 switch (reimbursement.status) {
                     case 1:
                         reimbursement.status = "Pending";
@@ -103,6 +121,7 @@ reimbursementsLink.addEventListener('click', (e) => {
                 reimbursementStatusData.innerText = reimbursement.status;
                 tr.appendChild(reimbursementStatusData);
 
+                //Assigns types based on type id
                 switch (reimbursement.type) {
                     case 1:
                         reimbursement.type = "Lodging";
@@ -126,6 +145,8 @@ reimbursementsLink.addEventListener('click', (e) => {
 
         })
 })
+
+//Creates a link for the the profile table
 let pLink = document.getElementById('profileLink');
 pLink.addEventListener('click', (e) => {
     $('#tableAssociateReimbursement').hide();
@@ -176,7 +197,8 @@ pLink.addEventListener('click', (e) => {
     tbody1.appendChild(tr);
 })
 
+//Creates a button to submit reimbursements and routes user to the reimbursement submission pages
 let buttonSubmitReimbursement = document.getElementById('submitReimbursementAssociate');
 buttonSubmitReimbursement.addEventListener('click', (e) => {
-    window.location.href="associate-reimbursement-submission.html";
+    window.location.href = "associate-reimbursement-submission.html";
 })
