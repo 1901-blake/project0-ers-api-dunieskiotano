@@ -17,7 +17,12 @@ document.getElementById('lastname-input').value = reimbursement["last name"];
 document.getElementById('email-input').value = reimbursement["email"];
 document.getElementById('amount-input').value = reimbursement.amount;
 document.getElementById('datesubmitted-input').value = reimbursement.dateSubmitted;
-document.getElementById('dateresolved-input').value = " ";
+if (reimbursement.dateResolved === undefined) {
+    document.getElementById('dateresolved-input').value = ' ';
+}
+else {
+    document.getElementById('dateresolved-input').value = reimbursement.dateResolved;
+}
 document.getElementById('description-input').value = reimbursement.description;
 document.getElementById('resolver-input').value = sessionUser.userid;
 document.getElementById('status-input').value = reimbursement.status;
@@ -46,9 +51,9 @@ logout.addEventListener('click', (e) => {
     //redirects to home page
     window.location.href = "home.html";
 })
-let mainMenuLink=document.getElementById('mainMenu');
-mainMenuLink.addEventListener('click', (e) =>{
-    window.location.href=`user-landing-page-${sessionUser.role.role}.html`;
+let mainMenuLink = document.getElementById('mainMenu');
+mainMenuLink.addEventListener('click', (e) => {
+    window.location.href = `user-landing-page-${sessionUser.role.role}.html`;
 })
 
 //executes update action
@@ -129,16 +134,9 @@ function updateReimbursement(event) {
         if (response.ok) {
             $('#alert').show();
             $('#alert').append("REIMBURSEMENT SUCCESSFULLY UPDATED... RELOADING UPDATED TABLE");
-           setTimeout(function () {window.location.href="reimbursements.html"}, 3500);
+            setTimeout(function () { window.location.href = "reimbursements.html" }, 3500);
         }
     })
-
-
-
-    //if (res.status === 200) {
-
-    //}
-
 }
 
 

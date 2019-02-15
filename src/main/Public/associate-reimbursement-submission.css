@@ -68,10 +68,10 @@ input[type=text]{
 
 #alert{
     text-align: center;
-    margin-left: 315px;
-    margin-top: 50px;
+    margin-left: 395px;
+    margin-top: 30px;
     display: none;
-    width:110%;
+    width:45%;
     font-weight: bold;
     color: black;
     box-shadow: 0 13px 13px black;
@@ -162,3 +162,15 @@ nav{
 body{
     background-color: rgb(208, 217, 224);
 }
+#alertNotValidEntry{
+    margin-left: 430px;
+    width: 40%;
+    display: none;
+    border: 1px solid black;
+    box-shadow: 0 16px 16px black;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    background-color: rgb(141, 41, 41);
+    margin-bottom: 0px;
+ }

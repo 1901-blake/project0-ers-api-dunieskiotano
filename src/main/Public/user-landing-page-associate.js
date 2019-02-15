@@ -10,7 +10,7 @@ const sessionUserLink = document.getElementById('sessionUser');
 
 
 //Shows the user's first and last name in the navigation bar
-sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}('${sessionUser.role.role}')`;
+sessionUserLink.innerHTML = `${sessionUser.firstName} ${sessionUser.lastName}(${sessionUser.role.role})`;
 
 //this section logs out the user at will
 let logout = document.getElementById('logout');
@@ -88,7 +88,7 @@ reimbursementsLink.addEventListener('click', (e) => {
 
                 //Adds reimbursement dateresolved to the row
                 let reimbursementDateResolvedData = document.createElement('td');
-                if (reimbursement.dateResolved === 0) {
+                if (reimbursement.dateResolved === 0 || reimbursement.dateResolved===undefined) {
                     reimbursementDateResolvedData.innerText = '';
                 } else {
                     reimbursementDateResolvedData.innerText = reimbursement.dateResolved;

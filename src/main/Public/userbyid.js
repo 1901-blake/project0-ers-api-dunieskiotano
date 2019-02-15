@@ -52,7 +52,7 @@ fetch(`http://localhost:3200/users/${id}/`, {
 
 
         let passwordData = document.createElement('td');
-        passwordData.innerText = u.password;
+        passwordData.innerText = '***********';
         tr.appendChild(passwordData);
 
         //ADD FIRST NAME DATA TO THE ROW

@@ -65,8 +65,9 @@ function submitReimbursement(event) {
         case 'Food':
             typeid = 3;
             break;
-        default:
+        case 'Other':
             typeid = 4;
+            break;
 
     }
     console.log(status, type);
@@ -82,29 +83,38 @@ function submitReimbursement(event) {
         type: typeid
     }
 
-    console.log("Reimbursement submitted", reimbursementSubmitted);
-    //fetches the url and performs update
-    fetch('http://localhost:3200/reimbursements/', {
+    if ((document.getElementById('amount-input') && document.getElementById('amount-input').value) && (
+        document.getElementById('description-input')) && (document.getElementById('description-input').value) &&
+        (typeid)) {
+        //fetches the url and performs update
+        fetch('http://localhost:3200/reimbursements/', {
 
-        method: 'POST',
-        body: JSON.stringify(reimbursementSubmitted),
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        credentials: 'include'
+            method: 'POST',
+            body: JSON.stringify(reimbursementSubmitted),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
 
-    }).then(function (response) {
-        if (response.ok) {
-           $('#alert').show();
-            document.getElementById('alert').append(
-                "REIMBURSEMENT SUCCESSFULLY SUBMITTED...TAKING YOU BACK TO MAIN MENU");
-            setTimeout(function () {
-                window.location.href = "user-landing-page-associate.html";
-                
-            }, 4000);
-        }
-    })
+        }).then(function (response) {
+            if (response.ok) {
+                $('#alert').show();
+                document.getElementById('alert').append(
+                    "REIMBURSEMENT SUCCESSFULLY SUBMITTED...TAKING YOU BACK TO MAIN MENU");
+                setTimeout(function () {
+                    window.location.href = "user-landing-page-associate.html";
+
+                }, 3500);
+            }
+        })
+    } else {
+        $('#alertNotValidEntry').show();
+        document.getElementById('alertNotValidEntry').innerHTML = 'ALL FIELDS ARE REQUIRED. PLEASE TRY AGAIN.';
+        setTimeout(function () {
+            $('#alertNotValidEntry').hide();
+        }, 2000);
+    }
 
 
 

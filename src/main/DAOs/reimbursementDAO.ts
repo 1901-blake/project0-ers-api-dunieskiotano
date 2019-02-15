@@ -73,24 +73,38 @@ export class ReimbursementDAO {
 
 
     //UDATE REIMBURSEMENTS --- TESTED => WORKING JUST FINE!!!!
-    public static async updateReimbursement(reimb): Promise<Reimbursement[]> {
+    public static async updateReimbursement(reqBody): Promise<Reimbursement[]> {
         const client = await SessionFactory.getConnectionPool().connect();
-        let dateSubmitted = this.convertDateToUnixTime(reimb.datesubmitted);
+        let dateSubmitted = this.convertDateToUnixTime(reqBody.datesubmitted);
         let dateResolved = 0;
-        if (reimb.dateresolved === ' ') {
+        if (reqBody.dateresolved === ' ') {
             dateResolved = Math.floor(Date.now() / 1000);
         } else {
-            dateResolved = this.convertDateToUnixTime(reimb.dateresolved);
+            dateResolved = this.convertDateToUnixTime(reqBody.dateresolved);
         }
         try {
             await client.query(
-                'UPDATE reimbursement set author = $1, amount  = $2, datesubmitted = $3, dateresolved = $4, description = "$5",' +
-                'resolver=$6, status=$7, "type"=$8 WHERE reimbursementid = $9;',
+                'UPDATE reimbursement ' +
+                `set author = ${reqBody.author}, ` +
+                `amount  = ${reqBody.amount}, ` +
+                `datesubmitted = ${dateSubmitted}, ` +
+                `dateresolved = ${dateResolved}, ` +
+                `description = '${reqBody.description}', ` +
+                `resolver=${reqBody.resolver}, ` +
+                `status=${reqBody.status}, ` +
+                `"type"=${reqBody.type} ` +
+                ` WHERE reimbursementid = ${reqBody.reimbursementid};`
+            )
+
+            /*await client.query(
+                `UPDATE reimbursement set author = $1, amount  = $2, datesubmitted = $3, dateresolved = $4, description = '$5',
+                 resolver=$6, status=$7, "type"=$8 WHERE reimbursementid = $9;`,
                 [reimb.author, reimb.amount, dateSubmitted, dateResolved, reimb.description, reimb.resolver, reimb.status,
                 reimb.type, reimb.reimbursementid]
             );
-            console.log('sucess?')
-            return this.getReimbursementsByUserId(reimb.reimbursementid);
+            console.log(reimb.author, reimb.amount, dateSubmitted, dateResolved, reimb.description, reimb.resolver, reimb.status,
+                reimb.type, reimb.reimbursementid)*/
+            return this.getReimbursementsByUserId(reqBody.reimbursementid);
         } finally {
             client.release();
         }

@@ -86,7 +86,7 @@ function submitReimbursement(event) {
     //checks for invalid inputs
     if ((document.getElementById('amount-input') && document.getElementById('amount-input').value) && (
         document.getElementById('description-input')) && (document.getElementById('description-input').value) &&
-        (typeid)) {
+        (typeid))  {
         //fetches the url and performs update
         fetch('http://localhost:3200/reimbursements/', {
 

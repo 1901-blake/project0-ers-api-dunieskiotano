@@ -45,7 +45,7 @@ fetch('http://localhost:3200/users/', {
 
             //ADD PASSWORD DATA TO THE ROW
             let passwordData = document.createElement('td');
-            passwordData.innerText = user.password;
+            passwordData.innerText = '***************';
             tr.appendChild(passwordData);
 
             //ADD FIRST NAME DATA TO THE ROW
@@ -77,10 +77,15 @@ fetch('http://localhost:3200/users/', {
             let updateButton = document.createElement('button');
             updateButton.innerText = 'UPDATE';
             updateButton.className = 'btn btn-primary';
-            updateButton.addEventListener('click', (e) => {
-                localStorage.setItem('user', JSON.stringify(user));
-                window.location.href = "update-user.html";
-            });
+            if (sessionUser.role.role === 'finance-manager') {
+                updateButton.disabled = true;
+            }
+            else {
+                updateButton.addEventListener('click', (e) => {
+                    localStorage.setItem('user', JSON.stringify(user));
+                    window.location.href = "update-user.html";
+                });
+            }
             tr.appendChild(updateButton);
 
 

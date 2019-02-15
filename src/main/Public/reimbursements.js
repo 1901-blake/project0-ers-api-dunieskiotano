@@ -70,8 +70,8 @@ fetch('http://localhost:3200/reimbursements/', {
 
             //Adds reimbursement dateresolved to the row
             let reimbursementDateResolvedData = document.createElement('td');
-            if (reimbursement.dateResolved === undefined || reimbursement.dateResolved===0) {
-                reimbursementDateResolvedData.innerHTML='Not Yet Resolved';
+            if (reimbursement.dateResolved === undefined || reimbursement.dateResolved === 0) {
+                reimbursementDateResolvedData.innerHTML = 'Not Yet Resolved';
             } else {
                 reimbursementDateResolvedData.innerText = reimbursement.dateResolved;
             }
@@ -108,9 +108,12 @@ fetch('http://localhost:3200/reimbursements/', {
             let updateButton = document.createElement('button');
             updateButton.innerText = 'UPDATE';
             updateButton.className = 'btn btn-primary';
+            if (reimbursement.author === sessionUser.userid) {
+                updateButton.disabled = true;
+            }
             if (sessionUser.role.role === 'admin') {
                 updateButton.disabled = true;
-                
+
             }
             else {
                 updateButton.addEventListener('click', (e) => {

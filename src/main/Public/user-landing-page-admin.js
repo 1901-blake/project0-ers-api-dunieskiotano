@@ -82,14 +82,19 @@ findButton.addEventListener('click', (e) => {
             if (userid[i] === +input.value) {
                 let id = document.getElementById('id').value;
                 localStorage.setItem("id", JSON.stringify(id));
+                $('#alertNotFound').hide();
                 window.location.href = "userbyid.html";
+                return;
             }
             else {
                 $('#alertNotFound').show();
                 document.getElementById('alertNotFound').innerHTML = 'USER NOT FOUND. TRY AGAIN.';
                 setTimeout(function () {
                     $('#alertNotFound').hide();
-                }, 2500);
+                    input.value='';
+                }, 2000);
+
+
             }
         }
     }
@@ -142,18 +147,23 @@ findReimbursementByStatus.appendChild(findReimbursementButton);
 
 findReimbursementButton.addEventListener('click', (e) => {
     e.preventDefault();
-    if (inputReimbursement && inputReimbursement.value) {
+       if (inputReimbursement && inputReimbursement.value) {
         for (let i = 0; i < statusid.length; i++) {
             if (statusid[i] === +inputReimbursement.value) {
                 let reimbursermentstatus = document.getElementById('reimbstatus').value;
                 localStorage.setItem("reimbursermentstatus", JSON.stringify(reimbursermentstatus));
+                $('#alertNotFound').hide();
                 window.location.href = "reimbursementbystatus.html";
-            } else {
+                return;
+            } 
+            else {
                 $('#alertNotFound').show();
-                document.getElementById('alertNotFound').innerHTML = 'REIMBURSEMENT NOT FOUND. TRY AGAIN.';
+                document.getElementById('alertNotFound').innerHTML = 'STATUS ID IS INCORRECT. TRY AGAIN.';
                 setTimeout(function () {
                     $('#alertNotFound').hide();
+                    inputReimbursement.value='';
                 }, 2500);
+
             }
         }
     }
@@ -188,13 +198,18 @@ findReimbursementByUserIdButton.addEventListener('click', (e) => {
             if (userid[i] === +inputReimbursementByUserId.value) {
                 let userid = document.getElementById('userid').value;
                 localStorage.setItem("userid", JSON.stringify(userid));
+                $('#alertNotFound').hide();
                 window.location.href = "reimbursementbyid.html";
-            } else {
+                return;
+            } 
+            else {
                 $('#alertNotFound').show();
-                document.getElementById('alertNotFound').innerHTML = 'REIMBURSEMENT NOT FOUND. TRY AGAIN.';
+                document.getElementById('alertNotFound').innerHTML = 'USER ID IS INCORRECT. TRY AGAIN.';
                 setTimeout(function () {
                     $('#alertNotFound').hide();
+                    inputReimbursementByUserId.value=' ';
                 }, 2500);
+
             }
         }
     }
