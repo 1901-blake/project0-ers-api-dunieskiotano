@@ -93,8 +93,6 @@ findButton.addEventListener('click', (e) => {
                     $('#alertNotFound').hide();
                     input.value='';
                 }, 2000);
-
-
             }
         }
     }

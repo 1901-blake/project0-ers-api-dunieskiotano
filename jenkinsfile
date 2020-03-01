@@ -25,7 +25,7 @@ pipeline {
        stage('Download') {
            steps {
               // Download code from a GitHub repository
-              git branch: 'master', url: 'https://github.com/1901-blake/project0-ers-api-dunieskiotano.git'
+              git branch: 'master', url: 'https://github.com/1901-blake/project0-ers-api-dunieskiotano.git/'
            }
         }
  ////
@@ -54,11 +54,11 @@ pipeline {
         stage('Deploy') {
             steps {
                 // deploy the application in the background
-                 sh 'nohup npm run deploy &'
+                sh 'nohup npm run deploy &'
                 
                 
                 // use the one below instead of the one above if you want the build to never end but see the console outputs of the api
-                // sh 'npm run deploy'
+                //sh 'npm run deploy'
             }
         }
 

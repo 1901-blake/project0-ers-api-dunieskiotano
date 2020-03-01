@@ -167,7 +167,7 @@ pLink.addEventListener('click', (e) => {
 
     //ADD PASSWORD DATA TO THE ROW
     let passwordData = document.createElement('td');
-    passwordData.innerText = sessionUser.password;
+    passwordData.innerText = '**********';
     tr.appendChild(passwordData);
 
     //ADD FIRST NAME DATA TO THE ROW
